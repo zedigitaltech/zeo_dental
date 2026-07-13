@@ -6,6 +6,12 @@ import { useTranslation } from '../hooks/useTranslation';
 export const Testimonials: React.FC = () => {
   const { t } = useTranslation();
 
+  // Hide the whole section when there are no genuine testimonials, rather than
+  // render an empty grid. Real Google reviews are shown via the Elfsight widget.
+  if (TESTIMONIALS.length === 0) {
+    return null;
+  }
+
   return (
     <div className="py-24 bg-primary-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

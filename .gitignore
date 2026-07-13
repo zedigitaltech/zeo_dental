@@ -31,3 +31,6 @@ crm-ze/.env
 crm-ze/data/
 crm-ze/logs/
 docker-compose.override.yml
+
+# native crash dump — never commit
+core

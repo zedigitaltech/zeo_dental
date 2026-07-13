@@ -200,32 +200,11 @@ export const DOCTORS: Doctor[] = [
   },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: 't1',
-    name: 'Michael Ross',
-    role: 'Patient',
-    content:
-      'The level of care at Zeo is unmatched. From the moment you walk in, it feels like a 5-star hotel, not a clinic. My veneers look incredible.',
-    rating: 5,
-  },
-  {
-    id: 't2',
-    name: 'Jennifer Wu',
-    role: 'Patient',
-    content:
-      'I was terrified of the dentist until I met Dr. Zeo. The pain-free technology they use is a game changer. Highly recommended!',
-    rating: 5,
-  },
-  {
-    id: 't3',
-    name: 'David Okafor',
-    role: 'Patient',
-    content:
-      'Professional, pristine, and punctual. They value your time and your health. The best dental experience I have ever had.',
-    rating: 5,
-  },
-];
+// Real patient reviews are served live via the Elfsight Google Reviews widget.
+// This array is intentionally empty: the previous entries were placeholder/fabricated
+// testimonials (invented names, a reference to a non-existent "Dr. Zeo") and must never
+// ship on a real medical site. Add genuine, consented patient testimonials here only.
+export const TESTIMONIALS: Testimonial[] = [];
 
 // NOTE: This system instruction is UNUSED. The active chatbot prompt is in server/src/routes/chat.ts
 // Keeping for reference only.
