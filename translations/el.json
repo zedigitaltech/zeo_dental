@@ -135,7 +135,10 @@
         ],
         "process": [
           { "title": "Αξιολόγηση", "description": "Ψηφιακή σάρωση και ανάλυση σύγκλεισης." },
-          { "title": "Σχεδιασμός", "description": "Εξατομικευμένο σχέδιο θεραπείας και χρονοδιάγραμμα." },
+          {
+            "title": "Σχεδιασμός",
+            "description": "Εξατομικευμένο σχέδιο θεραπείας και χρονοδιάγραμμα."
+          },
           {
             "title": "Ενεργή Θεραπεία",
             "description": "Χρήση νάρθηκων ή σιδεράκια με τακτικούς ελέγχους."
@@ -192,7 +195,10 @@
           },
           { "title": "Άνεση", "description": "Χορήγηση τοπικής αναισθησίας ή καταστολής." },
           { "title": "Επέμβαση", "description": "Ελάχιστα επεμβατική χειρουργική εκτέλεση." },
-          { "title": "Ανάρρωση", "description": "Λεπτομερείς οδηγίες μετεγχειρητικής φροντίδας και παρακολούθηση." }
+          {
+            "title": "Ανάρρωση",
+            "description": "Λεπτομερείς οδηγίες μετεγχειρητικής φροντίδας και παρακολούθηση."
+          }
         ]
       },
       "pediatric": {
@@ -1050,25 +1056,58 @@
     "essential": {
       "name": "Vasiko",
       "tagline": "Oti chreiazeste gia poiotiki frontida",
-      "includes": ["Dorean 3D Aksonomiki", "Prosopiko schedio therapeias", "Metafora apo aerodromio", "Syntonistis therapeias", "Ypostirixi WhatsApp"]
+      "includes": [
+        "Dorean 3D Aksonomiki",
+        "Prosopiko schedio therapeias",
+        "Metafora apo aerodromio",
+        "Syntonistis therapeias",
+        "Ypostirixi WhatsApp"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "I olokliri empeiria odontiatrikou tourismou",
-      "includes": ["Ola apo to Vasiko", "3 vradies se xenodocheio", "Xenagisi stin Tirana", "Kathimerines metafores stin kliniki", "Grammi ektaktis anagkis", "Kit frontidas meta ti therapeia"]
+      "includes": [
+        "Ola apo to Vasiko",
+        "3 vradies se xenodocheio",
+        "Xenagisi stin Tirana",
+        "Kathimerines metafores stin kliniki",
+        "Grammi ektaktis anagkis",
+        "Kit frontidas meta ti therapeia"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Polyteleia frontida, exairetika apotelesmata",
-      "includes": ["Ola apo to Premium", "5 vradies se xenodocheio 4 asteron", "Prosopikos xenaos kai metafrastis", "Synedria spa", "Gourmet deipno", "Ekteni frontida meta ti therapeia", "Protovathmia programmatismou"]
+      "includes": [
+        "Ola apo to Premium",
+        "5 vradies se xenodocheio 4 asteron",
+        "Prosopikos xenaos kai metafrastis",
+        "Synedria spa",
+        "Gourmet deipno",
+        "Ekteni frontida meta ti therapeia",
+        "Protovathmia programmatismou"
+      ]
     },
     "cta": "Zitiste tin Prosopiki Sas Prosfora",
     "processLabel": "I Diadromi Sas",
     "howItWorks": "Pos Leitourgei",
-    "step1": { "title": "Steilte tin Aktinografia", "desc": "Moirastite tin panoramiki aktinografia sas mesw WhatsApp i email gia dorean axiologisi." },
-    "step2": { "title": "Lavete to Schedio", "desc": "Lavete ena analytiko schedio therapeias se 24 ores." },
-    "step3": { "title": "Kleiste to Taxidi", "desc": "Sas voithoume na organosete taxidi kai diamoni." },
-    "step4": { "title": "Metamorfwste to Chamogelo Sas", "desc": "Ftaste, therapeuteite kai apolafste tin Tirana." },
+    "step1": {
+      "title": "Steilte tin Aktinografia",
+      "desc": "Moirastite tin panoramiki aktinografia sas mesw WhatsApp i email gia dorean axiologisi."
+    },
+    "step2": {
+      "title": "Lavete to Schedio",
+      "desc": "Lavete ena analytiko schedio therapeias se 24 ores."
+    },
+    "step3": {
+      "title": "Kleiste to Taxidi",
+      "desc": "Sas voithoume na organosete taxidi kai diamoni."
+    },
+    "step4": {
+      "title": "Metamorfwste to Chamogelo Sas",
+      "desc": "Ftaste, therapeuteite kai apolafste tin Tirana."
+    },
     "travelLabel": "Praktikes Plirofories",
     "travelTitle": "Taxidepste Efkola",
     "travel": {

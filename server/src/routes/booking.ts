@@ -211,9 +211,9 @@ export async function bookingRoutes(fastify: FastifyInstance) {
     },
     async (request, reply) => {
       try {
-        const clientIp = (request.headers['fly-client-ip']
-          || request.headers['x-forwarded-for']?.toString().split(',')[0]?.trim()
-          || request.ip) as string;
+        const clientIp = (request.headers['fly-client-ip'] ||
+          request.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() ||
+          request.ip) as string;
         fastify.log.info('Admin bookings accessed from IP: %s', clientIp);
 
         const pool = fastify.pg;
@@ -250,7 +250,12 @@ export async function bookingRoutes(fastify: FastifyInstance) {
 
     const parts = request.parts();
     let healthDataConsent = false;
-    const savedFiles: Array<{ filename: string; originalName: string; mimeType: string; sizeBytes: number }> = [];
+    const savedFiles: Array<{
+      filename: string;
+      originalName: string;
+      mimeType: string;
+      sizeBytes: number;
+    }> = [];
 
     for await (const part of parts) {
       if (part.type === 'field') {

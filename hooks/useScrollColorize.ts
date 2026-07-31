@@ -68,8 +68,8 @@ export function useScrollColorize<T extends HTMLElement = HTMLDivElement>(
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           // Toggle based on visibility - colorize when in view, grayscale when scrolled away
           setIsInView(entry.isIntersecting);
         });
@@ -113,8 +113,8 @@ export function useScrollColorizeToggle<T extends HTMLElement = HTMLDivElement>(
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           setIsInView(entry.isIntersecting);
         });
       },

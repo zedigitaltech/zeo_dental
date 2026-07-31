@@ -30,8 +30,8 @@ function useScrollColorize(isMobile: boolean) {
     if (!isMobile || !ref.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           // Toggle based on visibility - colorize when in view, grayscale when not
           setIsInView(entry.isIntersecting);
         });
@@ -51,7 +51,7 @@ function useScrollColorize(isMobile: boolean) {
 
 // Team member card with scroll colorization
 interface TeamMemberCardProps {
-  member: typeof DOCTORS[0];
+  member: (typeof DOCTORS)[0];
   isMobile: boolean;
   t: (key: string) => string;
 }
@@ -67,10 +67,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, isMobile, t }) 
 
   return (
     <div className="group cursor-pointer" onClick={handleClick}>
-      <div
-        ref={colorize.ref}
-        className="aspect-[3/4] overflow-hidden relative bg-gray-100"
-      >
+      <div ref={colorize.ref} className="aspect-[3/4] overflow-hidden relative bg-gray-100">
         {/* Image */}
         <picture>
           <source srcSet={member.image} type="image/webp" />
@@ -85,8 +82,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, isMobile, t }) 
               member.id === 'dr-rien' || member.id === 'dr-kristi'
                 ? { objectPosition: '7% center' }
                 : member.id === 'dr-dorina'
-                ? { objectPosition: '35% center' }
-                : { objectPosition: 'center' }
+                  ? { objectPosition: '35% center' }
+                  : { objectPosition: 'center' }
             }
           />
         </picture>
@@ -113,9 +110,11 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, isMobile, t }) 
         </div>
 
         {/* Subtle border frame */}
-        <div className={`absolute inset-3 sm:inset-4 border border-white/0 transition-all duration-700 pointer-events-none ${
-          colorize.shouldColorize ? 'border-white/20' : ''
-        } ${!isMobile ? 'group-hover:border-white/20' : ''}`} />
+        <div
+          className={`absolute inset-3 sm:inset-4 border border-white/0 transition-all duration-700 pointer-events-none ${
+            colorize.shouldColorize ? 'border-white/20' : ''
+          } ${!isMobile ? 'group-hover:border-white/20' : ''}`}
+        />
       </div>
     </div>
   );
@@ -142,48 +141,55 @@ export const Team: React.FC = () => {
           <div className="w-full lg:w-5/12">
             <Reveal>
               <a href={lp('/team') + '#dr-emanuela'} className="block">
-              <div ref={founderColorize.ref} className="relative aspect-[3/4] overflow-hidden group cursor-pointer">
-                <picture>
-                  <source srcSet={founder.image} type="image/webp" />
-                  <source srcSet={founder.image.replace('.webp', '.jpg')} type="image/jpeg" />
-                  <img
-                    src={founder.image.replace('.webp', '.jpg')}
-                    alt={founder.name}
-                    className={`w-full h-full object-cover object-center transition-all duration-[1.5s] ease-out group-hover:scale-[1.03] ${
-                      founderColorize.shouldColorize ? 'grayscale-0' : 'grayscale'
-                    } ${!isMobile ? 'group-hover:grayscale-0' : ''}`}
-                  />
-                </picture>
-
-                {/* Gradient overlay - always visible on mobile when in view, hover on desktop */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${
-                    founderColorize.shouldColorize ? 'opacity-100' : 'opacity-0'
-                  } ${!isMobile ? 'group-hover:opacity-100' : ''}`}
-                />
-
-                {/* Content overlay */}
-                <div
-                  className={`absolute bottom-0 left-0 right-0 p-6 sm:p-8 transition-all duration-700 ${
-                    founderColorize.shouldColorize ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-                  } ${!isMobile ? 'group-hover:translate-y-0 group-hover:opacity-100' : ''}`}
+                  ref={founderColorize.ref}
+                  className="relative aspect-[3/4] overflow-hidden group cursor-pointer"
                 >
-                  <span className="text-studio-gold text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold mb-2 block">
-                    {t('team.founderLabel')}
-                  </span>
-                  <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white mb-1 sm:mb-2">
-                    {founder.name}
-                  </h3>
-                  <span className="text-white/80 text-[11px] sm:text-xs uppercase tracking-wider font-light">
-                    {t(`team.doctors.${founder.id}.role`)}
-                  </span>
-                </div>
+                  <picture>
+                    <source srcSet={founder.image} type="image/webp" />
+                    <source srcSet={founder.image.replace('.webp', '.jpg')} type="image/jpeg" />
+                    <img
+                      src={founder.image.replace('.webp', '.jpg')}
+                      alt={founder.name}
+                      className={`w-full h-full object-cover object-center transition-all duration-[1.5s] ease-out group-hover:scale-[1.03] ${
+                        founderColorize.shouldColorize ? 'grayscale-0' : 'grayscale'
+                      } ${!isMobile ? 'group-hover:grayscale-0' : ''}`}
+                    />
+                  </picture>
 
-                {/* Subtle border frame */}
-                <div className={`absolute inset-4 sm:inset-5 border border-white/0 transition-all duration-700 pointer-events-none ${
-                  founderColorize.shouldColorize ? 'border-white/20' : ''
-                } ${!isMobile ? 'group-hover:border-white/20' : ''}`} />
-              </div>
+                  {/* Gradient overlay - always visible on mobile when in view, hover on desktop */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-700 ${
+                      founderColorize.shouldColorize ? 'opacity-100' : 'opacity-0'
+                    } ${!isMobile ? 'group-hover:opacity-100' : ''}`}
+                  />
+
+                  {/* Content overlay */}
+                  <div
+                    className={`absolute bottom-0 left-0 right-0 p-6 sm:p-8 transition-all duration-700 ${
+                      founderColorize.shouldColorize
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-4 opacity-0'
+                    } ${!isMobile ? 'group-hover:translate-y-0 group-hover:opacity-100' : ''}`}
+                  >
+                    <span className="text-studio-gold text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold mb-2 block">
+                      {t('team.founderLabel')}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white mb-1 sm:mb-2">
+                      {founder.name}
+                    </h3>
+                    <span className="text-white/80 text-[11px] sm:text-xs uppercase tracking-wider font-light">
+                      {t(`team.doctors.${founder.id}.role`)}
+                    </span>
+                  </div>
+
+                  {/* Subtle border frame */}
+                  <div
+                    className={`absolute inset-4 sm:inset-5 border border-white/0 transition-all duration-700 pointer-events-none ${
+                      founderColorize.shouldColorize ? 'border-white/20' : ''
+                    } ${!isMobile ? 'group-hover:border-white/20' : ''}`}
+                  />
+                </div>
               </a>
             </Reveal>
           </div>

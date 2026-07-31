@@ -253,7 +253,9 @@ function getCancellationEmailHtml(booking: Booking, language: 'sq' | 'en' = 'sq'
           subject: `Takimi juaj është anuluar - Zeo Dental`,
           greeting: `I/E nderuar ${escapeHtml(booking.name)}`,
           intro: `Ju informojmë që takimi juaj është anuluar.`,
-          reason: booking.cancellation_reason ? `Arsyeja: ${escapeHtml(booking.cancellation_reason)}` : '',
+          reason: booking.cancellation_reason
+            ? `Arsyeja: ${escapeHtml(booking.cancellation_reason)}`
+            : '',
           reschedule: `Për të ricaktuar një takim të ri, na kontaktoni:`,
           phone: `+355 68 400 4840`,
           email: `zeodentalclinic@gmail.com`,
@@ -263,7 +265,9 @@ function getCancellationEmailHtml(booking: Booking, language: 'sq' | 'en' = 'sq'
           subject: `Your Appointment has been Cancelled - Zeo Dental`,
           greeting: `Dear ${escapeHtml(booking.name)}`,
           intro: `We inform you that your appointment has been cancelled.`,
-          reason: booking.cancellation_reason ? `Reason: ${escapeHtml(booking.cancellation_reason)}` : '',
+          reason: booking.cancellation_reason
+            ? `Reason: ${escapeHtml(booking.cancellation_reason)}`
+            : '',
           reschedule: `To reschedule a new appointment, contact us:`,
           phone: `+355 68 400 4840`,
           email: `zeodentalclinic@gmail.com`,

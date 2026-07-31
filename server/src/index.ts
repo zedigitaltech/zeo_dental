@@ -13,7 +13,12 @@ import { bookingRoutes } from './routes/booking.js';
 import { receptionistRoutes } from './routes/receptionist.js';
 import { postgresPlugin } from './plugins/postgres.js';
 import { initCrmSync } from './services/crmSync.js';
-import { SUPPORTED_LANGUAGES, LANG_TO_LOCALE, getLangFromPath, stripLangPrefix } from './utils/i18n.js';
+import {
+  SUPPORTED_LANGUAGES,
+  LANG_TO_LOCALE,
+  getLangFromPath,
+  stripLangPrefix,
+} from './utils/i18n.js';
 import type { Language } from './utils/i18n.js';
 import { getSeoMeta } from './utils/seoMeta.js';
 
@@ -43,7 +48,8 @@ try {
   indexHtmlTemplate = readFileSync(join(publicPath, 'index.html'), 'utf-8');
 } catch (err) {
   console.error(`Failed to read index.html from ${join(publicPath, 'index.html')}:`, err);
-  indexHtmlTemplate = '<!DOCTYPE html><html lang="en"><head><title>Zeo Dental Clinic</title></head><body><div id="root"></div><script type="module" src="/assets/index.js"></script></body></html>';
+  indexHtmlTemplate =
+    '<!DOCTYPE html><html lang="en"><head><title>Zeo Dental Clinic</title></head><body><div id="root"></div><script type="module" src="/assets/index.js"></script></body></html>';
 }
 
 const PUBLIC_ROUTES = [
@@ -83,10 +89,7 @@ function renderHtml(lang: Language, barePath: string): string {
   html = html.replace(/lang="en"/, `lang="${lang}"`);
 
   // Replace title
-  html = html.replace(
-    /<title>[^<]*<\/title>/,
-    `<title>${seo.title}</title>`
-  );
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${seo.title}</title>`);
 
   // Replace meta description
   html = html.replace(
@@ -154,19 +157,36 @@ function renderHtml(lang: Language, barePath: string): string {
 // --- Language detection ---
 
 const COUNTRY_TO_LANG: Record<string, Language> = {
-  AL: 'sq', XK: 'sq',
-  IT: 'it', SM: 'it', VA: 'it',
-  DE: 'de', AT: 'de', CH: 'de', LI: 'de',
-  FR: 'fr', BE: 'fr', MC: 'fr', LU: 'fr',
+  AL: 'sq',
+  XK: 'sq',
+  IT: 'it',
+  SM: 'it',
+  VA: 'it',
+  DE: 'de',
+  AT: 'de',
+  CH: 'de',
+  LI: 'de',
+  FR: 'fr',
+  BE: 'fr',
+  MC: 'fr',
+  LU: 'fr',
   TR: 'tr',
-  GR: 'el', CY: 'el',
-  ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es',
+  GR: 'el',
+  CY: 'el',
+  ES: 'es',
+  MX: 'es',
+  AR: 'es',
+  CO: 'es',
+  CL: 'es',
 };
 
-function getClientIp(request: { headers: Record<string, string | string[] | undefined>; ip: string }): string {
-  return (request.headers['fly-client-ip']
-    || request.headers['x-forwarded-for']?.toString().split(',')[0]?.trim()
-    || request.ip) as string;
+function getClientIp(request: {
+  headers: Record<string, string | string[] | undefined>;
+  ip: string;
+}): string {
+  return (request.headers['fly-client-ip'] ||
+    request.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() ||
+    request.ip) as string;
 }
 
 async function detectLanguageFromIp(clientIp: string): Promise<Language> {
@@ -177,11 +197,14 @@ async function detectLanguageFromIp(clientIp: string): Promise<Language> {
   }
 
   try {
-    const res = await fetch(`http://ip-api.com/json/${encodeURIComponent(clientIp)}?fields=countryCode`, {
-      signal: AbortSignal.timeout(2000),
-    });
+    const res = await fetch(
+      `http://ip-api.com/json/${encodeURIComponent(clientIp)}?fields=countryCode`,
+      {
+        signal: AbortSignal.timeout(2000),
+      }
+    );
     if (res.ok) {
-      const data = await res.json() as { countryCode?: string };
+      const data = (await res.json()) as { countryCode?: string };
       if (data.countryCode && COUNTRY_TO_LANG[data.countryCode]) {
         return COUNTRY_TO_LANG[data.countryCode];
       }
@@ -239,7 +262,7 @@ async function start() {
     await fastify.register(fastifyMultipart, {
       limits: {
         fileSize: 10 * 1024 * 1024, // 10MB per file
-        files: 3,                    // max 3 files
+        files: 3, // max 3 files
       },
     });
 
@@ -248,8 +271,18 @@ async function start() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", 'https://static.elfsight.com', 'https://elfsightcdn.com', 'https://*.elfsightcdn.com'],
-          styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', 'https://*.elfsightcdn.com'],
+          scriptSrc: [
+            "'self'",
+            'https://static.elfsight.com',
+            'https://elfsightcdn.com',
+            'https://*.elfsightcdn.com',
+          ],
+          styleSrc: [
+            "'self'",
+            "'unsafe-inline'",
+            'https://fonts.googleapis.com',
+            'https://*.elfsightcdn.com',
+          ],
           fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
           imgSrc: [
             "'self'",
@@ -262,8 +295,18 @@ async function start() {
             'https://*.elfsightcdn.com',
           ],
           mediaSrc: ["'self'", 'https://videos.pexels.com', 'https://cdn.pixabay.com'],
-          connectSrc: ["'self'", 'https://generativelanguage.googleapis.com', 'https://*.elfsight.com', 'https://*.elfsightcdn.com'],
-          frameSrc: ["'self'", 'https://www.google.com', 'https://www.youtube.com', 'https://www.youtube-nocookie.com'],
+          connectSrc: [
+            "'self'",
+            'https://generativelanguage.googleapis.com',
+            'https://*.elfsight.com',
+            'https://*.elfsightcdn.com',
+          ],
+          frameSrc: [
+            "'self'",
+            'https://www.google.com',
+            'https://www.youtube.com',
+            'https://www.youtube-nocookie.com',
+          ],
           objectSrc: ["'none'"],
           upgradeInsecureRequests: [],
         },
@@ -277,9 +320,9 @@ async function start() {
       max: parseInt(process.env.RATE_LIMIT_MAX || '200', 10),
       timeWindow: process.env.RATE_LIMIT_WINDOW || '1 minute',
       keyGenerator: req => {
-        return (req.headers['fly-client-ip']
-          || req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim()
-          || req.ip) as string;
+        return (req.headers['fly-client-ip'] ||
+          req.headers['x-forwarded-for']?.toString().split(',')[0]?.trim() ||
+          req.ip) as string;
       },
       allowList: req => {
         if (req.url === '/health') return true;
@@ -326,7 +369,7 @@ async function start() {
     });
 
     // Language detection API endpoint (kept for backwards compatibility)
-    fastify.get('/api/detect-language', async (request) => {
+    fastify.get('/api/detect-language', async request => {
       const clientIp = getClientIp(request);
       const lang = await detectLanguageFromIp(clientIp);
       return { language: lang };

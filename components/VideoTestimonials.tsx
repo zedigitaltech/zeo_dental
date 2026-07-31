@@ -57,7 +57,7 @@ export const VideoTestimonials: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
-            {VIDEOS.map((video) => (
+            {VIDEOS.map(video => (
               <button
                 key={video.id}
                 onClick={() => openVideo(video.youtubeId)}
@@ -98,10 +98,7 @@ export const VideoTestimonials: React.FC = () => {
           >
             <X size={28} strokeWidth={1} />
           </button>
-          <div
-            className="w-full max-w-4xl aspect-video"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="w-full max-w-4xl aspect-video" onClick={e => e.stopPropagation()}>
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${activeVideo}?autoplay=1&rel=0`}
               title="Patient testimonial"

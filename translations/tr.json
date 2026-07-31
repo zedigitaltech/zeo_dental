@@ -76,10 +76,22 @@
           "Dijital Gülüş Tasarımı önizlemesi"
         ],
         "process": [
-          { "title": "Konsültasyon", "description": "Hedeflerinizi tartışıyor ve yüz yapınızı analiz ediyoruz." },
-          { "title": "Tasarım", "description": "Onayınız için yeni gülüşünüzün dijital simülasyonu." },
-          { "title": "Hazırlık", "description": "Dişlerin minimal hazırlanması ve geçici protezlerin yerleştirilmesi." },
-          { "title": "Dönüşüm", "description": "Son seramiklerin yapıştırılması ve son ayarlamalar." }
+          {
+            "title": "Konsültasyon",
+            "description": "Hedeflerinizi tartışıyor ve yüz yapınızı analiz ediyoruz."
+          },
+          {
+            "title": "Tasarım",
+            "description": "Onayınız için yeni gülüşünüzün dijital simülasyonu."
+          },
+          {
+            "title": "Hazırlık",
+            "description": "Dişlerin minimal hazırlanması ve geçici protezlerin yerleştirilmesi."
+          },
+          {
+            "title": "Dönüşüm",
+            "description": "Son seramiklerin yapıştırılması ve son ayarlamalar."
+          }
         ]
       },
       "implants": {
@@ -93,9 +105,18 @@
           "Biyouyumlu malzemeler (Titanyum veya Zirkonyum)"
         ],
         "process": [
-          { "title": "3D Tarama", "description": "Kemik yapısı ve sinir yollarını haritalamak için CBCT taraması." },
-          { "title": "Yerleştirme", "description": "İmplant postunun hassas cerrahi yerleştirilmesi." },
-          { "title": "İyileşme", "description": "Kemiğin implantle kaynaştığı osseointegrasyon süreci." },
+          {
+            "title": "3D Tarama",
+            "description": "Kemik yapısı ve sinir yollarını haritalamak için CBCT taraması."
+          },
+          {
+            "title": "Yerleştirme",
+            "description": "İmplant postunun hassas cerrahi yerleştirilmesi."
+          },
+          {
+            "title": "İyileşme",
+            "description": "Kemiğin implantle kaynaştığı osseointegrasyon süreci."
+          },
           { "title": "Restorasyon", "description": "Özel yapım kuron veya köprünün takılması." }
         ]
       },
@@ -112,8 +133,14 @@
         "process": [
           { "title": "Değerlendirme", "description": "Dijital tarama ve kapanış analizi." },
           { "title": "Planlama", "description": "Özel tedavi planı ve zaman çizelgesi oluşturma." },
-          { "title": "Aktif Tedavi", "description": "Düzenli kontrollerle plak veya braket kullanımı." },
-          { "title": "Pekiştirme", "description": "Yeni gülüşünüzü sonsuza kadar korumak için özel pekiştirme plakaları." }
+          {
+            "title": "Aktif Tedavi",
+            "description": "Düzenli kontrollerle plak veya braket kullanımı."
+          },
+          {
+            "title": "Pekiştirme",
+            "description": "Yeni gülüşünüzü sonsuza kadar korumak için özel pekiştirme plakaları."
+          }
         ]
       },
       "general": {
@@ -127,10 +154,19 @@
           "Kişiselleştirilmiş hijyen planları"
         ],
         "process": [
-          { "title": "Muayene", "description": "Düşük radyasyonlu dijital röntgenlerle kapsamlı kontrol." },
-          { "title": "Hijyen", "description": "Uzman hijyenistler tarafından kapsamlı temizlik ve cilalama." },
+          {
+            "title": "Muayene",
+            "description": "Düşük radyasyonlu dijital röntgenlerle kapsamlı kontrol."
+          },
+          {
+            "title": "Hijyen",
+            "description": "Uzman hijyenistler tarafından kapsamlı temizlik ve cilalama."
+          },
           { "title": "Eğitim", "description": "Ağız floranıza özel ipuçları ve araçlar." },
-          { "title": "Plan", "description": "Risk değerlendirmesine dayalı uzun vadeli bakım programı." }
+          {
+            "title": "Plan",
+            "description": "Risk değerlendirmesine dayalı uzun vadeli bakım programı."
+          }
         ]
       },
       "surgery": {
@@ -144,7 +180,10 @@
           "Diş eti greftleme ve şekillendirme"
         ],
         "process": [
-          { "title": "Değerlendirme", "description": "Tıbbi geçmişin gözden geçirilmesi ve cerrahi planlaması." },
+          {
+            "title": "Değerlendirme",
+            "description": "Tıbbi geçmişin gözden geçirilmesi ve cerrahi planlaması."
+          },
           { "title": "Konfor", "description": "Lokal anestezi veya sedasyon uygulaması." },
           { "title": "İşlem", "description": "Minimal invaziv cerrahi uygulama." },
           { "title": "İyileşme", "description": "Detaylı bakım talimatları ve takip kontrolü." }
@@ -275,9 +314,17 @@
     "text1": "Sanat, hassasiyet ve ileri teknolojiyle şekillendirilen özgüvenli bir gülüşün dönüştürücü gücüne inanıyoruz.",
     "text2": "Her tedavi, vizyonunuzun uzmanlığımızla buluşarak kalıcı, doğal sonuçlar yarattığı kişiselleştirilmiş bir yolculuktur.",
     "expertise": "Uzmanlık",
-    "expertiseList": { "item1": "Endodonti", "item2": "Cerrahi Hassasiyet", "item3": "İmplant Ustalığı" },
+    "expertiseList": {
+      "item1": "Endodonti",
+      "item2": "Cerrahi Hassasiyet",
+      "item3": "İmplant Ustalığı"
+    },
     "technology": "Teknoloji",
-    "technologyList": { "item1": "3D Dijital Tarama", "item2": "CAD/CAM Tasarım", "item3": "Rehberli Cerrahi" }
+    "technologyList": {
+      "item1": "3D Dijital Tarama",
+      "item2": "CAD/CAM Tasarım",
+      "item3": "Rehberli Cerrahi"
+    }
   },
   "cases": {
     "label": "Dönüşümler",
@@ -323,9 +370,21 @@
     "title": "Hasta Hikayeleri",
     "rating": "Ortalama Puan",
     "items": {
-      "t1": { "name": "Michael Ross", "role": "Hasta", "content": "Zeo'daki bakım düzeyi eşsiz. İçeri adım attığınız andan itibaren, bir klinik değil 5 yıldızlı bir otel gibi hissediyorsunuz. Veneerlerim inanılmaz görünüyor." },
-      "t2": { "name": "Jennifer Wu", "role": "Hasta", "content": "Dr. Zeo ile tanışana kadar diş hekiminden korkuyordum. Kullandıkları ağrısız teknoloji oyunun kurallarını değiştiriyor. Kesinlikle tavsiye ederim!" },
-      "t3": { "name": "David Okafor", "role": "Hasta", "content": "Profesyonel, tertemiz ve dakik. Zamanınıza ve sağlığınıza değer veriyorlar. Hayatımda yaşadığım en iyi diş hekimliği deneyimi." }
+      "t1": {
+        "name": "Michael Ross",
+        "role": "Hasta",
+        "content": "Zeo'daki bakım düzeyi eşsiz. İçeri adım attığınız andan itibaren, bir klinik değil 5 yıldızlı bir otel gibi hissediyorsunuz. Veneerlerim inanılmaz görünüyor."
+      },
+      "t2": {
+        "name": "Jennifer Wu",
+        "role": "Hasta",
+        "content": "Dr. Zeo ile tanışana kadar diş hekiminden korkuyordum. Kullandıkları ağrısız teknoloji oyunun kurallarını değiştiriyor. Kesinlikle tavsiye ederim!"
+      },
+      "t3": {
+        "name": "David Okafor",
+        "role": "Hasta",
+        "content": "Profesyonel, tertemiz ve dakik. Zamanınıza ve sağlığınıza değer veriyorlar. Hayatımda yaşadığım en iyi diş hekimliği deneyimi."
+      }
     }
   },
   "booking": {
@@ -466,26 +525,97 @@
     "viewAllTreatments": "Tüm Tedavileri Görüntüle",
     "learnMore": "Daha Fazla",
     "items": {
-      "implantology": { "title": "İmplantoloji", "description": "Kalıcı, doğal görünümlü diş değişimi için 3D rehberli cerrahi ile son teknoloji titanyum ve zirkonyum implantlar." },
-      "prosthetics": { "title": "Protezler", "description": "Sabit köprüler, hareketli protezler, parsiyel protezler ve implant destekli restorasyonlar dahil kapsamlı protetik çözümler." },
-      "aligners": { "title": "Şeffaf Plaklar", "description": "Metal braketler olmadan gizli gülüş düzeltmesi için özel yapım şeffaf plaklarla görünmez ortodontik tedavi." },
-      "orthodontics": { "title": "Ortodonti", "description": "Mükemmel kapanış ve güzel gülüş için seramik braketler ve geleneksel ortodonti dahil modern hizalama çözümleri." },
-      "crowns": { "title": "Diş Kronları", "description": "Hasarlı dişleri doğal renk ve şeffaflıkla eşleştirerek restore eden premium porselen ve zirkonyum kronlar." },
-      "aesthetics": { "title": "Endodonti", "description": "Modern teknikler ve hassas aletler kullanarak hasarlı dişleri kurtarmak ve ağrıyı gidermek için ileri kanal tedavisi." }
+      "implantology": {
+        "title": "İmplantoloji",
+        "description": "Kalıcı, doğal görünümlü diş değişimi için 3D rehberli cerrahi ile son teknoloji titanyum ve zirkonyum implantlar."
+      },
+      "prosthetics": {
+        "title": "Protezler",
+        "description": "Sabit köprüler, hareketli protezler, parsiyel protezler ve implant destekli restorasyonlar dahil kapsamlı protetik çözümler."
+      },
+      "aligners": {
+        "title": "Şeffaf Plaklar",
+        "description": "Metal braketler olmadan gizli gülüş düzeltmesi için özel yapım şeffaf plaklarla görünmez ortodontik tedavi."
+      },
+      "orthodontics": {
+        "title": "Ortodonti",
+        "description": "Mükemmel kapanış ve güzel gülüş için seramik braketler ve geleneksel ortodonti dahil modern hizalama çözümleri."
+      },
+      "crowns": {
+        "title": "Diş Kronları",
+        "description": "Hasarlı dişleri doğal renk ve şeffaflıkla eşleştirerek restore eden premium porselen ve zirkonyum kronlar."
+      },
+      "aesthetics": {
+        "title": "Endodonti",
+        "description": "Modern teknikler ve hassas aletler kullanarak hasarlı dişleri kurtarmak ve ağrıyı gidermek için ileri kanal tedavisi."
+      }
     }
   },
   "receptionist": {
     "title": "Resepsiyon Paneli",
     "loading": "Yükleniyor...",
     "noBookings": "Randevu bulunamadı",
-    "login": { "title": "Personel Girişi", "password": "Şifre", "submit": "Giriş Yap", "error": "Geçersiz şifre", "backToSite": "Siteye Dön" },
-    "header": { "logout": "Çıkış", "pending": "Beklemede", "newBooking": "Yeni Randevu!", "lastUpdate": "Güncellendi", "soundOn": "Ses bildirimleri açık", "soundOff": "Ses bildirimleri kapalı", "calendar": "Takvim" },
-    "stats": { "pending": "Beklemede", "today": "Bugün", "thisWeek": "Bu Hafta", "confirmedToday": "Bugün Onaylanan" },
-    "filters": { "all": "Tüm Randevular", "pending": "Beklemede", "confirmed": "Onaylanmış", "cancelled": "İptal Edilmiş", "completed": "Tamamlanmış", "noShow": "Gelmedi", "search": "Ad, e-posta, telefon ile arama..." },
-    "booking": { "preferred": "Tercih Edilen", "confirmed": "Onaylanmış", "service": "Hizmet", "phone": "Telefon", "email": "E-posta", "notes": "Notlar", "status": "Durum" },
-    "actions": { "view": "Görüntüle", "confirm": "Onayla", "cancel": "İptal", "close": "Kapat", "refresh": "Yenile" },
-    "confirm": { "title": "Randevuyu Onayla", "date": "Onaylanan Tarih", "time": "Onaylanan Saat", "sendWhatsApp": "WhatsApp onayı gönder", "sendEmail": "E-posta onayı gönder", "submit": "Randevuyu Onayla" },
-    "cancel": { "title": "Randevuyu İptal Et", "reason": "İptal Nedeni (isteğe bağlı)", "notify": "Hastayı bilgilendir", "submit": "Randevuyu İptal Et" }
+    "login": {
+      "title": "Personel Girişi",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "error": "Geçersiz şifre",
+      "backToSite": "Siteye Dön"
+    },
+    "header": {
+      "logout": "Çıkış",
+      "pending": "Beklemede",
+      "newBooking": "Yeni Randevu!",
+      "lastUpdate": "Güncellendi",
+      "soundOn": "Ses bildirimleri açık",
+      "soundOff": "Ses bildirimleri kapalı",
+      "calendar": "Takvim"
+    },
+    "stats": {
+      "pending": "Beklemede",
+      "today": "Bugün",
+      "thisWeek": "Bu Hafta",
+      "confirmedToday": "Bugün Onaylanan"
+    },
+    "filters": {
+      "all": "Tüm Randevular",
+      "pending": "Beklemede",
+      "confirmed": "Onaylanmış",
+      "cancelled": "İptal Edilmiş",
+      "completed": "Tamamlanmış",
+      "noShow": "Gelmedi",
+      "search": "Ad, e-posta, telefon ile arama..."
+    },
+    "booking": {
+      "preferred": "Tercih Edilen",
+      "confirmed": "Onaylanmış",
+      "service": "Hizmet",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "notes": "Notlar",
+      "status": "Durum"
+    },
+    "actions": {
+      "view": "Görüntüle",
+      "confirm": "Onayla",
+      "cancel": "İptal",
+      "close": "Kapat",
+      "refresh": "Yenile"
+    },
+    "confirm": {
+      "title": "Randevuyu Onayla",
+      "date": "Onaylanan Tarih",
+      "time": "Onaylanan Saat",
+      "sendWhatsApp": "WhatsApp onayı gönder",
+      "sendEmail": "E-posta onayı gönder",
+      "submit": "Randevuyu Onayla"
+    },
+    "cancel": {
+      "title": "Randevuyu İptal Et",
+      "reason": "İptal Nedeni (isteğe bağlı)",
+      "notify": "Hastayı bilgilendir",
+      "submit": "Randevuyu İptal Et"
+    }
   },
   "whatsapp": {
     "tooltip": "WhatsApp'tan yazın",
@@ -499,21 +629,57 @@
       "heroDescription": "Eşsiz hassasiyet ve konfor için son teknoloji 3D rehberli cerrahi ile kalıcı, doğal görünümlü diş implantlarıyla gülüşünüzü geri kazanın.",
       "overview": "Diş implantları, eksik dişlerin yerine konulması için en gelişmiş ve güvenilir çözümü temsil eder. Geleneksel protez veya köprülerden farklı olarak implantlar, osseointegrasyon adı verilen bir süreçle kemikle kaynaştığı çene kemiğine cerrahi olarak yerleştirilir. Bu, doğal dişleriniz gibi görünen, hissedilen ve işlev gören istikrarlı, kalıcı bir temel oluşturur.\n\nZeo Dental Clinic'te, her implant işlemini milimetre hassasiyetiyle planlamak ve uygulamak için son teknoloji 3D görüntüleme ve bilgisayar rehberli cerrahi kullanıyoruz. İster tek diş değişimi ister tam çene restorasyonu ihtiyacınız olsun, uzmanlarımız maksimum ömür ve estetik sonuçlar için optimum yerleşim sağlar.\n\nHem titanyum hem de zirkonyum implantlar sunarak tedavinizi özel ihtiyaçlarınıza, kemik yoğunluğunuza ve estetik tercihlerinize göre özelleştirmemize olanak tanıyoruz. Yalnızca güvenilir üreticilerden premium malzemeler kullanma taahhüdümüz, implantlarınızın onlarca yıl boyunca size iyi hizmet edeceğini garanti eder.",
       "benefitsTitle": "Neden Diş İmplantları?",
-      "benefits": ["Doğru bakımla ömür boyu sürebilecek kalıcı çözüm", "Çene kemiği yoğunluğunu korur ve yüz kemik kaybını önler", "Köprülerden farklı olarak komşu sağlıklı dişlere zarar vermez", "Gerçek dişlerden ayırt edilemeyecek doğal görünüm", "Geri kazanılmış çiğneme fonksiyonu - en sevdiğiniz yiyecekleri yiyin", "Kolay bakım - doğal dişler gibi fırçalayın ve diş ipi kullanın", "Hareketli protezlere kıyasla geliştirilmiş konuşma", "Protezlerin rahatsızlığını ve zorluklarını ortadan kaldırır"],
+      "benefits": [
+        "Doğru bakımla ömür boyu sürebilecek kalıcı çözüm",
+        "Çene kemiği yoğunluğunu korur ve yüz kemik kaybını önler",
+        "Köprülerden farklı olarak komşu sağlıklı dişlere zarar vermez",
+        "Gerçek dişlerden ayırt edilemeyecek doğal görünüm",
+        "Geri kazanılmış çiğneme fonksiyonu - en sevdiğiniz yiyecekleri yiyin",
+        "Kolay bakım - doğal dişler gibi fırçalayın ve diş ipi kullanın",
+        "Hareketli protezlere kıyasla geliştirilmiş konuşma",
+        "Protezlerin rahatsızlığını ve zorluklarını ortadan kaldırır"
+      ],
       "processTitle": "İmplant Yolculuğunuz",
       "process": [
-        {"title": "Kapsamlı Konsültasyon", "description": "Kemik kalitesi ve miktarını değerlendirmek ve sinirler ve sinüsler gibi kritik yapıları haritalamak için 3D CBCT taraması dahil kapsamlı bir muayene ile başlıyoruz."},
-        {"title": "Dijital Tedavi Planlaması", "description": "Gelişmiş yazılım kullanarak her implantın tam konumunu, açısını ve derinliğini dijital olarak planlıyoruz."},
-        {"title": "Cerrahi İmplant Yerleştirme", "description": "Titanyum veya zirkonyum implant postu, minimal invaziv tekniklerle çene kemiğine yerleştirilir."},
-        {"title": "Osseointegrasyon Süreci", "description": "3-6 ay boyunca implant çene kemiğinizle kaynaşarak inanılmaz güçlü bir temel oluşturur."},
-        {"title": "Son Restorasyon", "description": "Tamamen iyileştiğinde, implantınıza özel yapım kron, köprü veya protez takılır."}
+        {
+          "title": "Kapsamlı Konsültasyon",
+          "description": "Kemik kalitesi ve miktarını değerlendirmek ve sinirler ve sinüsler gibi kritik yapıları haritalamak için 3D CBCT taraması dahil kapsamlı bir muayene ile başlıyoruz."
+        },
+        {
+          "title": "Dijital Tedavi Planlaması",
+          "description": "Gelişmiş yazılım kullanarak her implantın tam konumunu, açısını ve derinliğini dijital olarak planlıyoruz."
+        },
+        {
+          "title": "Cerrahi İmplant Yerleştirme",
+          "description": "Titanyum veya zirkonyum implant postu, minimal invaziv tekniklerle çene kemiğine yerleştirilir."
+        },
+        {
+          "title": "Osseointegrasyon Süreci",
+          "description": "3-6 ay boyunca implant çene kemiğinizle kaynaşarak inanılmaz güçlü bir temel oluşturur."
+        },
+        {
+          "title": "Son Restorasyon",
+          "description": "Tamamen iyileştiğinde, implantınıza özel yapım kron, köprü veya protez takılır."
+        }
       ],
       "faqTitle": "Sıkça Sorulan Sorular",
       "faqs": [
-        {"question": "Diş implantları için uygun bir aday mıyım?", "answer": "Genel sağlığı iyi olan çoğu yetişkin diş implantları için adaydır."},
-        {"question": "Diş implantları ne kadar süre dayanır?", "answer": "Doğru bakım ve idame ile diş implantları ömür boyu dayanabilir."},
-        {"question": "İmplant işlemi ağrılı mıdır?", "answer": "İşlem lokal anestezi altında gerçekleştirilir, bu yüzden yerleştirme sırasında ağrı hissetmezsiniz."},
-        {"question": "Diş implantlarının maliyeti ne kadardır?", "answer": "Maliyet, implant sayısına, restorasyon türüne ve ek işlemlerin gerekip gerekmediğine bağlı olarak değişir."}
+        {
+          "question": "Diş implantları için uygun bir aday mıyım?",
+          "answer": "Genel sağlığı iyi olan çoğu yetişkin diş implantları için adaydır."
+        },
+        {
+          "question": "Diş implantları ne kadar süre dayanır?",
+          "answer": "Doğru bakım ve idame ile diş implantları ömür boyu dayanabilir."
+        },
+        {
+          "question": "İmplant işlemi ağrılı mıdır?",
+          "answer": "İşlem lokal anestezi altında gerçekleştirilir, bu yüzden yerleştirme sırasında ağrı hissetmezsiniz."
+        },
+        {
+          "question": "Diş implantlarının maliyeti ne kadardır?",
+          "answer": "Maliyet, implant sayısına, restorasyon türüne ve ek işlemlerin gerekip gerekmediğine bağlı olarak değişir."
+        }
       ],
       "duration": "Toplam tedavi süresi 3-6 ay",
       "warranty": "İmplantlarda ömür boyu garanti"
@@ -524,21 +690,57 @@
       "heroDescription": "Sabit köprülerden implant destekli protezlere kadar hassasiyetle üretilmiş kapsamlı protetik çözümler sunuyoruz.",
       "overview": "Diş protezleri, eksik dişlerin yerini almak ve ağız fonksiyonunu geri kazandırmak için tasarlanmış geniş bir restoratif çözüm yelpazesini kapsar.",
       "benefitsTitle": "Modern Protezlerin Avantajları",
-      "benefits": ["Özgüvenle yeme, konuşma ve gülümseme yeteneğinin geri kazanılması", "Premium malzemelerle doğal görünümlü sonuçlar", "Farklı ihtiyaç ve bütçelere uygun çoklu seçenekler", "Geliştirilmiş yüz desteği ve genç görünüm", "Optimum uyum ve konfor için dijital hassasiyet", "Uzun süreli kullanım için tasarlanmış dayanıklı malzemeler", "Kısmi veya tam diş kaybı için çözümler", "Maksimum stabilite için implant destekli seçenekler"],
+      "benefits": [
+        "Özgüvenle yeme, konuşma ve gülümseme yeteneğinin geri kazanılması",
+        "Premium malzemelerle doğal görünümlü sonuçlar",
+        "Farklı ihtiyaç ve bütçelere uygun çoklu seçenekler",
+        "Geliştirilmiş yüz desteği ve genç görünüm",
+        "Optimum uyum ve konfor için dijital hassasiyet",
+        "Uzun süreli kullanım için tasarlanmış dayanıklı malzemeler",
+        "Kısmi veya tam diş kaybı için çözümler",
+        "Maksimum stabilite için implant destekli seçenekler"
+      ],
       "processTitle": "Protetik Tedavi Süreciniz",
       "process": [
-        {"title": "İlk Değerlendirme", "description": "Ağız sağlığınızın kapsamlı bir muayenesini gerçekleştiriyoruz."},
-        {"title": "Tedavi Planlaması", "description": "Değerlendirmenize dayanarak mevcut tüm seçenekleri tartışıyoruz."},
-        {"title": "Dijital Tasarım", "description": "CAD/CAM teknolojisi kullanarak protezinizi hassasiyetle tasarlıyoruz."},
-        {"title": "Üretim", "description": "Proteziniz premium bir diş laboratuvarında üretilir."},
-        {"title": "Takma ve Ayarlama", "description": "Yeni protezinizi dikkatlice takıyor ve gerekli ayarlamaları yapıyoruz."}
+        {
+          "title": "İlk Değerlendirme",
+          "description": "Ağız sağlığınızın kapsamlı bir muayenesini gerçekleştiriyoruz."
+        },
+        {
+          "title": "Tedavi Planlaması",
+          "description": "Değerlendirmenize dayanarak mevcut tüm seçenekleri tartışıyoruz."
+        },
+        {
+          "title": "Dijital Tasarım",
+          "description": "CAD/CAM teknolojisi kullanarak protezinizi hassasiyetle tasarlıyoruz."
+        },
+        {
+          "title": "Üretim",
+          "description": "Proteziniz premium bir diş laboratuvarında üretilir."
+        },
+        {
+          "title": "Takma ve Ayarlama",
+          "description": "Yeni protezinizi dikkatlice takıyor ve gerekli ayarlamaları yapıyoruz."
+        }
       ],
       "faqTitle": "Protezler Hakkında Sık Sorulan Sorular",
       "faqs": [
-        {"question": "Köprü ile protez arasındaki fark nedir?", "answer": "Köprü sabittir, protez çıkarılabilirdir."},
-        {"question": "Yeni protezlere alışmak ne kadar sürer?", "answer": "Çoğu hasta 2-4 hafta içinde uyum sağlar."},
-        {"question": "Protezlerden implant destekli protezlere geçiş yapabilir miyim?", "answer": "Evet, birçok hasta geçiş yapmayı tercih eder."},
-        {"question": "Protezlerimi nasıl bakım yaparım?", "answer": "Sabit protezler doğal dişler gibi bakılır."}
+        {
+          "question": "Köprü ile protez arasındaki fark nedir?",
+          "answer": "Köprü sabittir, protez çıkarılabilirdir."
+        },
+        {
+          "question": "Yeni protezlere alışmak ne kadar sürer?",
+          "answer": "Çoğu hasta 2-4 hafta içinde uyum sağlar."
+        },
+        {
+          "question": "Protezlerden implant destekli protezlere geçiş yapabilir miyim?",
+          "answer": "Evet, birçok hasta geçiş yapmayı tercih eder."
+        },
+        {
+          "question": "Protezlerimi nasıl bakım yaparım?",
+          "answer": "Sabit protezler doğal dişler gibi bakılır."
+        }
       ],
       "duration": "Türüne göre 2-6 hafta",
       "warranty": "Tüm protezlerde 5 yıl garanti"
@@ -549,21 +751,57 @@
       "heroDescription": "Özel yapım şeffaf plaklarla gizlice mükemmel gülüşünüze kavuşun.",
       "overview": "Şeffaf plaklar ortodontik tedavide devrim yaratmıştır.",
       "benefitsTitle": "Neden Şeffaf Plaklar?",
-      "benefits": ["Neredeyse görünmez", "Yeme ve içme için çıkarılabilir", "Diyet kısıtlaması yok", "Daha kolay ağız hijyeni", "Daha az klinik ziyareti", "Sonuçların dijital önizlemesi", "Rahat pürüzsüz plastik", "Öngörülebilir tedavi süresi"],
+      "benefits": [
+        "Neredeyse görünmez",
+        "Yeme ve içme için çıkarılabilir",
+        "Diyet kısıtlaması yok",
+        "Daha kolay ağız hijyeni",
+        "Daha az klinik ziyareti",
+        "Sonuçların dijital önizlemesi",
+        "Rahat pürüzsüz plastik",
+        "Öngörülebilir tedavi süresi"
+      ],
       "processTitle": "Şeffaf Plak Yolculuğunuz",
       "process": [
-        {"title": "Dijital Konsültasyon", "description": "Dişlerinizin detaylı 3D taramalarını alıyoruz."},
-        {"title": "Tedavi Simülasyonu", "description": "Diş hareketini gösteren sanal bir simülasyon oluşturuyoruz."},
-        {"title": "Özel Plak Üretimi", "description": "Plaklarınız hassas 3D baskı kullanılarak üretilir."},
-        {"title": "Aktif Tedavi", "description": "Her seti günde 20-22 saat olmak üzere yaklaşık 2 hafta takın."},
-        {"title": "Pekiştirme Aşaması", "description": "Güzel yeni gülüşünüzü korumak için pekiştirme plakaları takın."}
+        {
+          "title": "Dijital Konsültasyon",
+          "description": "Dişlerinizin detaylı 3D taramalarını alıyoruz."
+        },
+        {
+          "title": "Tedavi Simülasyonu",
+          "description": "Diş hareketini gösteren sanal bir simülasyon oluşturuyoruz."
+        },
+        {
+          "title": "Özel Plak Üretimi",
+          "description": "Plaklarınız hassas 3D baskı kullanılarak üretilir."
+        },
+        {
+          "title": "Aktif Tedavi",
+          "description": "Her seti günde 20-22 saat olmak üzere yaklaşık 2 hafta takın."
+        },
+        {
+          "title": "Pekiştirme Aşaması",
+          "description": "Güzel yeni gülüşünüzü korumak için pekiştirme plakaları takın."
+        }
       ],
       "faqTitle": "Şeffaf Plak SSS",
       "faqs": [
-        {"question": "Şeffaf plaklar benim özel dental sorunumu düzeltebilir mi?", "answer": "Şeffaf plaklar yaygın ortodontik sorunların çoğunu tedavi edebilir."},
-        {"question": "Tedavi ne kadar sürer?", "answer": "Basit vakalar 6-9 ay, karmaşık vakalar 12-18 ay."},
-        {"question": "Şeffaf plaklar acıtır mı?", "answer": "Yeni plaklara geçerken hafif bir rahatsızlık hissedebilirsiniz."},
-        {"question": "Bir plağı kaybedersem veya kırarsam ne olur?", "answer": "Yenisi için derhal bizimle iletişime geçin."}
+        {
+          "question": "Şeffaf plaklar benim özel dental sorunumu düzeltebilir mi?",
+          "answer": "Şeffaf plaklar yaygın ortodontik sorunların çoğunu tedavi edebilir."
+        },
+        {
+          "question": "Tedavi ne kadar sürer?",
+          "answer": "Basit vakalar 6-9 ay, karmaşık vakalar 12-18 ay."
+        },
+        {
+          "question": "Şeffaf plaklar acıtır mı?",
+          "answer": "Yeni plaklara geçerken hafif bir rahatsızlık hissedebilirsiniz."
+        },
+        {
+          "question": "Bir plağı kaybedersem veya kırarsam ne olur?",
+          "answer": "Yenisi için derhal bizimle iletişime geçin."
+        }
       ],
       "duration": "Ortalama 6-18 ay tedavi",
       "warranty": "Memnuniyet garantisi dahil"
@@ -574,21 +812,57 @@
       "heroDescription": "Mükemmel hizalama ve sağlıklı, güzel bir gülüş için modern ortodontik çözümler.",
       "overview": "Ortodonti, uzun vadeli ağız sağlığını destekleyen sağlıklı, fonksiyonel bir kapanış oluşturmakla ilgilidir.",
       "benefitsTitle": "Profesyonel Ortodontinin Avantajları",
-      "benefits": ["Plakların tedavi edemediği karmaşık vakaları düzeltir", "Diş hareketi üzerinde hassas kontrol", "Şiddetli çapraşıklık ve kapanış sorunlarında etkili", "Her yaş için seçenekler", "Estetik için seramik braketler", "Çene ve TME sorunlarını ele alabilir", "Ağız sağlığını iyileştirir", "Ömür boyu süren sonuçlar"],
+      "benefits": [
+        "Plakların tedavi edemediği karmaşık vakaları düzeltir",
+        "Diş hareketi üzerinde hassas kontrol",
+        "Şiddetli çapraşıklık ve kapanış sorunlarında etkili",
+        "Her yaş için seçenekler",
+        "Estetik için seramik braketler",
+        "Çene ve TME sorunlarını ele alabilir",
+        "Ağız sağlığını iyileştirir",
+        "Ömür boyu süren sonuçlar"
+      ],
       "processTitle": "Ortodontik Tedavi Yolunuz",
       "process": [
-        {"title": "Kapsamlı Değerlendirme", "description": "Dijital röntgenler, fotoğraflar ve 3D taramalar."},
-        {"title": "Özelleştirilmiş Tedavi Planı", "description": "Zaman çizelgesi ve beklenen sonuçlarla detaylı plan."},
-        {"title": "Braket Yerleştirme", "description": "Braketlerin yapıştırılması ve ark telinin yerleştirilmesi."},
-        {"title": "Düzenli Ayarlamalar", "description": "Ayarlamalar için her 4-8 haftada ziyaretler."},
-        {"title": "Braket Çıkarma ve Pekiştirme", "description": "Braketlerin çıkarılması ve özel pekiştirme plakaları verilmesi."}
+        {
+          "title": "Kapsamlı Değerlendirme",
+          "description": "Dijital röntgenler, fotoğraflar ve 3D taramalar."
+        },
+        {
+          "title": "Özelleştirilmiş Tedavi Planı",
+          "description": "Zaman çizelgesi ve beklenen sonuçlarla detaylı plan."
+        },
+        {
+          "title": "Braket Yerleştirme",
+          "description": "Braketlerin yapıştırılması ve ark telinin yerleştirilmesi."
+        },
+        {
+          "title": "Düzenli Ayarlamalar",
+          "description": "Ayarlamalar için her 4-8 haftada ziyaretler."
+        },
+        {
+          "title": "Braket Çıkarma ve Pekiştirme",
+          "description": "Braketlerin çıkarılması ve özel pekiştirme plakaları verilmesi."
+        }
       ],
       "faqTitle": "Ortodonti Soruları Yanıtlandı",
       "faqs": [
-        {"question": "Braket için çok yaşlı mıyım?", "answer": "Ortodontik tedavi her yaşta başarılı olabilir."},
-        {"question": "Braket ne kadar süre takmam gerekecek?", "answer": "Ortalama 18-24 ay, karmaşıklığa göre değişir."},
-        {"question": "Braketler acıtır mı?", "answer": "Ayarlamalardan sonra biraz rahatsızlık olabilir, ağrı kesicilerle yönetilebilir."},
-        {"question": "Hangi yiyeceklerden kaçınmalıyım?", "answer": "Sert, yapışkan ve çiğnenmesi zor yiyeceklerden kaçınılmalıdır."}
+        {
+          "question": "Braket için çok yaşlı mıyım?",
+          "answer": "Ortodontik tedavi her yaşta başarılı olabilir."
+        },
+        {
+          "question": "Braket ne kadar süre takmam gerekecek?",
+          "answer": "Ortalama 18-24 ay, karmaşıklığa göre değişir."
+        },
+        {
+          "question": "Braketler acıtır mı?",
+          "answer": "Ayarlamalardan sonra biraz rahatsızlık olabilir, ağrı kesicilerle yönetilebilir."
+        },
+        {
+          "question": "Hangi yiyeceklerden kaçınmalıyım?",
+          "answer": "Sert, yapışkan ve çiğnenmesi zor yiyeceklerden kaçınılmalıdır."
+        }
       ],
       "duration": "Ortalama 12-30 ay tedavi",
       "warranty": "Pekiştirme ile sonuçlar garanti"
@@ -599,21 +873,54 @@
       "heroDescription": "Hasarlı dişleri doğal güzellik ve fonksiyonlarına kavuşturan premium porselen ve zirkonyum kronlar.",
       "overview": "Diş kronu, hasarlı bir dişi kaplayan ve koruyan özel yapım bir kaplamadır.",
       "benefitsTitle": "Kaliteli Diş Kronlarının Avantajları",
-      "benefits": ["Tam fonksiyonu geri kazandırır", "Kanal tedavisi sonrası dişleri korur", "Doğal görünüm", "15-25 yıl dayanıklı", "Metalsiz seçenekler", "Aynı gün seçenekleri mevcut", "Diş yapısını güçlendirir", "Kapanış hizalamasını iyileştirir"],
+      "benefits": [
+        "Tam fonksiyonu geri kazandırır",
+        "Kanal tedavisi sonrası dişleri korur",
+        "Doğal görünüm",
+        "15-25 yıl dayanıklı",
+        "Metalsiz seçenekler",
+        "Aynı gün seçenekleri mevcut",
+        "Diş yapısını güçlendirir",
+        "Kapanış hizalamasını iyileştirir"
+      ],
       "processTitle": "Kron Tedavi Süreciniz",
       "process": [
-        {"title": "Değerlendirme ve Hazırlık", "description": "Dişin muayenesi ve kron için hazırlanması."},
-        {"title": "Dijital Ölçüler", "description": "Ağız içi tarayıcı ile hassas 3D görüntüler alınır."},
-        {"title": "Özel Tasarım", "description": "Kron, CAD yazılımı kullanılarak tasarlanır."},
-        {"title": "Üretim", "description": "Kron ofiste frezelenir veya premium laboratuvarda üretilir."},
-        {"title": "Kalıcı Yerleştirme", "description": "Uyumun doğrulanması ve kronun kalıcı olarak yapıştırılması."}
+        {
+          "title": "Değerlendirme ve Hazırlık",
+          "description": "Dişin muayenesi ve kron için hazırlanması."
+        },
+        {
+          "title": "Dijital Ölçüler",
+          "description": "Ağız içi tarayıcı ile hassas 3D görüntüler alınır."
+        },
+        { "title": "Özel Tasarım", "description": "Kron, CAD yazılımı kullanılarak tasarlanır." },
+        {
+          "title": "Üretim",
+          "description": "Kron ofiste frezelenir veya premium laboratuvarda üretilir."
+        },
+        {
+          "title": "Kalıcı Yerleştirme",
+          "description": "Uyumun doğrulanması ve kronun kalıcı olarak yapıştırılması."
+        }
       ],
       "faqTitle": "Kron SSS",
       "faqs": [
-        {"question": "Ne zaman diş kronuna ihtiyacım olur?", "answer": "Önemli ölçüde çürümüş, çatlamış veya zayıflamış dişler için."},
-        {"question": "Kronlar ne kadar süre dayanır?", "answer": "Doğru bakımla genellikle 15-25 yıl."},
-        {"question": "Kronum doğal görünecek mi?", "answer": "Evet, doğal dişleri taklit eden gelişmiş malzemeler kullanıyoruz."},
-        {"question": "Kron yaptırmak ağrılı mıdır?", "answer": "Lokal anestezi altında yapılır, minimal rahatsızlık."}
+        {
+          "question": "Ne zaman diş kronuna ihtiyacım olur?",
+          "answer": "Önemli ölçüde çürümüş, çatlamış veya zayıflamış dişler için."
+        },
+        {
+          "question": "Kronlar ne kadar süre dayanır?",
+          "answer": "Doğru bakımla genellikle 15-25 yıl."
+        },
+        {
+          "question": "Kronum doğal görünecek mi?",
+          "answer": "Evet, doğal dişleri taklit eden gelişmiş malzemeler kullanıyoruz."
+        },
+        {
+          "question": "Kron yaptırmak ağrılı mıdır?",
+          "answer": "Lokal anestezi altında yapılır, minimal rahatsızlık."
+        }
       ],
       "duration": "1-2 hafta içinde 1-2 randevu",
       "warranty": "Tüm kronlarda 10 yıl garanti"
@@ -624,21 +931,51 @@
       "heroDescription": "Enfeksiyonu ortadan kaldırmak, ağrıyı gidermek ve doğal dişlerinizi korumak için ileri kanal tedavisi.",
       "overview": "Endodonti, diş pulpası ve diş kökünü çevreleyen dokuların tedavisine odaklanır.",
       "benefitsTitle": "Neden Kanal Tedavisi",
-      "benefits": ["Doğal dişinizi kurtarın", "Ağrı ve enfeksiyonu ortadan kaldırın", "Yayılmayı önleyin", "Doğal kapanışı koruyun", "Daha uygun maliyetli", "Yüksek başarı oranı", "Konforlu işlem", "Doğal görünümü korur"],
+      "benefits": [
+        "Doğal dişinizi kurtarın",
+        "Ağrı ve enfeksiyonu ortadan kaldırın",
+        "Yayılmayı önleyin",
+        "Doğal kapanışı koruyun",
+        "Daha uygun maliyetli",
+        "Yüksek başarı oranı",
+        "Konforlu işlem",
+        "Doğal görünümü korur"
+      ],
       "processTitle": "Endodontik Tedaviniz",
       "process": [
-        {"title": "Teşhis ve Röntgen", "description": "Dişin muayenesi ve enfeksiyonun boyutunun değerlendirilmesi."},
-        {"title": "Anestezi ve İzolasyon", "description": "Bölgenin uyuşturulması ve rubber dam yerleştirilmesi."},
-        {"title": "Erişim ve Temizlik", "description": "Enfekte pulpanın çıkarılması ve kök kanallarının temizlenmesi."},
-        {"title": "Dezenfeksiyon ve Dolgu", "description": "Kanalların dezenfekte edilmesi ve gutta-percha ile doldurulması."},
-        {"title": "Restorasyon", "description": "Dişin dolgu veya kronla restore edilmesi."}
+        {
+          "title": "Teşhis ve Röntgen",
+          "description": "Dişin muayenesi ve enfeksiyonun boyutunun değerlendirilmesi."
+        },
+        {
+          "title": "Anestezi ve İzolasyon",
+          "description": "Bölgenin uyuşturulması ve rubber dam yerleştirilmesi."
+        },
+        {
+          "title": "Erişim ve Temizlik",
+          "description": "Enfekte pulpanın çıkarılması ve kök kanallarının temizlenmesi."
+        },
+        {
+          "title": "Dezenfeksiyon ve Dolgu",
+          "description": "Kanalların dezenfekte edilmesi ve gutta-percha ile doldurulması."
+        },
+        { "title": "Restorasyon", "description": "Dişin dolgu veya kronla restore edilmesi." }
       ],
       "faqTitle": "Endodonti Soruları",
       "faqs": [
-        {"question": "Kanal tedavisi ağrılı mıdır?", "answer": "Dolgu yaptırmaktan daha fazla rahatsızlık vermez."},
-        {"question": "Ne kadar sürer?", "answer": "Bir ila iki randevu, her biri 60-90 dakika."},
-        {"question": "Tedavi olmazsam ne olur?", "answer": "Enfeksiyon yayılabilir, potansiyel olarak apse ve kemik kaybına neden olabilir."},
-        {"question": "Tedavi edilmiş dişler ne kadar süre dayanır?", "answer": "Doğru restorasyon ve bakımla ömür boyu."}
+        {
+          "question": "Kanal tedavisi ağrılı mıdır?",
+          "answer": "Dolgu yaptırmaktan daha fazla rahatsızlık vermez."
+        },
+        { "question": "Ne kadar sürer?", "answer": "Bir ila iki randevu, her biri 60-90 dakika." },
+        {
+          "question": "Tedavi olmazsam ne olur?",
+          "answer": "Enfeksiyon yayılabilir, potansiyel olarak apse ve kemik kaybına neden olabilir."
+        },
+        {
+          "question": "Tedavi edilmiş dişler ne kadar süre dayanır?",
+          "answer": "Doğru restorasyon ve bakımla ömür boyu."
+        }
       ],
       "duration": "1-2 randevu, her biri 60-90 dakika",
       "warranty": "Tedavi başarı oranı %95'in üzerinde"
@@ -692,25 +1029,55 @@
     "essential": {
       "name": "Temel",
       "tagline": "Kaliteli bakim icin ihtiyaciniz olan her sey",
-      "includes": ["Ucretsiz 3D BT Taramasi", "Kisisellestirilmis tedavi plani", "Havalimani transferi", "Tedavi koordinatoru", "WhatsApp destek"]
+      "includes": [
+        "Ucretsiz 3D BT Taramasi",
+        "Kisisellestirilmis tedavi plani",
+        "Havalimani transferi",
+        "Tedavi koordinatoru",
+        "WhatsApp destek"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "Eksiksiz dis turizmi deneyimi",
-      "includes": ["Temel'deki her sey", "3 gece otel konaklamasi", "Tirana sehir turu", "Gunluk klinik transferleri", "Acil destek hatti", "Tedavi sonrasi bakim kiti"]
+      "includes": [
+        "Temel'deki her sey",
+        "3 gece otel konaklamasi",
+        "Tirana sehir turu",
+        "Gunluk klinik transferleri",
+        "Acil destek hatti",
+        "Tedavi sonrasi bakim kiti"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Luks bakim, olaganustu sonuclar",
-      "includes": ["Premium'daki her sey", "5 gece 4 yildizli otel", "Kisisel rehber ve tercuman", "Spa seansi", "Gurme aksam yemegi", "Uzatilmis tedavi sonrasi bakim", "Oncelikli randevu"]
+      "includes": [
+        "Premium'daki her sey",
+        "5 gece 4 yildizli otel",
+        "Kisisel rehber ve tercuman",
+        "Spa seansi",
+        "Gurme aksam yemegi",
+        "Uzatilmis tedavi sonrasi bakim",
+        "Oncelikli randevu"
+      ]
     },
     "cta": "Kisisel Teklifinizi Isteyin",
     "processLabel": "Yolculugunuz",
     "howItWorks": "Nasil Calisir",
-    "step1": { "title": "Rontgeninizi Gonderin", "desc": "Ucretsiz degerlendirme icin panoramik rontgeninizi WhatsApp veya e-posta ile paylasin." },
+    "step1": {
+      "title": "Rontgeninizi Gonderin",
+      "desc": "Ucretsiz degerlendirme icin panoramik rontgeninizi WhatsApp veya e-posta ile paylasin."
+    },
     "step2": { "title": "Planinizi Alin", "desc": "24 saat icinde detayli tedavi plani alin." },
-    "step3": { "title": "Seyahatinizi Rezerve Edin", "desc": "Seyahat ve konaklamanizi organize etmenize yardimci oluyoruz." },
-    "step4": { "title": "Gulumsemenizi Donusturun", "desc": "Gelin, tedavi olun ve Tirana'nin tadini cikarin." },
+    "step3": {
+      "title": "Seyahatinizi Rezerve Edin",
+      "desc": "Seyahat ve konaklamanizi organize etmenize yardimci oluyoruz."
+    },
+    "step4": {
+      "title": "Gulumsemenizi Donusturun",
+      "desc": "Gelin, tedavi olun ve Tirana'nin tadini cikarin."
+    },
     "travelLabel": "Pratik Bilgiler",
     "travelTitle": "Seyahat Kolaylastirildi",
     "travel": {

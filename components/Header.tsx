@@ -88,11 +88,7 @@ export const Header: React.FC = () => {
 
           {/* Center: Brand Logo */}
           <div className="flex justify-center">
-            <a
-              href={lp('/')}
-              className="relative group"
-              data-cursor="hover"
-            >
+            <a href={lp('/')} className="relative group" data-cursor="hover">
               <img
                 src="/images/zeo-logo.png"
                 alt="Zeo Dental Clinic"

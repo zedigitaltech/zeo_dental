@@ -1054,25 +1054,58 @@
     "essential": {
       "name": "Esencial",
       "tagline": "Gjithcka qe ju duhet per kujdes cilesor",
-      "includes": ["Skanim 3D CT Falas", "Plan trajtimi i personalizuar", "Transfer nga aeroporti", "Koordinator trajtimi", "Mbeshtetje WhatsApp"]
+      "includes": [
+        "Skanim 3D CT Falas",
+        "Plan trajtimi i personalizuar",
+        "Transfer nga aeroporti",
+        "Koordinator trajtimi",
+        "Mbeshtetje WhatsApp"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "Eksperienca e plote e turizmit dentar",
-      "includes": ["Gjithcka ne Esencial", "3 net akomodim ne hotel", "Tur i guiduar ne Tirane", "Transferta ditore ne klinike", "Linje emergjence", "Kit kujdesi pas trajtimit"]
+      "includes": [
+        "Gjithcka ne Esencial",
+        "3 net akomodim ne hotel",
+        "Tur i guiduar ne Tirane",
+        "Transferta ditore ne klinike",
+        "Linje emergjence",
+        "Kit kujdesi pas trajtimit"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Kujdes luksoz, rezultate te jashtezakonshme",
-      "includes": ["Gjithcka ne Premium", "5 net hotel 4-yjesh", "Guid personal & perkthyes", "Seance spa", "Darke gourmet", "Kujdes i zgjeruar pas trajtimit", "Programim prioritar"]
+      "includes": [
+        "Gjithcka ne Premium",
+        "5 net hotel 4-yjesh",
+        "Guid personal & perkthyes",
+        "Seance spa",
+        "Darke gourmet",
+        "Kujdes i zgjeruar pas trajtimit",
+        "Programim prioritar"
+      ]
     },
     "cta": "Kerkoni Oferten Tuaj te Personalizuar",
     "processLabel": "Udhetimi Juaj",
     "howItWorks": "Si Funksionon",
-    "step1": { "title": "Dergoni Rontgenin", "desc": "Ndani rontgenin tuaj panoramik nepermjet WhatsApp ose email per nje vleresim falas." },
-    "step2": { "title": "Merrni Planin", "desc": "Merrni nje plan trajtimi te detajuar brenda 24 oreve." },
-    "step3": { "title": "Rezervoni Udhetimin", "desc": "Ne ndihmojme te organizojme udhetimin dhe akomodimin tuaj." },
-    "step4": { "title": "Transformoni Buzequeshjen", "desc": "Arrini, trajtohuni, dhe shijoni Tiranen." },
+    "step1": {
+      "title": "Dergoni Rontgenin",
+      "desc": "Ndani rontgenin tuaj panoramik nepermjet WhatsApp ose email per nje vleresim falas."
+    },
+    "step2": {
+      "title": "Merrni Planin",
+      "desc": "Merrni nje plan trajtimi te detajuar brenda 24 oreve."
+    },
+    "step3": {
+      "title": "Rezervoni Udhetimin",
+      "desc": "Ne ndihmojme te organizojme udhetimin dhe akomodimin tuaj."
+    },
+    "step4": {
+      "title": "Transformoni Buzequeshjen",
+      "desc": "Arrini, trajtohuni, dhe shijoni Tiranen."
+    },
     "travelLabel": "Info Praktike",
     "travelTitle": "Udhetimi i Lehte",
     "travel": {

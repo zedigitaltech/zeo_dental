@@ -138,7 +138,9 @@ export const ChatWidget: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-white font-serif text-lg">{t('chat.assistantName')}</h3>
-                <p className="text-studio-gray text-[10px] uppercase tracking-wider">{t('chat.status')}</p>
+                <p className="text-studio-gray text-[10px] uppercase tracking-wider">
+                  {t('chat.status')}
+                </p>
               </div>
             </div>
             <button
@@ -201,7 +203,9 @@ export const ChatWidget: React.FC = () => {
               </button>
             </div>
             <div className="text-center mt-3">
-              <span className="text-[10px] text-studio-gray tracking-wide">{t('chat.disclaimer')}</span>
+              <span className="text-[10px] text-studio-gray tracking-wide">
+                {t('chat.disclaimer')}
+              </span>
             </div>
           </div>
         </div>

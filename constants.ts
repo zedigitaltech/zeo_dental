@@ -178,7 +178,7 @@ export const DOCTORS: Doctor[] = [
     image: '/images/team/dorina-beqiraj-card.jpg',
     bio: 'Expert trained at the most prestigious hospital centers in Paris, Dr. Dorina delivers clinical precision and advanced French-certified treatments.',
     fullBio:
-      'Dr. Dorina Beqiraj is a specialist in Oral Surgery and Implantology, trained at the most prestigious hospital centers in Paris. She brings clinical precision and advanced French-certified treatments to every procedure. Her expertise includes specialization in Oral Surgery and Occlusodontology at elite hospitals Pitié Salpêtrière and Charles Foix in Paris, as well as specialized training in Periodontology (gum diseases) at CHU-Nantes. Dr. Dorina holds the French CES certification (Certificat d\'Études Supérieures) with diplomas in surgery, implantology, and anatomy-physiology.',
+      "Dr. Dorina Beqiraj is a specialist in Oral Surgery and Implantology, trained at the most prestigious hospital centers in Paris. She brings clinical precision and advanced French-certified treatments to every procedure. Her expertise includes specialization in Oral Surgery and Occlusodontology at elite hospitals Pitié Salpêtrière and Charles Foix in Paris, as well as specialized training in Periodontology (gum diseases) at CHU-Nantes. Dr. Dorina holds the French CES certification (Certificat d'Études Supérieures) with diplomas in surgery, implantology, and anatomy-physiology.",
   },
   {
     id: 'dr-rien',

@@ -135,7 +135,10 @@
         ],
         "process": [
           { "title": "Evaluacion", "description": "Escaneo digital y analisis de la mordida." },
-          { "title": "Planificacion", "description": "Plan de tratamiento personalizado y creacion del cronograma." },
+          {
+            "title": "Planificacion",
+            "description": "Plan de tratamiento personalizado y creacion del cronograma."
+          },
           {
             "title": "Terapia Activa",
             "description": "Uso de alineadores o brackets con controles regulares."
@@ -192,7 +195,10 @@
           },
           { "title": "Confort", "description": "Administracion de anestesia local o sedacion." },
           { "title": "Procedimiento", "description": "Ejecucion quirurgica minimamente invasiva." },
-          { "title": "Recuperacion", "description": "Instrucciones detalladas de cuidados posteriores y seguimiento." }
+          {
+            "title": "Recuperacion",
+            "description": "Instrucciones detalladas de cuidados posteriores y seguimiento."
+          }
         ]
       },
       "pediatric": {
@@ -1050,25 +1056,58 @@
     "essential": {
       "name": "Esencial",
       "tagline": "Todo lo que necesitas para un cuidado de calidad",
-      "includes": ["TAC 3D Gratuito", "Plan de tratamiento personalizado", "Transfer aeropuerto", "Coordinador de tratamiento", "Soporte WhatsApp"]
+      "includes": [
+        "TAC 3D Gratuito",
+        "Plan de tratamiento personalizado",
+        "Transfer aeropuerto",
+        "Coordinador de tratamiento",
+        "Soporte WhatsApp"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "La experiencia completa de turismo dental",
-      "includes": ["Todo en Esencial", "3 noches de hotel", "Tour guiado por Tirana", "Traslados diarios a la clinica", "Linea de emergencia", "Kit de cuidado post-tratamiento"]
+      "includes": [
+        "Todo en Esencial",
+        "3 noches de hotel",
+        "Tour guiado por Tirana",
+        "Traslados diarios a la clinica",
+        "Linea de emergencia",
+        "Kit de cuidado post-tratamiento"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Cuidado de lujo, resultados excepcionales",
-      "includes": ["Todo en Premium", "5 noches en hotel 4 estrellas", "Guia personal y traductor", "Sesion de spa", "Cena gourmet", "Seguimiento post-cuidado extendido", "Programacion prioritaria"]
+      "includes": [
+        "Todo en Premium",
+        "5 noches en hotel 4 estrellas",
+        "Guia personal y traductor",
+        "Sesion de spa",
+        "Cena gourmet",
+        "Seguimiento post-cuidado extendido",
+        "Programacion prioritaria"
+      ]
     },
     "cta": "Solicita Tu Presupuesto Personalizado",
     "processLabel": "Tu Recorrido",
     "howItWorks": "Como Funciona",
-    "step1": { "title": "Envia Tu Radiografia", "desc": "Comparte tu radiografia panoramica por WhatsApp o email para una evaluacion gratuita." },
-    "step2": { "title": "Recibe Tu Plan", "desc": "Recibe un plan de tratamiento detallado en 24 horas." },
-    "step3": { "title": "Reserva Tu Viaje", "desc": "Te ayudamos a organizar tu viaje y alojamiento." },
-    "step4": { "title": "Transforma Tu Sonrisa", "desc": "Llega, recibe tratamiento y disfruta de Tirana." },
+    "step1": {
+      "title": "Envia Tu Radiografia",
+      "desc": "Comparte tu radiografia panoramica por WhatsApp o email para una evaluacion gratuita."
+    },
+    "step2": {
+      "title": "Recibe Tu Plan",
+      "desc": "Recibe un plan de tratamiento detallado en 24 horas."
+    },
+    "step3": {
+      "title": "Reserva Tu Viaje",
+      "desc": "Te ayudamos a organizar tu viaje y alojamiento."
+    },
+    "step4": {
+      "title": "Transforma Tu Sonrisa",
+      "desc": "Llega, recibe tratamiento y disfruta de Tirana."
+    },
     "travelLabel": "Info Practica",
     "travelTitle": "Viajar Es Facil",
     "travel": {

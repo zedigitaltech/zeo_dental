@@ -26,6 +26,7 @@ If Windows asks to install WSL updates, follow the prompts.
 5. Now you can SSH into the clinic PC from anywhere via the Tailscale IP
 
 Enable Tailscale SSH (optional):
+
 - In Tailscale admin console (https://login.tailscale.com/admin), enable SSH
 
 ## Step 3: Download ManagerCRM
@@ -56,6 +57,7 @@ notepad .env
 ```
 
 In the .env file, change these values:
+
 ```
 MYSQL_ROOT_PASSWORD=<generate a strong password>
 MYSQL_PASSWORD=<generate a different strong password>
@@ -78,6 +80,7 @@ bash setup.sh
 ```
 
 If bash isn't available, use WSL:
+
 ```powershell
 wsl bash setup.sh
 ```
@@ -113,6 +116,7 @@ That's it! `crm.zeodentalclinic.com` now points to the clinic PC through Cloudfl
 ## Step 7: Auto-Start on Boot
 
 Make Docker Desktop start automatically:
+
 1. Open Docker Desktop > Settings > General
 2. Check "Start Docker Desktop when you sign in"
 
@@ -123,6 +127,7 @@ Make containers restart automatically (already configured in docker-compose.yml 
 1. Go to https://myaccount.google.com/apppasswords (with zeodentalclinic@gmail.com)
 2. Generate an app password for "Mail"
 3. Edit the .env file and set:
+
 ```
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
@@ -130,6 +135,7 @@ SMTP_USER=zeodentalclinic@gmail.com
 SMTP_PASS=<the app password>
 SMTP_SECURE=tls
 ```
+
 4. Restart: `docker compose down && docker compose up -d && bash setup.sh`
 
 ## Step 9: Set Up Booking Sync
@@ -140,6 +146,7 @@ After the CRM is accessible at crm.zeodentalclinic.com:
 2. Go to Admin > System > API Clients
 3. Register a new API client (note the client_id and client_secret)
 4. On your website (Fly.io), set the secrets:
+
 ```bash
 fly secrets set CRM_BASE_URL=https://crm.zeodentalclinic.com
 fly secrets set CRM_CLIENT_ID=<client_id>
@@ -151,25 +158,30 @@ fly secrets set CRM_PASSWORD=<admin password>
 ## Troubleshooting
 
 ### Docker won't start
+
 - Make sure virtualization is enabled in BIOS (VT-x / AMD-V)
 - Run: `wsl --update` in PowerShell
 
 ### Can't access http://localhost:8300
+
 - Check Docker Desktop is running (green icon)
 - Run: `docker ps` to see if containers are up
 - Check logs: `docker logs crm-ze-crm-ze-app-1`
 
 ### Cloudflare tunnel not working
+
 - Check cloudflared service is running: Services > Cloudflared Agent
 - Verify in Cloudflare dashboard that tunnel status is "Healthy"
 
 ### Slow performance
+
 - Allocate more RAM to Docker: Docker Desktop > Settings > Resources > Memory (set to 4GB+)
 - Make sure the PC has at least 8GB RAM total
 
 ## Daily Backup
 
 Create a scheduled task in Windows:
+
 1. Open Task Scheduler
 2. Create Basic Task: "ManagerCRM Backup"
 3. Trigger: Daily at 3:00 AM
@@ -180,6 +192,7 @@ Create a scheduled task in Windows:
 ## Remote Management
 
 From your MacBook (with Tailscale installed):
+
 ```bash
 # SSH into the clinic PC
 ssh user@100.x.x.x

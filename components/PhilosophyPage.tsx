@@ -29,7 +29,7 @@ export const PhilosophyPage: React.FC = () => {
 
   // Preload images
   useEffect(() => {
-    philosophyImages.forEach((img) => {
+    philosophyImages.forEach(img => {
       const image = new Image();
       image.src = img.src;
     });
@@ -40,7 +40,7 @@ export const PhilosophyPage: React.FC = () => {
     const interval = setInterval(() => {
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % philosophyImages.length);
+        setCurrentImageIndex(prev => (prev + 1) % philosophyImages.length);
         setIsTransitioning(false);
       }, 500);
     }, 4000);
@@ -59,11 +59,7 @@ export const PhilosophyPage: React.FC = () => {
           <div className="grid grid-cols-4 h-full">
             {philosophyImages.slice(0, 4).map((img, i) => (
               <div key={i} className="relative overflow-hidden">
-                <img
-                  src={img.src}
-                  alt=""
-                  className="w-full h-full object-cover grayscale"
-                />
+                <img src={img.src} alt="" className="w-full h-full object-cover grayscale" />
               </div>
             ))}
           </div>
@@ -192,15 +188,21 @@ export const PhilosophyPage: React.FC = () => {
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.expertiseList.item1')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.expertiseList.item1')}
+                        </span>
                       </li>
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.expertiseList.item2')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.expertiseList.item2')}
+                        </span>
                       </li>
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.expertiseList.item3')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.expertiseList.item3')}
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -211,15 +213,21 @@ export const PhilosophyPage: React.FC = () => {
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.technologyList.item1')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.technologyList.item1')}
+                        </span>
                       </li>
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.technologyList.item2')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.technologyList.item2')}
+                        </span>
                       </li>
                       <li className="flex items-center gap-3">
                         <Check size={16} className="text-studio-gold flex-shrink-0" />
-                        <span className="font-serif text-lg">{t('philosophy.technologyList.item3')}</span>
+                        <span className="font-serif text-lg">
+                          {t('philosophy.technologyList.item3')}
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -310,7 +318,8 @@ export const PhilosophyPage: React.FC = () => {
               <span className="h-[1px] w-8 bg-studio-gold" />
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-studio-black mb-6">
-              {t('whyChooseUs.title')} <span className="italic">{t('whyChooseUs.titleHighlight')}</span>
+              {t('whyChooseUs.title')}{' '}
+              <span className="italic">{t('whyChooseUs.titleHighlight')}</span>
             </h2>
             <p className="text-studio-gray text-lg leading-relaxed mb-12">
               {t('whyChooseUs.subtitle')}

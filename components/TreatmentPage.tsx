@@ -28,7 +28,8 @@ export const TreatmentPage: React.FC<TreatmentPageProps> = ({ treatmentKey, hero
   const overview = t(`treatmentPages.${treatmentKey}.overview`);
   const benefits = tRaw<string[]>(`treatmentPages.${treatmentKey}.benefits`) || [];
   const process = tRaw<ProcessStep[]>(`treatmentPages.${treatmentKey}.process`) || [];
-  const faqs = tRaw<{ question: string; answer: string }[]>(`treatmentPages.${treatmentKey}.faqs`) || [];
+  const faqs =
+    tRaw<{ question: string; answer: string }[]>(`treatmentPages.${treatmentKey}.faqs`) || [];
   const duration = t(`treatmentPages.${treatmentKey}.duration`);
   const warranty = t(`treatmentPages.${treatmentKey}.warranty`);
 
@@ -40,11 +41,7 @@ export const TreatmentPage: React.FC<TreatmentPageProps> = ({ treatmentKey, hero
       <section className="relative min-h-[70vh] flex items-center">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src={heroImage}
-            alt={title}
-            className="w-full h-full object-cover"
-          />
+          <img src={heroImage} alt={title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
         </div>
 
@@ -167,10 +164,7 @@ export const TreatmentPage: React.FC<TreatmentPageProps> = ({ treatmentKey, hero
 
             <div className="space-y-0">
               {process.map((step, index) => (
-                <div
-                  key={index}
-                  className="relative flex gap-6 pb-12 last:pb-0"
-                >
+                <div key={index} className="relative flex gap-6 pb-12 last:pb-0">
                   {/* Timeline line */}
                   {index < process.length - 1 && (
                     <div className="absolute left-[19px] top-10 w-[2px] h-[calc(100%-24px)] bg-gray-200" />
@@ -186,9 +180,7 @@ export const TreatmentPage: React.FC<TreatmentPageProps> = ({ treatmentKey, hero
                     <h3 className="font-serif text-xl sm:text-2xl text-studio-black mb-2">
                       {step.title}
                     </h3>
-                    <p className="text-studio-gray leading-relaxed">
-                      {step.description}
-                    </p>
+                    <p className="text-studio-gray leading-relaxed">{step.description}</p>
                   </div>
                 </div>
               ))}

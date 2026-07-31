@@ -135,7 +135,10 @@
         ],
         "process": [
           { "title": "Valutazione", "description": "Scansione digitale e analisi del morso." },
-          { "title": "Pianificazione", "description": "Piano di trattamento personalizzato e creazione del calendario." },
+          {
+            "title": "Pianificazione",
+            "description": "Piano di trattamento personalizzato e creazione del calendario."
+          },
           {
             "title": "Terapia Attiva",
             "description": "Utilizzo di allineatori o apparecchi con controlli regolari."
@@ -190,9 +193,15 @@
             "title": "Valutazione",
             "description": "Revisione della storia clinica e pianificazione chirurgica."
           },
-          { "title": "Comfort", "description": "Somministrazione dell'anestesia locale o della sedazione." },
+          {
+            "title": "Comfort",
+            "description": "Somministrazione dell'anestesia locale o della sedazione."
+          },
           { "title": "Procedura", "description": "Esecuzione chirurgica minimamente invasiva." },
-          { "title": "Recupero", "description": "Istruzioni dettagliate per il post-operatorio e follow-up." }
+          {
+            "title": "Recupero",
+            "description": "Istruzioni dettagliate per il post-operatorio e follow-up."
+          }
         ]
       },
       "pediatric": {
@@ -1053,24 +1062,54 @@
     "essential": {
       "name": "Essenziale",
       "tagline": "Tutto il necessario per cure di qualita",
-      "includes": ["TAC 3D Gratuita", "Piano di trattamento personalizzato", "Transfer aeroportuale", "Coordinatore del trattamento", "Supporto WhatsApp"]
+      "includes": [
+        "TAC 3D Gratuita",
+        "Piano di trattamento personalizzato",
+        "Transfer aeroportuale",
+        "Coordinatore del trattamento",
+        "Supporto WhatsApp"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "L'esperienza completa del turismo dentale",
-      "includes": ["Tutto in Essenziale", "3 notti in hotel", "Tour guidato di Tirana", "Transfer giornalieri alla clinica", "Linea di emergenza", "Kit di cura post-trattamento"]
+      "includes": [
+        "Tutto in Essenziale",
+        "3 notti in hotel",
+        "Tour guidato di Tirana",
+        "Transfer giornalieri alla clinica",
+        "Linea di emergenza",
+        "Kit di cura post-trattamento"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Cure di lusso, risultati eccezionali",
-      "includes": ["Tutto in Premium", "5 notti in hotel 4 stelle", "Guida personale e traduttore", "Sessione spa", "Cena gourmet", "Assistenza post-cura estesa", "Programmazione prioritaria"]
+      "includes": [
+        "Tutto in Premium",
+        "5 notti in hotel 4 stelle",
+        "Guida personale e traduttore",
+        "Sessione spa",
+        "Cena gourmet",
+        "Assistenza post-cura estesa",
+        "Programmazione prioritaria"
+      ]
     },
     "cta": "Richiedi il Tuo Preventivo Personalizzato",
     "processLabel": "Il Tuo Percorso",
     "howItWorks": "Come Funziona",
-    "step1": { "title": "Invia la Tua Radiografia", "desc": "Condividi la tua radiografia panoramica via WhatsApp o email per una valutazione gratuita." },
-    "step2": { "title": "Ricevi il Piano", "desc": "Ricevi un piano di trattamento dettagliato entro 24 ore." },
-    "step3": { "title": "Prenota il Viaggio", "desc": "Ti aiutiamo a organizzare viaggio e alloggio." },
+    "step1": {
+      "title": "Invia la Tua Radiografia",
+      "desc": "Condividi la tua radiografia panoramica via WhatsApp o email per una valutazione gratuita."
+    },
+    "step2": {
+      "title": "Ricevi il Piano",
+      "desc": "Ricevi un piano di trattamento dettagliato entro 24 ore."
+    },
+    "step3": {
+      "title": "Prenota il Viaggio",
+      "desc": "Ti aiutiamo a organizzare viaggio e alloggio."
+    },
     "step4": { "title": "Trasforma il Tuo Sorriso", "desc": "Arrivi, ti curi e ti godi Tirana." },
     "travelLabel": "Info Pratiche",
     "travelTitle": "Viaggiare e Facile",
