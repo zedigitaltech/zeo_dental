@@ -29,7 +29,7 @@ export const TermsOfService: React.FC = () => {
               1. Pranimi i Kushteve
             </h2>
             <p className="text-studio-gray leading-relaxed">
-              Duke përdorur shërbimet e Klinikës Dentare Zeo ("Klinika"), ju pranoni këto kushte
+              Duke përdorur shërbimet e Klinikës Dentare Zeo (&quot;Klinika&quot;), ju pranoni këto kushte
               shërbimi. Nëse nuk jeni dakord me këto kushte, ju lutemi mos përdorni shërbimet tona.
               Këto kushte rregullohen nga ligjet e Republikës së Shqipërisë.
             </p>
@@ -99,7 +99,7 @@ export const TermsOfService: React.FC = () => {
               5. Pëlqimi i Informuar
             </h2>
             <p className="text-studio-gray leading-relaxed mb-4">
-              5.1. Përpara çdo trajtimi, do t'ju shpjegohen procedurat, risqet, dhe alternativat e
+              5.1. Përpara çdo trajtimi, do t&apos;ju shpjegohen procedurat, risqet, dhe alternativat e
               mundshme.
             </p>
             <p className="text-studio-gray leading-relaxed mb-4">
@@ -158,7 +158,7 @@ export const TermsOfService: React.FC = () => {
               8.2. Ankesat do të trajtohen brenda 15 ditëve pune.
             </p>
             <p className="text-studio-gray leading-relaxed">
-              8.3. Mosmarrëveshjet që nuk zgjidhen me mirëkuptim do t'i nënshtrohen juridiksionit të
+              8.3. Mosmarrëveshjet që nuk zgjidhen me mirëkuptim do t&apos;i nënshtrohen juridiksionit të
               gjykatave të Tiranës, Shqipëri.
             </p>
           </section>
