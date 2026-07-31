@@ -31,7 +31,8 @@ export const Booking: React.FC = () => {
   // Pre-fill from ?package= query param (linked from PackagesPage)
   const packageParam = new URLSearchParams(window.location.search).get('package');
   const validPackages = ['essential', 'premium', 'vip'];
-  const selectedPackage = packageParam && validPackages.includes(packageParam) ? packageParam : null;
+  const selectedPackage =
+    packageParam && validPackages.includes(packageParam) ? packageParam : null;
 
   const [formData, setFormData] = useState({
     name: '',
@@ -66,11 +67,14 @@ export const Booking: React.FC = () => {
     setFiles(prev => prev.filter((_, i) => i !== index));
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
-  }, [addFiles]);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragOver(false);
+      if (e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
+    },
+    [addFiles]
+  );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -79,7 +83,9 @@ export const Booking: React.FC = () => {
 
   const handleDragLeave = useCallback(() => setIsDragOver(false), []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -257,7 +263,11 @@ export const Booking: React.FC = () => {
         </Reveal>
 
         <Reveal delay={200}>
-          <form id="booking-form" className="w-full border-t border-white/10 pt-16" onSubmit={handleSubmit}>
+          <form
+            id="booking-form"
+            className="w-full border-t border-white/10 pt-16"
+            onSubmit={handleSubmit}
+          >
             {/* Honeypot field */}
             <input
               type="text"
@@ -337,12 +347,8 @@ export const Booking: React.FC = () => {
                   }`}
                 >
                   <Upload size={24} className="mx-auto mb-3 text-white/30" />
-                  <p className="text-white/40 text-sm font-light">
-                    {t('booking.uploadHint')}
-                  </p>
-                  <p className="text-white/20 text-xs mt-1">
-                    {t('booking.uploadFormats')}
-                  </p>
+                  <p className="text-white/40 text-sm font-light">{t('booking.uploadHint')}</p>
+                  <p className="text-white/20 text-xs mt-1">{t('booking.uploadFormats')}</p>
                   <input
                     ref={fileInputRef}
                     type="file"
@@ -372,7 +378,10 @@ export const Booking: React.FC = () => {
                         </span>
                         <button
                           type="button"
-                          onClick={(e) => { e.stopPropagation(); removeFile(i); }}
+                          onClick={e => {
+                            e.stopPropagation();
+                            removeFile(i);
+                          }}
                           className="text-white/30 hover:text-red-400 transition-colors ml-1"
                         >
                           <X size={14} />
@@ -440,9 +449,7 @@ export const Booking: React.FC = () => {
                     className="mt-1 w-4 h-4 rounded border-white/30 bg-transparent text-studio-gold focus:ring-studio-gold"
                     required
                   />
-                  <span className="text-sm text-white/60">
-                    {t('booking.healthDataConsent')}
-                  </span>
+                  <span className="text-sm text-white/60">{t('booking.healthDataConsent')}</span>
                 </label>
               )}
             </div>

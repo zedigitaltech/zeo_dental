@@ -135,7 +135,10 @@
         ],
         "process": [
           { "title": "Évaluation", "description": "Scanner numérique et analyse de l'occlusion." },
-          { "title": "Planification", "description": "Plan de traitement personnalisé et création du calendrier." },
+          {
+            "title": "Planification",
+            "description": "Plan de traitement personnalisé et création du calendrier."
+          },
           {
             "title": "Thérapie Active",
             "description": "Port des gouttières ou des bagues avec contrôles réguliers."
@@ -190,9 +193,15 @@
             "title": "Évaluation",
             "description": "Examen des antécédents médicaux et planification chirurgicale."
           },
-          { "title": "Confort", "description": "Administration d'anesthésie locale ou de sédation." },
+          {
+            "title": "Confort",
+            "description": "Administration d'anesthésie locale ou de sédation."
+          },
           { "title": "Intervention", "description": "Exécution chirurgicale peu invasive." },
-          { "title": "Récupération", "description": "Instructions détaillées de suivi postopératoire et contrôle." }
+          {
+            "title": "Récupération",
+            "description": "Instructions détaillées de suivi postopératoire et contrôle."
+          }
         ]
       },
       "pediatric": {
@@ -215,7 +224,10 @@
             "description": "Examen doux pour vérifier les caries et le développement."
           },
           { "title": "Nettoyage", "description": "Polissage doux et instructions d'hygiène." },
-          { "title": "Récompense", "description": "Renforcement positif pour développer la confiance." }
+          {
+            "title": "Récompense",
+            "description": "Renforcement positif pour développer la confiance."
+          }
         ]
       }
     }
@@ -1053,25 +1065,58 @@
     "essential": {
       "name": "Essentiel",
       "tagline": "Tout ce qu'il faut pour des soins de qualite",
-      "includes": ["Scanner 3D Gratuit", "Plan de traitement personnalise", "Transfert aeroport", "Coordinateur de soins", "Support WhatsApp"]
+      "includes": [
+        "Scanner 3D Gratuit",
+        "Plan de traitement personnalise",
+        "Transfert aeroport",
+        "Coordinateur de soins",
+        "Support WhatsApp"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "L'experience complete du tourisme dentaire",
-      "includes": ["Tout dans Essentiel", "3 nuits d'hotel", "Visite guidee de Tirana", "Transferts quotidiens a la clinique", "Ligne d'urgence", "Kit de soins post-traitement"]
+      "includes": [
+        "Tout dans Essentiel",
+        "3 nuits d'hotel",
+        "Visite guidee de Tirana",
+        "Transferts quotidiens a la clinique",
+        "Ligne d'urgence",
+        "Kit de soins post-traitement"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Soins de luxe, resultats exceptionnels",
-      "includes": ["Tout dans Premium", "5 nuits en hotel 4 etoiles", "Guide personnel et traducteur", "Seance spa", "Diner gastronomique", "Suivi post-soins prolonge", "Programmation prioritaire"]
+      "includes": [
+        "Tout dans Premium",
+        "5 nuits en hotel 4 etoiles",
+        "Guide personnel et traducteur",
+        "Seance spa",
+        "Diner gastronomique",
+        "Suivi post-soins prolonge",
+        "Programmation prioritaire"
+      ]
     },
     "cta": "Demandez Votre Devis Personnalise",
     "processLabel": "Votre Parcours",
     "howItWorks": "Comment Ca Marche",
-    "step1": { "title": "Envoyez Votre Radio", "desc": "Partagez votre radiographie panoramique par WhatsApp ou email pour une evaluation gratuite." },
-    "step2": { "title": "Recevez Votre Plan", "desc": "Recevez un plan de traitement detaille sous 24 heures." },
-    "step3": { "title": "Reservez Votre Voyage", "desc": "Nous vous aidons a organiser votre voyage et hebergement." },
-    "step4": { "title": "Transformez Votre Sourire", "desc": "Arrivez, soignez-vous et profitez de Tirana." },
+    "step1": {
+      "title": "Envoyez Votre Radio",
+      "desc": "Partagez votre radiographie panoramique par WhatsApp ou email pour une evaluation gratuite."
+    },
+    "step2": {
+      "title": "Recevez Votre Plan",
+      "desc": "Recevez un plan de traitement detaille sous 24 heures."
+    },
+    "step3": {
+      "title": "Reservez Votre Voyage",
+      "desc": "Nous vous aidons a organiser votre voyage et hebergement."
+    },
+    "step4": {
+      "title": "Transformez Votre Sourire",
+      "desc": "Arrivez, soignez-vous et profitez de Tirana."
+    },
     "travelLabel": "Infos Pratiques",
     "travelTitle": "Voyager en Toute Simplicite",
     "travel": {

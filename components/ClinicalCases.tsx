@@ -59,8 +59,8 @@ const CaseCard: React.FC<CaseCardProps> = ({
     if (!isMobile || !cardRef.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           setIsActive(entry.isIntersecting);
         });
       },
@@ -93,9 +93,10 @@ const CaseCard: React.FC<CaseCardProps> = ({
       <div
         className={`absolute transition-all duration-[800ms] cubic-bezier(0.22, 1, 0.36, 1)
                 z-20 overflow-hidden bg-gray-100
-                ${isExpanded
-                  ? 'h-[55%] w-[90%] top-[6%] left-[5%] shadow-lg'
-                  : 'top-0 left-0 right-0 h-full w-full shadow-none group-hover/case:h-[55%] group-hover/case:w-[90%] group-hover/case:top-[6%] group-hover/case:left-[5%] group-hover/case:shadow-lg'
+                ${
+                  isExpanded
+                    ? 'h-[55%] w-[90%] top-[6%] left-[5%] shadow-lg'
+                    : 'top-0 left-0 right-0 h-full w-full shadow-none group-hover/case:h-[55%] group-hover/case:w-[90%] group-hover/case:top-[6%] group-hover/case:left-[5%] group-hover/case:shadow-lg'
                 }`}
       >
         <ComparisonSlider
@@ -106,9 +107,11 @@ const CaseCard: React.FC<CaseCardProps> = ({
         />
 
         {/* Number Badge - Always visible on image, moves with it */}
-        <div className={`absolute top-4 left-4 z-30 transition-opacity duration-300 ${
-          isExpanded ? 'opacity-0' : 'opacity-100 group-hover/case:opacity-0'
-        }`}>
+        <div
+          className={`absolute top-4 left-4 z-30 transition-opacity duration-300 ${
+            isExpanded ? 'opacity-0' : 'opacity-100 group-hover/case:opacity-0'
+          }`}
+        >
           <span className="bg-black/20 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-ultra px-3 py-1 border border-white/20">
             {number}
           </span>
@@ -124,9 +127,10 @@ const CaseCard: React.FC<CaseCardProps> = ({
         style={isExpanded ? { opacity: 1, transform: 'translateY(0)' } : undefined}
         className={`absolute bottom-0 left-0 w-full h-[45%] z-10 flex flex-col items-center justify-center px-4 sm:px-8 text-center
                 transition-all duration-[800ms] cubic-bezier(0.22, 1, 0.36, 1) delay-100
-                ${isExpanded
-                  ? ''
-                  : 'opacity-0 translate-y-8 group-hover/case:opacity-100 group-hover/case:translate-y-0'
+                ${
+                  isExpanded
+                    ? ''
+                    : 'opacity-0 translate-y-8 group-hover/case:opacity-100 group-hover/case:translate-y-0'
                 }`}
       >
         <span className="text-[10px] font-bold text-studio-gold uppercase tracking-ultra mb-2 sm:mb-4">

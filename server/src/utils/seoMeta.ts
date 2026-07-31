@@ -35,7 +35,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Zeo Dental Clinic | Tirana Diş Kliniği, Arnavutluk',
       description:
-        'Tirana, Arnavutluk\'ta premium diş kliniği. Diş implantları, estetik diş hekimliği ve ortodonti. %50-70 tasarruf edin. Ücretsiz danışmanlık alın.',
+        "Tirana, Arnavutluk'ta premium diş kliniği. Diş implantları, estetik diş hekimliği ve ortodonti. %50-70 tasarruf edin. Ücretsiz danışmanlık alın.",
     },
     el: {
       title: 'Zeo Dental Clinic | Οδοντίατρος στα Τίρανα, Αλβανία',
@@ -78,7 +78,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Diş Tedavileri | Zeo Dental Clinic Arnavutluk',
       description:
-        'Tüm diş tedavilerimizi keşfedin: implantlar, protezler, şeffaf plaklar, ortodonti, kronlar ve endodonti. Arnavutluk\'ta uygun fiyatlar.',
+        "Tüm diş tedavilerimizi keşfedin: implantlar, protezler, şeffaf plaklar, ortodonti, kronlar ve endodonti. Arnavutluk'ta uygun fiyatlar.",
     },
     el: {
       title: 'Οδοντιατρικές Θεραπείες | Zeo Dental Clinic Αλβανία',
@@ -106,7 +106,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     it: {
       title: 'Impianti Dentali in Albania | Zeo Dental Clinic',
       description:
-        'Impianti dentali premium a Tirana, Albania. Straumann e Nobel Biocare, chirurgia guidata. Risparmia fino al 70% rispetto all\'Italia. Preventivo gratuito.',
+        "Impianti dentali premium a Tirana, Albania. Straumann e Nobel Biocare, chirurgia guidata. Risparmia fino al 70% rispetto all'Italia. Preventivo gratuito.",
     },
     de: {
       title: 'Zahnimplantate in Albanien | Zeo Dental Clinic',
@@ -116,12 +116,12 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     fr: {
       title: 'Implants Dentaires en Albanie | Zeo Dental Clinic',
       description:
-        'Implants dentaires premium à Tirana, Albanie. Straumann et Nobel Biocare, chirurgie guidée. Économisez jusqu\'à 70%. Devis gratuit et plan de traitement.',
+        "Implants dentaires premium à Tirana, Albanie. Straumann et Nobel Biocare, chirurgie guidée. Économisez jusqu'à 70%. Devis gratuit et plan de traitement.",
     },
     tr: {
       title: 'Diş İmplantları Arnavutluk | Zeo Dental Clinic',
       description:
-        'Tirana, Arnavutluk\'ta premium diş implantları. Straumann ve Nobel Biocare, bilgisayar destekli cerrahi. %50-70 tasarruf. Ücretsiz muayene ve tedavi planı.',
+        "Tirana, Arnavutluk'ta premium diş implantları. Straumann ve Nobel Biocare, bilgisayar destekli cerrahi. %50-70 tasarruf. Ücretsiz muayene ve tedavi planı.",
     },
     el: {
       title: 'Οδοντικά Εμφυτεύματα Αλβανία | Zeo Dental Clinic',
@@ -164,7 +164,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Diş Protezleri Arnavutluk | Zeo Dental Clinic',
       description:
-        'Tirana, Arnavutluk\'ta premium diş protezleri. Sabit köprüler, hareketli ve implant üstü protezler. Dijital laboratuvar. %60 tasarruf. Ücretsiz teklif alın.',
+        "Tirana, Arnavutluk'ta premium diş protezleri. Sabit köprüler, hareketli ve implant üstü protezler. Dijital laboratuvar. %60 tasarruf. Ücretsiz teklif alın.",
     },
     el: {
       title: 'Οδοντικές Προσθετικές Αλβανία | Zeo Dental Clinic',
@@ -192,7 +192,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     it: {
       title: 'Allineatori Trasparenti Albania | Zeo Dental Clinic',
       description:
-        'Allineatori trasparenti a Tirana, Albania. Denti dritti senza apparecchio metallico. Pianificazione digitale 3D. Risparmia il 50% rispetto all\'Italia. Preventivo gratis.',
+        "Allineatori trasparenti a Tirana, Albania. Denti dritti senza apparecchio metallico. Pianificazione digitale 3D. Risparmia il 50% rispetto all'Italia. Preventivo gratis.",
     },
     de: {
       title: 'Unsichtbare Zahnschienen Albanien | Zeo Dental Clinic',
@@ -207,7 +207,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Şeffaf Plaklar Arnavutluk | Zeo Dental Clinic',
       description:
-        'Tirana, Arnavutluk\'ta uygun fiyatlı şeffaf plak tedavisi. Metal braket olmadan görünmez diş düzeltme. 3D dijital planlama. %50 tasarruf. Ücretsiz konsültasyon.',
+        "Tirana, Arnavutluk'ta uygun fiyatlı şeffaf plak tedavisi. Metal braket olmadan görünmez diş düzeltme. 3D dijital planlama. %50 tasarruf. Ücretsiz konsültasyon.",
     },
     el: {
       title: 'Διαφανείς Νάρθηκες Αλβανία | Zeo Dental Clinic',
@@ -245,12 +245,12 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     fr: {
       title: 'Orthodontie en Albanie | Zeo Dental Clinic Tirana',
       description:
-        'Traitement orthodontique professionnel à Tirana, Albanie. Appareils métalliques, céramiques et transparents. Économisez jusqu\'à 60%. Consultation gratuite.',
+        "Traitement orthodontique professionnel à Tirana, Albanie. Appareils métalliques, céramiques et transparents. Économisez jusqu'à 60%. Consultation gratuite.",
     },
     tr: {
       title: 'Ortodonti Arnavutluk | Zeo Dental Clinic Tirana',
       description:
-        'Tirana, Arnavutluk\'ta profesyonel ortodonti tedavisi. Metal, seramik ve şeffaf braketler. Yetişkinler ve çocuklar için. %60 tasarruf. Ücretsiz muayene.',
+        "Tirana, Arnavutluk'ta profesyonel ortodonti tedavisi. Metal, seramik ve şeffaf braketler. Yetişkinler ve çocuklar için. %60 tasarruf. Ücretsiz muayene.",
     },
     el: {
       title: 'Ορθοδοντική στην Αλβανία | Zeo Dental Clinic',
@@ -293,7 +293,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Diş Kronları Arnavutluk | Zeo Dental Clinic',
       description:
-        'Tirana, Arnavutluk\'ta premium diş kronları. Zirkonyum, porselen ve E-max kronlar. Dijital laboratuvar, doğal sonuçlar. %60 tasarruf. Ücretsiz konsültasyon.',
+        "Tirana, Arnavutluk'ta premium diş kronları. Zirkonyum, porselen ve E-max kronlar. Dijital laboratuvar, doğal sonuçlar. %60 tasarruf. Ücretsiz konsültasyon.",
     },
     el: {
       title: 'Οδοντικές Στεφάνες Αλβανία | Zeo Dental Clinic',
@@ -336,7 +336,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Endodonti ve Estetik Diş Hekimliği | Zeo Dental',
       description:
-        'Tirana, Arnavutluk\'ta kanal tedavisi ve estetik diş hekimliği. Mikroskop destekli endodonti, veneer ve beyazlatma. %50-70 tasarruf. Ücretsiz değerlendirme.',
+        "Tirana, Arnavutluk'ta kanal tedavisi ve estetik diş hekimliği. Mikroskop destekli endodonti, veneer ve beyazlatma. %50-70 tasarruf. Ücretsiz değerlendirme.",
     },
     el: {
       title: 'Ενδοδοντία & Αισθητική Οδοντιατρική | Zeo Dental',
@@ -379,7 +379,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Felsefemiz | Zeo Dental Clinic Tirana',
       description:
-        'Zeo Dental felsefesini keşfedin: hasta odaklı bakım, ileri teknoloji ve uluslararası standartlar. Tirana, Arnavutluk\'ta premium diş kliniği.',
+        "Zeo Dental felsefesini keşfedin: hasta odaklı bakım, ileri teknoloji ve uluslararası standartlar. Tirana, Arnavutluk'ta premium diş kliniği.",
     },
     el: {
       title: 'Η Φιλοσοφία μας | Zeo Dental Clinic Τίρανα',
@@ -417,12 +417,12 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     fr: {
       title: 'Notre Équipe de Dentistes | Zeo Dental Clinic',
       description:
-        'Rencontrez les dentistes et spécialistes de Zeo Dental Clinic à Tirana. Médecins formés à l\'international avec des spécialisations avancées.',
+        "Rencontrez les dentistes et spécialistes de Zeo Dental Clinic à Tirana. Médecins formés à l'international avec des spécialisations avancées.",
     },
     tr: {
       title: 'Doktor Ekibimiz | Zeo Dental Clinic Arnavutluk',
       description:
-        'Zeo Dental Clinic\'in deneyimli diş hekimleri ve uzmanlarıyla tanışın. Uluslararası eğitimli doktorlar, Tirana, Arnavutluk. Randevu alın.',
+        "Zeo Dental Clinic'in deneyimli diş hekimleri ve uzmanlarıyla tanışın. Uluslararası eğitimli doktorlar, Tirana, Arnavutluk. Randevu alın.",
     },
     el: {
       title: 'Η Ομάδα μας | Zeo Dental Clinic Αλβανία',
@@ -465,7 +465,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Önce ve Sonra Vakaları | Zeo Dental Clinic',
       description:
-        'Zeo Dental Clinic\'in gerçek önce-sonra vakalarını görün. İmplant, kron, veneer ve ortodonti dönüşümleri. Tirana, Arnavutluk\'ta sonuçlarımızı keşfedin.',
+        "Zeo Dental Clinic'in gerçek önce-sonra vakalarını görün. İmplant, kron, veneer ve ortodonti dönüşümleri. Tirana, Arnavutluk'ta sonuçlarımızı keşfedin.",
     },
     el: {
       title: 'Κλινικά Περιστατικά Πριν & Μετά | Zeo Dental',
@@ -503,12 +503,12 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     fr: {
       title: 'Devis Gratuit en Ligne | Zeo Dental Clinic Albanie',
       description:
-        'Demandez votre devis gratuit chez Zeo Dental Clinic à Tirana. Plan de traitement personnalisé avec prix transparents sous 24 heures. Économisez jusqu\'à 70%.',
+        "Demandez votre devis gratuit chez Zeo Dental Clinic à Tirana. Plan de traitement personnalisé avec prix transparents sous 24 heures. Économisez jusqu'à 70%.",
     },
     tr: {
       title: 'Ücretsiz Teklif Alın | Zeo Dental Clinic Arnavutluk',
       description:
-        'Zeo Dental Clinic\'ten ücretsiz diş tedavi teklifi alın. Tirana\'da kişiselleştirilmiş tedavi planı, şeffaf fiyatlar, 24 saat içinde yanıt. %50-70 tasarruf.',
+        "Zeo Dental Clinic'ten ücretsiz diş tedavi teklifi alın. Tirana'da kişiselleştirilmiş tedavi planı, şeffaf fiyatlar, 24 saat içinde yanıt. %50-70 tasarruf.",
     },
     el: {
       title: 'Δωρεάν Προσφορά | Zeo Dental Clinic Αλβανία',
@@ -531,12 +531,12 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     en: {
       title: 'Privacy Policy | Zeo Dental Clinic',
       description:
-        'Read Zeo Dental Clinic\'s privacy policy. Learn how we collect, use, and protect your personal data in compliance with GDPR and Albanian data protection laws.',
+        "Read Zeo Dental Clinic's privacy policy. Learn how we collect, use, and protect your personal data in compliance with GDPR and Albanian data protection laws.",
     },
     it: {
       title: 'Informativa sulla Privacy | Zeo Dental Clinic',
       description:
-        'Leggi l\'informativa sulla privacy di Zeo Dental Clinic. Scopri come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali in conformità al GDPR.',
+        "Leggi l'informativa sulla privacy di Zeo Dental Clinic. Scopri come raccogliamo, utilizziamo e proteggiamo i tuoi dati personali in conformità al GDPR.",
     },
     de: {
       title: 'Datenschutzerklärung | Zeo Dental Clinic',
@@ -579,7 +579,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     it: {
       title: 'Termini di Servizio | Zeo Dental Clinic',
       description:
-        'Leggi i termini di servizio di Zeo Dental Clinic. Informazioni sulle condizioni d\'uso del sito, prenotazioni e servizi dentali a Tirana, Albania.',
+        "Leggi i termini di servizio di Zeo Dental Clinic. Informazioni sulle condizioni d'uso del sito, prenotazioni e servizi dentali a Tirana, Albania.",
     },
     de: {
       title: 'Nutzungsbedingungen | Zeo Dental Clinic',
@@ -587,9 +587,9 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
         'Lesen Sie die Nutzungsbedingungen der Zeo Dental Clinic. Informationen zu Website-Nutzung, Buchungsbedingungen und zahnärztlichen Leistungen in Tirana.',
     },
     fr: {
-      title: 'Conditions d\'Utilisation | Zeo Dental Clinic',
+      title: "Conditions d'Utilisation | Zeo Dental Clinic",
       description:
-        'Consultez les conditions d\'utilisation de Zeo Dental Clinic. Informations sur l\'utilisation du site, les réservations et les services dentaires à Tirana.',
+        "Consultez les conditions d'utilisation de Zeo Dental Clinic. Informations sur l'utilisation du site, les réservations et les services dentaires à Tirana.",
     },
     tr: {
       title: 'Hizmet Şartları | Zeo Dental Clinic',
@@ -637,7 +637,7 @@ export const SEO_META: Record<string, Partial<Record<Language, SeoMeta>>> = {
     tr: {
       title: 'Dis Turizmi Paketleri | Zeo Dental Clinic Arnavutluk',
       description:
-        'Tirana\'da her sey dahil dis turizmi paketleri. Havalimani transferi, otel, kisisel koordinator. Ucretsiz teklifinizi isteyin.',
+        "Tirana'da her sey dahil dis turizmi paketleri. Havalimani transferi, otel, kisisel koordinator. Ucretsiz teklifinizi isteyin.",
     },
     el: {
       title: 'Paketa Odontiatrikou Tourismou | Zeo Dental Clinic Albania',
@@ -658,7 +658,6 @@ export function getSeoMeta(barePath: string, lang: Language): SeoMeta {
   if (routeMeta?.en) return routeMeta.en;
   return {
     title: 'Zeo Dental Clinic | Premium Dental Care in Tirana, Albania',
-    description:
-      'Premium cosmetic dentistry, dental implants, orthodontics in Tirana, Albania.',
+    description: 'Premium cosmetic dentistry, dental implants, orthodontics in Tirana, Albania.',
   };
 }

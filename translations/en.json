@@ -1090,9 +1090,18 @@
     "cta": "Request Your Personalized Quote",
     "processLabel": "Your Journey",
     "howItWorks": "How It Works",
-    "step1": { "title": "Send Your X-Ray", "desc": "Share your panoramic X-ray via WhatsApp or email for a free assessment." },
-    "step2": { "title": "Get Your Plan", "desc": "Receive a detailed treatment plan within 24 hours." },
-    "step3": { "title": "Book Your Trip", "desc": "We help arrange your travel and accommodation." },
+    "step1": {
+      "title": "Send Your X-Ray",
+      "desc": "Share your panoramic X-ray via WhatsApp or email for a free assessment."
+    },
+    "step2": {
+      "title": "Get Your Plan",
+      "desc": "Receive a detailed treatment plan within 24 hours."
+    },
+    "step3": {
+      "title": "Book Your Trip",
+      "desc": "We help arrange your travel and accommodation."
+    },
     "step4": { "title": "Transform Your Smile", "desc": "Arrive, get treated, and enjoy Tirana." },
     "travelLabel": "Practical Info",
     "travelTitle": "Travel Made Easy",

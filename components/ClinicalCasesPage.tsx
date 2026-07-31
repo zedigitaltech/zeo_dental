@@ -110,9 +110,7 @@ export const ClinicalCasesPage: React.FC = () => {
             <h2 className="font-serif text-3xl sm:text-4xl text-studio-black mb-6">
               {t('casesPage.introTitle')}
             </h2>
-            <p className="text-studio-gray text-lg leading-relaxed">
-              {t('casesPage.introText')}
-            </p>
+            <p className="text-studio-gray text-lg leading-relaxed">{t('casesPage.introText')}</p>
           </div>
         </div>
       </section>
@@ -130,10 +128,7 @@ export const ClinicalCasesPage: React.FC = () => {
           {/* Case Cards */}
           <div className="space-y-16">
             {cases.map((caseItem, index) => (
-              <div
-                key={index}
-                className="bg-white border border-gray-100 overflow-hidden"
-              >
+              <div key={index} className="bg-white border border-gray-100 overflow-hidden">
                 <div className="flex flex-col lg:flex-row">
                   {/* Comparison Slider */}
                   <div className="w-full lg:w-1/2 aspect-[4/3] lg:aspect-auto relative">
@@ -153,9 +148,7 @@ export const ClinicalCasesPage: React.FC = () => {
                     <h3 className="font-serif text-2xl sm:text-3xl text-studio-black mb-4">
                       {caseItem.title}
                     </h3>
-                    <p className="text-studio-gray leading-relaxed mb-8">
-                      {caseItem.description}
-                    </p>
+                    <p className="text-studio-gray leading-relaxed mb-8">{caseItem.description}</p>
 
                     {/* Details */}
                     <div className="flex gap-8 border-t border-gray-100 pt-6">
@@ -180,7 +173,6 @@ export const ClinicalCasesPage: React.FC = () => {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
@@ -239,7 +231,6 @@ export const ClinicalCasesPage: React.FC = () => {
           </div>
         </div>
       </section>
-
 
       {/* Footer */}
       <Footer />

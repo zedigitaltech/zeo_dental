@@ -135,7 +135,10 @@
         ],
         "process": [
           { "title": "Beurteilung", "description": "Digitale Scans und Bissanalyse." },
-          { "title": "Planung", "description": "Individueller Behandlungsplan und Zeitplanerstellung." },
+          {
+            "title": "Planung",
+            "description": "Individueller Behandlungsplan und Zeitplanerstellung."
+          },
           {
             "title": "Aktive Therapie",
             "description": "Tragen von Alignern oder Brackets mit regelmäßigen Kontrollen."
@@ -190,9 +193,15 @@
             "title": "Bewertung",
             "description": "Überprüfung der Krankengeschichte und chirurgische Planung."
           },
-          { "title": "Komfort", "description": "Verabreichung von Lokalanästhesie oder Sedierung." },
+          {
+            "title": "Komfort",
+            "description": "Verabreichung von Lokalanästhesie oder Sedierung."
+          },
           { "title": "Eingriff", "description": "Minimal-invasive chirurgische Durchführung." },
-          { "title": "Erholung", "description": "Detaillierte Nachsorgeanweisungen und Nachkontrolle." }
+          {
+            "title": "Erholung",
+            "description": "Detaillierte Nachsorgeanweisungen und Nachkontrolle."
+          }
         ]
       },
       "pediatric": {
@@ -215,7 +224,10 @@
             "description": "Sanfte Untersuchung auf Karies und Entwicklung."
           },
           { "title": "Reinigung", "description": "Sanfte Politur und Hygieneanleitung." },
-          { "title": "Belohnung", "description": "Positive Verstärkung zum Aufbau von Selbstvertrauen." }
+          {
+            "title": "Belohnung",
+            "description": "Positive Verstärkung zum Aufbau von Selbstvertrauen."
+          }
         ]
       }
     }
@@ -1050,25 +1062,58 @@
     "essential": {
       "name": "Essential",
       "tagline": "Alles was Sie fur Qualitatsversorgung brauchen",
-      "includes": ["Kostenloses 3D-CT", "Personalisierter Behandlungsplan", "Flughafentransfer", "Behandlungskoordinator", "WhatsApp-Betreuung"]
+      "includes": [
+        "Kostenloses 3D-CT",
+        "Personalisierter Behandlungsplan",
+        "Flughafentransfer",
+        "Behandlungskoordinator",
+        "WhatsApp-Betreuung"
+      ]
     },
     "premium": {
       "name": "Premium",
       "tagline": "Das komplette Zahntourismus-Erlebnis",
-      "includes": ["Alles in Essential", "3 Nachte Hotelunterkunft", "Gefuhrte Stadttour durch Tirana", "Tagliche Kliniktransfers", "Notfall-Hotline", "Nachsorge-Kit"]
+      "includes": [
+        "Alles in Essential",
+        "3 Nachte Hotelunterkunft",
+        "Gefuhrte Stadttour durch Tirana",
+        "Tagliche Kliniktransfers",
+        "Notfall-Hotline",
+        "Nachsorge-Kit"
+      ]
     },
     "vip": {
       "name": "VIP",
       "tagline": "Luxuspflege, aussergewohnliche Ergebnisse",
-      "includes": ["Alles in Premium", "5 Nachte 4-Sterne-Hotel", "Personlicher Guide & Dolmetscher", "Spa-Behandlung", "Gourmet-Dinner", "Erweiterte Nachsorge", "Prioritats-Terminplanung"]
+      "includes": [
+        "Alles in Premium",
+        "5 Nachte 4-Sterne-Hotel",
+        "Personlicher Guide & Dolmetscher",
+        "Spa-Behandlung",
+        "Gourmet-Dinner",
+        "Erweiterte Nachsorge",
+        "Prioritats-Terminplanung"
+      ]
     },
     "cta": "Personalisiertes Angebot Anfordern",
     "processLabel": "Ihre Reise",
     "howItWorks": "So Funktioniert Es",
-    "step1": { "title": "Rontgenbild Senden", "desc": "Teilen Sie Ihr Panorama-Rontgenbild per WhatsApp oder E-Mail fur eine kostenlose Bewertung." },
-    "step2": { "title": "Plan Erhalten", "desc": "Erhalten Sie einen detaillierten Behandlungsplan innerhalb von 24 Stunden." },
-    "step3": { "title": "Reise Buchen", "desc": "Wir helfen bei der Organisation Ihrer Reise und Unterkunft." },
-    "step4": { "title": "Lacheln Verwandeln", "desc": "Ankommen, behandelt werden und Tirana geniessen." },
+    "step1": {
+      "title": "Rontgenbild Senden",
+      "desc": "Teilen Sie Ihr Panorama-Rontgenbild per WhatsApp oder E-Mail fur eine kostenlose Bewertung."
+    },
+    "step2": {
+      "title": "Plan Erhalten",
+      "desc": "Erhalten Sie einen detaillierten Behandlungsplan innerhalb von 24 Stunden."
+    },
+    "step3": {
+      "title": "Reise Buchen",
+      "desc": "Wir helfen bei der Organisation Ihrer Reise und Unterkunft."
+    },
+    "step4": {
+      "title": "Lacheln Verwandeln",
+      "desc": "Ankommen, behandelt werden und Tirana geniessen."
+    },
     "travelLabel": "Praktische Infos",
     "travelTitle": "Reisen Leicht Gemacht",
     "travel": {

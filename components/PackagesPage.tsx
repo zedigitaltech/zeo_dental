@@ -56,7 +56,7 @@ export const PackagesPage: React.FC = () => {
         <section className="py-16 sm:py-20 md:py-28 bg-white">
           <div className="container mx-auto px-4 sm:px-6 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
-              {TIERS.map((tier) => {
+              {TIERS.map(tier => {
                 const includes = tRaw(`packages.${tier.key}.includes`) as string[] | undefined;
                 return (
                   <div
@@ -77,22 +77,27 @@ export const PackagesPage: React.FC = () => {
                       <h3 className="font-serif text-2xl sm:text-3xl mb-2">
                         {t(`packages.${tier.key}.name`)}
                       </h3>
-                      <p className={`text-sm font-light ${tier.featured ? 'text-white/50' : 'text-studio-gray'}`}>
+                      <p
+                        className={`text-sm font-light ${tier.featured ? 'text-white/50' : 'text-studio-gray'}`}
+                      >
                         {t(`packages.${tier.key}.tagline`)}
                       </p>
                     </div>
                     <ul className="space-y-3 mb-10">
-                      {Array.isArray(includes) && includes.map((item, i) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <Check
-                            size={16}
-                            className={`mt-0.5 flex-shrink-0 ${tier.featured ? 'text-studio-gold' : 'text-studio-gold'}`}
-                          />
-                          <span className={`text-sm font-light ${tier.featured ? 'text-white/80' : 'text-studio-gray'}`}>
-                            {item}
-                          </span>
-                        </li>
-                      ))}
+                      {Array.isArray(includes) &&
+                        includes.map((item, i) => (
+                          <li key={i} className="flex items-start gap-3">
+                            <Check
+                              size={16}
+                              className={`mt-0.5 flex-shrink-0 ${tier.featured ? 'text-studio-gold' : 'text-studio-gold'}`}
+                            />
+                            <span
+                              className={`text-sm font-light ${tier.featured ? 'text-white/80' : 'text-studio-gray'}`}
+                            >
+                              {item}
+                            </span>
+                          </li>
+                        ))}
                     </ul>
                     <a
                       href={`${lp('/book')}?package=${tier.key}`}
@@ -156,7 +161,9 @@ export const PackagesPage: React.FC = () => {
               <div className="text-center">
                 <Plane size={28} className="mx-auto mb-4 text-studio-gold" />
                 <h3 className="font-serif text-base mb-2">{t('packages.travel.flightsTitle')}</h3>
-                <p className="text-studio-gray text-sm font-light">{t('packages.travel.flights')}</p>
+                <p className="text-studio-gray text-sm font-light">
+                  {t('packages.travel.flights')}
+                </p>
               </div>
               <div className="text-center">
                 <Hotel size={28} className="mx-auto mb-4 text-studio-gold" />
@@ -166,12 +173,16 @@ export const PackagesPage: React.FC = () => {
               <div className="text-center">
                 <MapPin size={28} className="mx-auto mb-4 text-studio-gold" />
                 <h3 className="font-serif text-base mb-2">{t('packages.travel.transferTitle')}</h3>
-                <p className="text-studio-gray text-sm font-light">{t('packages.travel.transfer')}</p>
+                <p className="text-studio-gray text-sm font-light">
+                  {t('packages.travel.transfer')}
+                </p>
               </div>
               <div className="text-center">
                 <MessageCircle size={28} className="mx-auto mb-4 text-studio-gold" />
                 <h3 className="font-serif text-base mb-2">{t('packages.travel.supportTitle')}</h3>
-                <p className="text-studio-gray text-sm font-light">{t('packages.travel.support')}</p>
+                <p className="text-studio-gray text-sm font-light">
+                  {t('packages.travel.support')}
+                </p>
               </div>
             </div>
           </div>

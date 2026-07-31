@@ -73,11 +73,17 @@ export const Footer: React.FC = () => {
                 &copy; {currentYear} {t('footer.rights')}
               </span>
               <span className="hidden md:inline">•</span>
-              <a href={lp('/privacy-policy')} className="hover:text-studio-gold transition-colors py-1">
+              <a
+                href={lp('/privacy-policy')}
+                className="hover:text-studio-gold transition-colors py-1"
+              >
                 Privacy Policy
               </a>
               <span className="hidden md:inline">•</span>
-              <a href={lp('/terms-of-service')} className="hover:text-studio-gold transition-colors py-1">
+              <a
+                href={lp('/terms-of-service')}
+                className="hover:text-studio-gold transition-colors py-1"
+              >
                 Terms of Service
               </a>
               <span className="hidden md:inline">•</span>

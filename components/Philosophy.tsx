@@ -33,7 +33,9 @@ export const Philosophy: React.FC = () => {
   const { t } = useTranslation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(new Array(philosophyImages.length).fill(false));
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(
+    new Array(philosophyImages.length).fill(false)
+  );
   const [isMobile, setIsMobile] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const imageContainerRef = React.useRef<HTMLDivElement>(null);
@@ -48,8 +50,8 @@ export const Philosophy: React.FC = () => {
     if (!isMobile || !imageContainerRef.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           // Toggle based on visibility - colorize when in view, grayscale when not
           setIsInView(entry.isIntersecting);
         });
@@ -108,7 +110,10 @@ export const Philosophy: React.FC = () => {
                 <span className="text-studio-gold text-[11px] sm:text-[10px] uppercase tracking-wide sm:tracking-ultra mb-4 sm:mb-6 block font-semibold">
                   {t('philosophy.label')}
                 </span>
-                <div ref={imageContainerRef} className="relative aspect-[3/4] w-full overflow-hidden mb-6 sm:mb-8 bg-gray-100 group/philosophy">
+                <div
+                  ref={imageContainerRef}
+                  className="relative aspect-[3/4] w-full overflow-hidden mb-6 sm:mb-8 bg-gray-100 group/philosophy"
+                >
                   {/* Image container with fade animation */}
                   <div className="absolute inset-0">
                     {philosophyImages.map((img, index) => (

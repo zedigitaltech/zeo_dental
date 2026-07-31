@@ -89,7 +89,9 @@ async function sendWhatsAppMessage(to: string, message: string): Promise<boolean
 export async function sendWhatsAppConfirmation(booking: Booking): Promise<boolean> {
   const confirmedDate = booking.confirmed_date
     ? formatDate(booking.confirmed_date)
-    : booking.preferred_date ? formatDate(booking.preferred_date) : 'TBD';
+    : booking.preferred_date
+      ? formatDate(booking.preferred_date)
+      : 'TBD';
   const confirmedTime = booking.confirmed_time || booking.preferred_time || 'TBD';
 
   const message = `🦷 *Zeo Dental Clinic*
@@ -138,7 +140,9 @@ _Zeo Dental Clinic_`;
 export async function sendWhatsAppReminder(booking: Booking): Promise<boolean> {
   const confirmedDate = booking.confirmed_date
     ? formatDate(booking.confirmed_date)
-    : booking.preferred_date ? formatDate(booking.preferred_date) : 'TBD';
+    : booking.preferred_date
+      ? formatDate(booking.preferred_date)
+      : 'TBD';
   const confirmedTime = booking.confirmed_time || booking.preferred_time || 'TBD';
 
   const message = `🦷 *Zeo Dental Clinic - Kujtesë*

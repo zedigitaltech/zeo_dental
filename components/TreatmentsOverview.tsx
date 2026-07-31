@@ -169,7 +169,8 @@ export const TreatmentsOverview: React.FC = () => {
               <span className="h-[1px] w-8 bg-studio-gold" />
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-studio-black mb-6">
-              {t('whyChooseUs.title')} <span className="italic">{t('whyChooseUs.titleHighlight')}</span>
+              {t('whyChooseUs.title')}{' '}
+              <span className="italic">{t('whyChooseUs.titleHighlight')}</span>
             </h2>
             <p className="text-studio-gray text-lg leading-relaxed mb-12">
               {t('whyChooseUs.subtitle')}
@@ -183,9 +184,7 @@ export const TreatmentsOverview: React.FC = () => {
                 <h3 className="font-serif text-xl text-studio-black mb-2">
                   {t('whyChooseUs.feature1Title')}
                 </h3>
-                <p className="text-studio-gray text-sm">
-                  {t('whyChooseUs.feature1Desc')}
-                </p>
+                <p className="text-studio-gray text-sm">{t('whyChooseUs.feature1Desc')}</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 border border-studio-gold rounded-full flex items-center justify-center">
@@ -194,9 +193,7 @@ export const TreatmentsOverview: React.FC = () => {
                 <h3 className="font-serif text-xl text-studio-black mb-2">
                   {t('whyChooseUs.feature2Title')}
                 </h3>
-                <p className="text-studio-gray text-sm">
-                  {t('whyChooseUs.feature2Desc')}
-                </p>
+                <p className="text-studio-gray text-sm">{t('whyChooseUs.feature2Desc')}</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 mx-auto mb-4 border border-studio-gold rounded-full flex items-center justify-center">
@@ -205,9 +202,7 @@ export const TreatmentsOverview: React.FC = () => {
                 <h3 className="font-serif text-xl text-studio-black mb-2">
                   {t('whyChooseUs.feature3Title')}
                 </h3>
-                <p className="text-studio-gray text-sm">
-                  {t('whyChooseUs.feature3Desc')}
-                </p>
+                <p className="text-studio-gray text-sm">{t('whyChooseUs.feature3Desc')}</p>
               </div>
             </div>
           </div>

@@ -28,12 +28,16 @@ vi.mock('../components/ClinicalCases', () => ({
   ClinicalCases: () => <section data-testid="clinical-cases">Clinical Cases</section>,
 }));
 
-vi.mock('../components/Booking', () => ({
-  Booking: () => <section data-testid="booking">Booking Section</section>,
+vi.mock('../components/Footer', () => ({
+  Footer: () => <footer data-testid="footer">Footer</footer>,
 }));
 
 vi.mock('../components/ChatWidget', () => ({
   ChatWidget: () => <div data-testid="chat-widget">Chat Widget</div>,
+}));
+
+vi.mock('../components/CookieConsent', () => ({
+  CookieConsent: () => <div data-testid="cookie-consent">Cookie Consent</div>,
 }));
 
 vi.mock('../components/ErrorBoundary', () => ({
@@ -42,6 +46,12 @@ vi.mock('../components/ErrorBoundary', () => ({
 
 vi.mock('../contexts/LanguageContext', () => ({
   LanguageProvider: ({ children }: { children: ReactNode }) => <>{children}</>,
+  useLanguage: () => ({
+    language: 'en',
+    setLanguage: vi.fn(),
+    isAlbanian: false,
+    isEnglish: true,
+  }),
 }));
 
 describe('App', () => {
@@ -58,7 +68,7 @@ describe('App', () => {
     expect(screen.getByTestId('philosophy')).toBeInTheDocument();
     expect(screen.getByTestId('team')).toBeInTheDocument();
     expect(screen.getByTestId('clinical-cases')).toBeInTheDocument();
-    expect(screen.getByTestId('booking')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 
   it('renders chat widget', () => {

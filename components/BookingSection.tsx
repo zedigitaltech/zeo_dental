@@ -44,7 +44,9 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
     }
   }, [initialService]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -359,10 +361,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
                     {t('booking.description')}
                   </label>
                   <div className="relative">
-                    <FileText
-                      className="absolute left-4 top-4 text-slate-400"
-                      size={18}
-                    />
+                    <FileText className="absolute left-4 top-4 text-slate-400" size={18} />
                     <textarea
                       name="description"
                       value={formData.description}

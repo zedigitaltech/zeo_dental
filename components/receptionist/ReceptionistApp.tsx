@@ -396,9 +396,7 @@ export const ReceptionistApp: React.FC = () => {
                   Chatbot (Month)
                 </p>
                 <p className="font-serif text-3xl text-studio-black">
-                  {chatStats.month.cost < 0.01
-                    ? `< $0.01`
-                    : `$${chatStats.month.cost.toFixed(2)}`}
+                  {chatStats.month.cost < 0.01 ? `< $0.01` : `$${chatStats.month.cost.toFixed(2)}`}
                 </p>
                 <p className="text-xs text-studio-gray mt-1">
                   {chatStats.month.messages} msgs • {chatStats.month.tokens.toLocaleString()} tokens

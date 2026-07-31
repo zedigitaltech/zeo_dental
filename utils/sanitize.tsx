@@ -7,10 +7,7 @@ const ALLOWED_TAGS = ['strong', 'em', 'b', 'i'];
  * All other HTML is stripped. This prevents XSS from translation strings.
  */
 export function sanitizeHtml(html: string): React.ReactNode[] {
-  const tagPattern = new RegExp(
-    `<(/?)(${ALLOWED_TAGS.join('|')})(\\s[^>]*)?>`,
-    'gi'
-  );
+  const tagPattern = new RegExp(`<(/?)(${ALLOWED_TAGS.join('|')})(\\s[^>]*)?>`, 'gi');
 
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
@@ -35,9 +32,7 @@ export function sanitizeHtml(html: string): React.ReactNode[] {
         const { tag, children } = stack.pop()!;
         current = stack.length > 0 ? stack[stack.length - 1].children : parts;
         const Tag = tag as keyof React.JSX.IntrinsicElements;
-        current.push(
-          React.createElement(Tag, { key: `${tag}-${match.index}` }, ...children)
-        );
+        current.push(React.createElement(Tag, { key: `${tag}-${match.index}` }, ...children));
       }
     } else {
       const newChildren: React.ReactNode[] = [];

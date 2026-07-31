@@ -55,8 +55,8 @@ const TreatmentItem: React.FC<TreatmentItemProps> = ({
     if (!isMobile || !itemRef.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           // When element is intersecting (in center region), colorize it
           setIsInCenter(entry.isIntersecting);
         });

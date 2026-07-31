@@ -18,14 +18,14 @@ interface ComparisonSliderProps {
   beforeImage: string;
   afterImage: string;
   beforePosition?: string; // e.g., "center 40%" to adjust vertical position
-  afterPosition?: string;  // e.g., "center 60%" to adjust vertical position
+  afterPosition?: string; // e.g., "center 60%" to adjust vertical position
 }
 
 export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   beforeImage,
   afterImage,
   beforePosition = 'center center',
-  afterPosition = 'center center'
+  afterPosition = 'center center',
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isResizing, setIsResizing] = useState(false);
@@ -44,8 +44,8 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
     if (!isMobile || !containerRef.current) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           // Toggle based on visibility - colorize when in view, grayscale when not
           setIsInView(entry.isIntersecting);
         });
@@ -61,10 +61,10 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
   }, [isMobile]);
 
   // Determine if images should be colorized (in view OR being interacted with)
-  const shouldColorize = isMobile ? (isInView || isResizing) : false;
+  const shouldColorize = isMobile ? isInView || isResizing : false;
 
   // Show labels when interacting (touching/dragging) on mobile, or in view on desktop
-  const showLabels = isMobile ? (isInView || isResizing) : false;
+  const showLabels = isMobile ? isInView || isResizing : false;
 
   const handleMouseDown = () => setIsResizing(true);
   const handleMouseUp = () => setIsResizing(false);
@@ -188,17 +188,21 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({
         </div>
 
         {/* Labels attached to slider - Only visible on hover or interaction */}
-        <div className={`absolute top-6 right-full mr-6 transition-opacity duration-500 flex items-center ${
-          showLabels ? 'opacity-100' : 'opacity-0'
-        } ${!isMobile ? 'group-hover:opacity-100 group-hover/case:opacity-100' : ''}`}>
+        <div
+          className={`absolute top-6 right-full mr-6 transition-opacity duration-500 flex items-center ${
+            showLabels ? 'opacity-100' : 'opacity-0'
+          } ${!isMobile ? 'group-hover:opacity-100 group-hover/case:opacity-100' : ''}`}
+        >
           <div className="bg-black/30 backdrop-blur-md px-3 py-1 text-[8px] tracking-ultra font-bold uppercase text-white shadow-lg whitespace-nowrap border border-white/10">
             Before
           </div>
         </div>
 
-        <div className={`absolute top-6 left-full ml-6 transition-opacity duration-500 flex items-center ${
-          showLabels ? 'opacity-100' : 'opacity-0'
-        } ${!isMobile ? 'group-hover:opacity-100 group-hover/case:opacity-100' : ''}`}>
+        <div
+          className={`absolute top-6 left-full ml-6 transition-opacity duration-500 flex items-center ${
+            showLabels ? 'opacity-100' : 'opacity-0'
+          } ${!isMobile ? 'group-hover:opacity-100 group-hover/case:opacity-100' : ''}`}
+        >
           <div className="bg-studio-gold/90 backdrop-blur-md px-3 py-1 text-[8px] tracking-ultra font-bold uppercase text-white shadow-lg whitespace-nowrap">
             After
           </div>

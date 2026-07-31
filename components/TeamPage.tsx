@@ -41,8 +41,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, t }) => {
                 member.id === 'dr-rien' || member.id === 'dr-kristi'
                   ? { objectPosition: '7% center' }
                   : member.id === 'dr-dorina'
-                  ? { objectPosition: '35% center' }
-                  : { objectPosition: 'center' }
+                    ? { objectPosition: '35% center' }
+                    : { objectPosition: 'center' }
               }
             />
           </picture>
@@ -60,25 +60,23 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, t }) => {
               shouldColorize ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
             }`}
           >
-            <h3 className="font-serif text-lg sm:text-xl text-white mb-1">
-              {member.name}
-            </h3>
+            <h3 className="font-serif text-lg sm:text-xl text-white mb-1">{member.name}</h3>
             <span className="text-white/80 text-[10px] sm:text-[11px] uppercase tracking-wider font-light">
               {t(`team.doctors.${member.id}.role`)}
             </span>
           </div>
 
           {/* Subtle border frame */}
-          <div className={`absolute inset-3 border border-white/0 transition-all duration-700 pointer-events-none group-hover:border-white/20 ${
-            shouldColorize ? 'border-white/20' : ''
-          }`} />
+          <div
+            className={`absolute inset-3 border border-white/0 transition-all duration-700 pointer-events-none group-hover:border-white/20 ${
+              shouldColorize ? 'border-white/20' : ''
+            }`}
+          />
         </div>
 
         {/* Content */}
         <div className="w-full sm:w-3/5 p-6 sm:p-8 flex flex-col justify-center">
-          <h3 className="font-serif text-xl sm:text-2xl text-studio-black mb-2">
-            {member.name}
-          </h3>
+          <h3 className="font-serif text-xl sm:text-2xl text-studio-black mb-2">{member.name}</h3>
           <p className="text-studio-gold text-xs uppercase tracking-wider mb-4">
             {t(`team.doctors.${member.id}.role`)}
           </p>
@@ -130,11 +128,7 @@ export const TeamPage: React.FC = () => {
           <div className="grid grid-cols-3 h-full">
             {DOCTORS.map((doctor, i) => (
               <div key={i} className="relative overflow-hidden">
-                <img
-                  src={doctor.image}
-                  alt=""
-                  className="w-full h-full object-cover grayscale"
-                />
+                <img src={doctor.image} alt="" className="w-full h-full object-cover grayscale" />
               </div>
             ))}
           </div>
@@ -166,12 +160,18 @@ export const TeamPage: React.FC = () => {
       </section>
 
       {/* Founder Section */}
-      <section id="dr-emanuela" className="py-16 sm:py-24 bg-white border-b border-gray-100 scroll-mt-20">
+      <section
+        id="dr-emanuela"
+        className="py-16 sm:py-24 bg-white border-b border-gray-100 scroll-mt-20"
+      >
         <div className="container mx-auto px-4 sm:px-6 md:px-12">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
             {/* Image */}
             <div className="w-full lg:w-5/12">
-              <div ref={founderRef} className="relative aspect-[3/4] overflow-hidden group cursor-pointer">
+              <div
+                ref={founderRef}
+                className="relative aspect-[3/4] overflow-hidden group cursor-pointer"
+              >
                 <picture>
                   <source srcSet={founder.image} type="image/webp" />
                   <source srcSet={founder.image.replace('.webp', '.jpg')} type="image/jpeg" />
@@ -209,9 +209,11 @@ export const TeamPage: React.FC = () => {
                 </div>
 
                 {/* Subtle border frame */}
-                <div className={`absolute inset-4 sm:inset-5 border border-white/0 transition-all duration-700 pointer-events-none group-hover:border-white/20 ${
-                  shouldColorizeFounder ? 'border-white/20' : ''
-                }`} />
+                <div
+                  className={`absolute inset-4 sm:inset-5 border border-white/0 transition-all duration-700 pointer-events-none group-hover:border-white/20 ${
+                    shouldColorizeFounder ? 'border-white/20' : ''
+                  }`}
+                />
               </div>
             </div>
 
@@ -245,9 +247,15 @@ export const TeamPage: React.FC = () => {
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.education1`)}</p>
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.education2`)}</p>
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.education3`)}</p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.education1`)}
+                    </p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.education2`)}
+                    </p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.education3`)}
+                    </p>
                   </div>
                 </div>
                 <div>
@@ -258,9 +266,15 @@ export const TeamPage: React.FC = () => {
                     </span>
                   </div>
                   <div className="space-y-2">
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.membership1`)}</p>
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.membership2`)}</p>
-                    <p className="font-serif text-sm sm:text-base">{t(`team.doctors.${founder.id}.membership3`)}</p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.membership1`)}
+                    </p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.membership2`)}
+                    </p>
+                    <p className="font-serif text-sm sm:text-base">
+                      {t(`team.doctors.${founder.id}.membership3`)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -295,7 +309,7 @@ export const TeamPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-            {team.map((member) => (
+            {team.map(member => (
               <TeamMemberCard key={member.id} member={member} t={t} />
             ))}
           </div>

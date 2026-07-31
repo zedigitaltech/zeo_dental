@@ -40,34 +40,34 @@ const SERVICE_CATEGORY_MAP: Record<string, { catid: number; duration: number }> 
   'dental cleaning': { catid: 10, duration: 2700 },
   'teeth cleaning': { catid: 10, duration: 2700 },
   'dental exam': { catid: 11, duration: 1800 },
-  'examination': { catid: 11, duration: 1800 },
-  'checkup': { catid: 11, duration: 1800 },
-  'filling': { catid: 12, duration: 2700 },
+  examination: { catid: 11, duration: 1800 },
+  checkup: { catid: 11, duration: 1800 },
+  filling: { catid: 12, duration: 2700 },
   'dental filling': { catid: 12, duration: 2700 },
   'root canal': { catid: 13, duration: 5400 },
-  'extraction': { catid: 14, duration: 2700 },
+  extraction: { catid: 14, duration: 2700 },
   'tooth extraction': { catid: 14, duration: 2700 },
-  'crown': { catid: 15, duration: 3600 },
+  crown: { catid: 15, duration: 3600 },
   'dental crown': { catid: 15, duration: 3600 },
-  'implant': { catid: 16, duration: 5400 },
+  implant: { catid: 16, duration: 5400 },
   'dental implant': { catid: 16, duration: 5400 },
   'orthodontic consultation': { catid: 17, duration: 1800 },
-  'orthodontics': { catid: 17, duration: 1800 },
-  'braces': { catid: 18, duration: 1800 },
+  orthodontics: { catid: 17, duration: 1800 },
+  braces: { catid: 18, duration: 1800 },
   'orthodontic visit': { catid: 18, duration: 1800 },
   'teeth whitening': { catid: 19, duration: 3600 },
-  'whitening': { catid: 19, duration: 3600 },
+  whitening: { catid: 19, duration: 3600 },
   'dental x-ray': { catid: 20, duration: 900 },
   'x-ray': { catid: 20, duration: 900 },
-  'emergency': { catid: 21, duration: 1800 },
+  emergency: { catid: 21, duration: 1800 },
   'emergency dental': { catid: 21, duration: 1800 },
-  'veneer': { catid: 22, duration: 3600 },
-  'veneers': { catid: 22, duration: 3600 },
-  'denture': { catid: 23, duration: 3600 },
-  'dentures': { catid: 23, duration: 3600 },
-  'periodontal': { catid: 24, duration: 3600 },
+  veneer: { catid: 22, duration: 3600 },
+  veneers: { catid: 22, duration: 3600 },
+  denture: { catid: 23, duration: 3600 },
+  dentures: { catid: 23, duration: 3600 },
+  periodontal: { catid: 24, duration: 3600 },
   'gum treatment': { catid: 24, duration: 3600 },
-  'pediatric': { catid: 25, duration: 1800 },
+  pediatric: { catid: 25, duration: 1800 },
   'pediatric dental': { catid: 25, duration: 1800 },
   'children dental': { catid: 25, duration: 1800 },
 };
@@ -96,7 +96,10 @@ class CrmSyncService {
 
   private log(level: 'info' | 'error' | 'warn', msg: string, ...args: unknown[]) {
     if (this.logger) {
-      (this.logger[level] as (msg: string, ...args: unknown[]) => void)(`[CRM Sync] ${msg}`, ...args);
+      (this.logger[level] as (msg: string, ...args: unknown[]) => void)(
+        `[CRM Sync] ${msg}`,
+        ...args
+      );
     }
   }
 
@@ -114,7 +117,8 @@ class CrmSyncService {
       client_secret: this.config.clientSecret,
       username: this.config.username,
       password: this.config.password,
-      scope: 'openid api:oemr api:fhir user/patient.read user/patient.write user/appointment.read user/appointment.write',
+      scope:
+        'openid api:oemr api:fhir user/patient.read user/patient.write user/appointment.read user/appointment.write',
     });
 
     const res = await fetch(tokenUrl, {
@@ -176,7 +180,10 @@ class CrmSyncService {
   async findPatient(email?: string, phone?: string): Promise<CrmPatient | null> {
     try {
       if (email) {
-        const result = (await this.apiRequest('GET', `/patient?email=${encodeURIComponent(email)}`)) as {
+        const result = (await this.apiRequest(
+          'GET',
+          `/patient?email=${encodeURIComponent(email)}`
+        )) as {
           data?: CrmPatient[];
         };
         if (result?.data && result.data.length > 0) {
@@ -195,7 +202,11 @@ class CrmSyncService {
         }
       }
     } catch (err) {
-      this.log('error', 'Error finding patient: %s', err instanceof Error ? err.message : String(err));
+      this.log(
+        'error',
+        'Error finding patient: %s',
+        err instanceof Error ? err.message : String(err)
+      );
     }
     return null;
   }
@@ -234,7 +245,11 @@ class CrmSyncService {
         return patient;
       }
     } catch (err) {
-      this.log('error', 'Error creating patient: %s', err instanceof Error ? err.message : String(err));
+      this.log(
+        'error',
+        'Error creating patient: %s',
+        err instanceof Error ? err.message : String(err)
+      );
     }
     return null;
   }
@@ -326,20 +341,26 @@ class CrmSyncService {
       result.patientPid = patient.pid;
 
       // 2. Create appointment (only if date is provided)
-      const appointment = booking.date ? await this.createAppointment({
-        patientPid: patient.pid,
-        service: booking.service,
-        date: booking.date,
-        time: booking.time || 'morning',
-        notes: booking.notes,
-        status: '-', // pending
-      }) : null;
+      const appointment = booking.date
+        ? await this.createAppointment({
+            patientPid: patient.pid,
+            service: booking.service,
+            date: booking.date,
+            time: booking.time || 'morning',
+            notes: booking.notes,
+            status: '-', // pending
+          })
+        : null;
 
       if (appointment?.pc_eid) {
         result.appointmentId = appointment.pc_eid;
       }
     } catch (err) {
-      this.log('error', 'Sync booking failed: %s', err instanceof Error ? err.message : String(err));
+      this.log(
+        'error',
+        'Sync booking failed: %s',
+        err instanceof Error ? err.message : String(err)
+      );
     }
 
     return result;

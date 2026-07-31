@@ -45,7 +45,10 @@ export const CookieConsent: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 md:px-12 py-4 sm:py-5">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <p className="text-[13px] leading-relaxed text-studio-gray font-light max-w-2xl">
-              {t('cookie.message', 'We use cookies to enhance your browsing experience and analyze site traffic.')}{' '}
+              {t(
+                'cookie.message',
+                'We use cookies to enhance your browsing experience and analyze site traffic.'
+              )}{' '}
               <a
                 href={lp('/privacy-policy')}
                 className="text-studio-gold hover:text-white underline underline-offset-2 transition-colors"
