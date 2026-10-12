@@ -1,0 +1,30 @@
+{
+  "name": "zeo-dental-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Zeo Dental Clinic on Cloudflare: one Worker (static assets + API), D1, R2",
+  "scripts": {
+    "build:site": "cd .. && npm run build",
+    "dev": "test -f .dev.vars || cp .dev.vars.example .dev.vars; test -d ../dist || npm run build:site; wrangler dev --port 8788 --local",
+    "test": "vitest run",
+    "test:scripts": "node --test scripts/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm run test && npm run test:scripts",
+    "db:migrate:local": "wrangler d1 migrations apply zeo-dental --local",
+    "db:migrate:remote": "wrangler d1 migrations apply zeo-dental --remote",
+    "prodcheck": "node scripts/prodcheck.mjs",
+    "deploy": "npm run verify && npm run build:site && wrangler deploy",
+    "logs": "wrangler tail --format pretty"
+  },
+  "dependencies": {
+    "hono": "4.9.12"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.12.21",
+    "@cloudflare/workers-types": "4.20260702.1",
+    "typescript": "5.8.3",
+    "vitest": "3.2.4",
+    "wrangler": "4.72.0"
+  }
+}

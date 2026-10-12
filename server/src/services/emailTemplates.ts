@@ -16,7 +16,6 @@ const mailFrom = process.env.MAIL_FROM || 'Zeo Dental Clinic <onboarding@resend.
 const clinicEmail = process.env.MAIL_TO || 'zeodentalclinic@gmail.com';
 const partnerEmail = process.env.MAIL_TO_PARTNER || '';
 
-
 // Send confirmation email via Resend
 export async function sendConfirmationEmail(
   booking: Booking,

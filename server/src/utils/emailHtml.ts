@@ -208,7 +208,7 @@ export function getConfirmationEmailHtml(booking: Booking, language: 'sq' | 'en'
         </div>
         <div class="detail-row">
           <span class="detail-label">${content.time}</span>
-          <span class="detail-value">${escapeHtml(String(confirmedTime ?? ""))}</span>
+          <span class="detail-value">${escapeHtml(String(confirmedTime ?? ''))}</span>
         </div>
         <div class="detail-row">
           <span class="detail-label">${content.address}</span>

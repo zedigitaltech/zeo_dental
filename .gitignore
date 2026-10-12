@@ -34,3 +34,7 @@ docker-compose.override.yml
 
 # native crash dump — never commit
 core
+
+# Cloudflare Worker local state and secrets
+.wrangler/
+.dev.vars

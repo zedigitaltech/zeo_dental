@@ -1,0 +1,22 @@
+# Test-only config for @cloudflare/vitest-pool-workers: same bindings as wrangler.toml, but
+# local-only ids, no static assets (tests stub env.ASSETS with test/fixtures/index.html) and
+# no rate-limit bindings (tests exercise the D1 fallback and inject a stub for the binding path).
+name = "zeo-dental-test"
+main = "src/index.ts"
+compatibility_date = "2026-03-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zeo-dental-test"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "zeo-dental-uploads-test"
+
+[vars]
+BASE_URL = "https://zeodentalclinic.com"
+CORS_ORIGINS = "https://zeodentalclinic.com,https://www.zeodentalclinic.com"
+CHAT_DAILY_CAP = "500"
