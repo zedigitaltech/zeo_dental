@@ -256,18 +256,6 @@
     "membershipPlaceholder2": "State Dental Society",
     "membershipPlaceholder3": "Academy of General Dentistry",
     "doctors": {
-      "dr-rien": {
-        "role": "Dental Specialist",
-        "bio": "Graduate of the <strong>University of Stomatology, Tirana</strong>, Dr. Stambolliu specializes in <strong>dental therapy</strong>, <strong>fixed and mobile prosthetics</strong>, and <strong>implant-supported restorations</strong>.",
-        "fullBio": "Dr. Rien Stambolliu completed his studies at the <strong>University of Stomatology, Tirana</strong>. Throughout his professional development, he has successfully completed <strong>numerous national and international training programs</strong> and <strong>actively participated in medical conferences</strong>, continuously updating his knowledge with the latest techniques and standards in dentistry. He professionally delivers treatments in <strong>dental therapy</strong>, <strong>fixed and mobile prosthetics</strong>, as well as <strong>implant-supported prosthetics</strong>, paying special attention to function, aesthetics, and long-term durability of his work. Known for his <strong>precision</strong>, <strong>careful approach</strong>, and <strong>warm demeanor</strong> with patients, Dr. Rien works with maximum dedication to guarantee quality, safe, and personalized treatments for every patient.",
-        "education1": "University of Stomatology, Tirana",
-        "education2": "National and international training in Dental Prosthetics",
-        "education3": "Active participant in dental medical conferences",
-        "membership1": "Order of Albanian Dentists",
-        "membership2": "Albanian Dental Association",
-        "membership3": "Member of professional dental prosthetics associations",
-        "quote": "I am dedicated to guaranteeing quality, safe, and personalized treatments for every patient."
-      },
       "dr-kristi": {
         "role": "Dental Specialist",
         "bio": "Dr. Kristi Sulanjaku completed her <strong>Master's studies in Medical Sciences, Dentistry Department</strong>, with <strong>very high results</strong>. She possesses <strong>deep knowledge in dental prosthetics</strong>.",

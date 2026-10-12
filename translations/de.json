@@ -268,18 +268,6 @@
     "membershipPlaceholder2": "Landeszahnärztekammer",
     "membershipPlaceholder3": "Akademie für Allgemeine Zahnmedizin",
     "doctors": {
-      "dr-rien": {
-        "role": "Zahnarzt-Spezialist",
-        "bio": "Absolvent der <strong>Universität für Stomatologie, Tirana</strong>, Dr. Stambolliu ist spezialisiert auf <strong>Zahntherapie</strong>, <strong>festsitzende und herausnehmbare Prothetik</strong> sowie <strong>implantatgestützte Restaurationen</strong>.",
-        "fullBio": "Dr. Rien Stambolliu absolvierte sein Studium an der <strong>Universität für Stomatologie, Tirana</strong>. Im Laufe seiner beruflichen Entwicklung hat er erfolgreich <strong>zahlreiche nationale und internationale Fortbildungsprogramme</strong> absolviert und <strong>aktiv an medizinischen Konferenzen teilgenommen</strong>, wobei er sein Wissen kontinuierlich mit den neuesten Techniken und Standards der Zahnmedizin aktualisiert. Er führt professionell Behandlungen in den Bereichen <strong>Zahntherapie</strong>, <strong>festsitzende und herausnehmbare Prothetik</strong> sowie <strong>implantatgestützte Prothetik</strong> durch, mit besonderem Augenmerk auf Funktion, Ästhetik und Langlebigkeit seiner Arbeit. Bekannt für seine <strong>Präzision</strong>, <strong>sorgfältige Vorgehensweise</strong> und sein <strong>herzliches Auftreten</strong> gegenüber Patienten, arbeitet Dr. Rien mit maximaler Hingabe, um qualitativ hochwertige, sichere und personalisierte Behandlungen für jeden Patienten zu garantieren.",
-        "education1": "Universität für Stomatologie, Tirana",
-        "education2": "Nationale und internationale Fortbildung in Zahnprothetik",
-        "education3": "Aktiver Teilnehmer an zahnmedizinischen Konferenzen",
-        "membership1": "Kammer der Albanischen Zahnärzte",
-        "membership2": "Albanische Zahnärztevereinigung",
-        "membership3": "Mitglied in Fachverbänden für Zahnprothetik",
-        "quote": "Ich widme mich der Garantie qualitativ hochwertiger, sicherer und personalisierter Behandlungen für jeden Patienten."
-      },
       "dr-kristi": {
         "role": "Zahnärztin-Spezialistin",
         "bio": "Dr. Kristi Sulanjaku absolvierte ihr <strong>Masterstudium in Medizinischen Wissenschaften, Fachbereich Zahnmedizin</strong>, mit <strong>sehr guten Ergebnissen</strong>. Sie verfügt über <strong>tiefgreifende Kenntnisse in der Zahnprothetik</strong>.",

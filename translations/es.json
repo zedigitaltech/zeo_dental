@@ -262,18 +262,6 @@
     "membershipPlaceholder2": "State Dental Society",
     "membershipPlaceholder3": "Academy of General Dentistry",
     "doctors": {
-      "dr-rien": {
-        "role": "Especialista Dental",
-        "bio": "Graduado de la <strong>Universidad de Estomatologia de Tirana</strong>, el Dr. Stambolliu se especializa en <strong>terapia dental</strong>, <strong>protesis fija y movil</strong> y <strong>restauraciones sobre implantes</strong>.",
-        "fullBio": "El Dr. Rien Stambolliu completo sus estudios en la <strong>Universidad de Estomatologia de Tirana</strong>. A lo largo de su desarrollo profesional, ha completado con exito <strong>numerosos programas de formacion nacionales e internacionales</strong> y ha <strong>participado activamente en conferencias medicas</strong>, actualizando continuamente sus conocimientos con las ultimas tecnicas y estandares en odontologia. Realiza profesionalmente tratamientos de <strong>terapia dental</strong>, <strong>protesis fija y movil</strong>, asi como <strong>protesis sobre implantes</strong>, prestando especial atencion a la funcion, la estetica y la durabilidad a largo plazo de su trabajo. Conocido por su <strong>precision</strong>, <strong>enfoque cuidadoso</strong> y <strong>trato calido</strong> con los pacientes, el Dr. Rien trabaja con la maxima dedicacion para garantizar tratamientos de calidad, seguros y personalizados para cada paciente.",
-        "education1": "Universidad de Estomatologia de Tirana",
-        "education2": "Formacion nacional e internacional en Protesis Dental",
-        "education3": "Participante activo en conferencias medicas dentales",
-        "membership1": "Order of Albanian Dentists",
-        "membership2": "Albanian Dental Association",
-        "membership3": "Miembro de asociaciones profesionales de protesis dental",
-        "quote": "Me dedico a garantizar tratamientos de calidad, seguros y personalizados para cada paciente."
-      },
       "dr-kristi": {
         "role": "Especialista Dental",
         "bio": "La Dra. Kristi Sulanjaku completo sus <strong>estudios de Master en Ciencias Medicas, Departamento de Odontologia</strong>, con <strong>resultados muy altos</strong>. Posee <strong>profundos conocimientos en protesis dental</strong>.",

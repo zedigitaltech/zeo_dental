@@ -268,18 +268,6 @@
     "membershipPlaceholder2": "Société Dentaire Régionale",
     "membershipPlaceholder3": "Académie de Dentisterie Générale",
     "doctors": {
-      "dr-rien": {
-        "role": "Spécialiste Dentaire",
-        "bio": "Diplômé de l'<strong>Université de Stomatologie de Tirana</strong>, le Dr. Stambolliu est spécialisé en <strong>thérapie dentaire</strong>, <strong>prothèses fixes et mobiles</strong> et <strong>restaurations sur implants</strong>.",
-        "fullBio": "Le Dr. Rien Stambolliu a terminé ses études à l'<strong>Université de Stomatologie de Tirana</strong>. Au cours de son développement professionnel, il a complété avec succès <strong>de nombreux programmes de formation nationaux et internationaux</strong> et <strong>participé activement à des conférences médicales</strong>, mettant constamment à jour ses connaissances avec les dernières techniques et normes en dentisterie. Il réalise professionnellement des traitements en <strong>thérapie dentaire</strong>, <strong>prothèses fixes et mobiles</strong>, ainsi qu'en <strong>prothèses sur implants</strong>, accordant une attention particulière à la fonction, à l'esthétique et à la durabilité à long terme de son travail. Reconnu pour sa <strong>précision</strong>, son <strong>approche minutieuse</strong> et son <strong>accueil chaleureux</strong> envers les patients, le Dr. Rien travaille avec un dévouement maximal pour garantir des traitements de qualité, sûrs et personnalisés pour chaque patient.",
-        "education1": "Université de Stomatologie de Tirana",
-        "education2": "Formation nationale et internationale en Prothèses Dentaires",
-        "education3": "Participant actif aux conférences médicales dentaires",
-        "membership1": "Ordre des Dentistes Albanais",
-        "membership2": "Association Dentaire Albanaise",
-        "membership3": "Membre d'associations professionnelles de prothèses dentaires",
-        "quote": "Je suis dévoué à garantir des traitements de qualité, sûrs et personnalisés pour chaque patient."
-      },
       "dr-kristi": {
         "role": "Spécialiste Dentaire",
         "bio": "Le Dr. Kristi Sulanjaku a complété ses <strong>études de Master en Sciences Médicales, Département de Dentisterie</strong>, avec <strong>d'excellents résultats</strong>. Elle possède une <strong>connaissance approfondie en prothèses dentaires</strong>.",

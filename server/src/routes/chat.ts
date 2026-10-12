@@ -49,13 +49,7 @@ const SYSTEM_INSTRUCTION = `You are Sofia, a warm, professional, and knowledgeab
    - Specialties: Oral surgery, implantology, occlusodontology, periodontology
    - Languages: Albanian, French, English
 
-3. **Dr. Rien Stambolliu** — Dental Specialist
-   - University of Stomatology, Tirana
-   - Extensive national and international training programs
-   - Specialties: Dental therapy, fixed prosthetics, removable prosthetics, implant-supported prosthetics
-   - Known for precision, careful approach, warm demeanor
-
-4. **Dr. Kristi Sulanjaku** — Dental Specialist
+3. **Dr. Kristi Sulanjaku** — Dental Specialist
    - Master's in Medical Sciences, Dentistry Department (very high results)
    - Specialties: Dental prosthetics, attention to detail
    - Known for correctness, precision, excellent communication

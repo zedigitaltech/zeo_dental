@@ -12,8 +12,6 @@ import { WhatsAppButton } from './WhatsAppButton';
 const philosophyImages = [
   { src: '/images/philosophy/dorina-office.jpg', alt: 'Dr. Dorina at the clinic' },
   { src: '/images/philosophy/kristi-office.jpg', alt: 'Dr. Kristi at the clinic' },
-  { src: '/images/philosophy/rieni-office.jpg', alt: 'Dr. Rieni at the clinic' },
-  { src: '/images/philosophy/rieni-office-2.jpg', alt: 'Dr. Rieni consultation' },
   { src: '/images/philosophy/emanuela-office.jpg', alt: 'Dr. Emanuela at the clinic' },
   { src: '/images/philosophy/emanuela-office-2.jpg', alt: 'Dr. Emanuela consultation' },
   { src: '/images/philosophy/dorina-tools.jpg', alt: 'Dental tools closeup' },

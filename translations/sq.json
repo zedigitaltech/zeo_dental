@@ -256,18 +256,6 @@
     "membershipPlaceholder2": "Shoqata Shtetërore e Stomatologjisë",
     "membershipPlaceholder3": "Akademia e Stomatologjisë së Përgjithshme",
     "doctors": {
-      "dr-rien": {
-        "role": "Specialist Stomatologjik",
-        "bio": "I diplomuar në <strong>Universitetin e Stomatologjisë, Tiranë</strong>, Dr. Stambolliu specializohet në <strong>terapi dentare</strong>, <strong>protetikë fikse dhe të lëvizshme</strong>, si dhe në <strong>protetikë mbi implante</strong>.",
-        "fullBio": "Dr. Rien Stambolliu ka përfunduar studimet në <strong>Universitetin e Stomatologjisë, Tiranë</strong>. Gjatë formimit të tij profesional ka ndjekur dhe përfunduar me sukses <strong>trajnime të shumta kombëtare dhe ndërkombëtare</strong>, si dhe ka qenë <strong>pjesëmarrës aktiv në disa konferenca mjekësore</strong>, duke u përditësuar vazhdimisht me teknikat dhe standardet më të fundit në stomatologji. Ai realizon me profesionalizëm trajtime në fushën e <strong>terapisë dentare</strong>, <strong>protetikës fikse</strong>, <strong>të lëvizshme</strong>, si dhe <strong>protetikën mbi implante</strong>, duke i kushtuar rëndësi të veçantë funksionit, estetikës dhe qëndrueshmërisë afatgjatë të punimeve. I njohur për <strong>korrektësinë</strong>, <strong>qasjen e kujdesshme</strong> dhe <strong>sjelljen e ngrohtë</strong> ndaj pacientëve, Dr. Rieni punon me përkushtim maksimal për të garantuar trajtime cilësore, të sigurta dhe të personalizuara për çdo pacient.",
-        "education1": "Universiteti i Stomatologjisë, Tiranë",
-        "education2": "Trajnime kombëtare dhe ndërkombëtare në Protetikë Dentare",
-        "education3": "Pjesëmarrës aktiv në konferenca mjekësore stomatologjike",
-        "membership1": "Urdhri i Stomatologëve të Shqipërisë",
-        "membership2": "Shoqata Shqiptare e Stomatologjisë",
-        "membership3": "Anëtar i shoqatave profesionale të protetikës dentare",
-        "quote": "Jam i përkushtuar të garantoj trajtime cilësore, të sigurta dhe të personalizuara për çdo pacient."
-      },
       "dr-kristi": {
         "role": "Specialist Stomatologjik",
         "bio": "Dr.Kristi Sulanjaku ka përfunduar studimet <strong>Master në Shkenca Mjekësore, dega Stomatologji</strong>, me <strong>rezultate shumë të larta</strong>. Zotëron <strong>njohuri të thelluara në protetikën dentare</strong>.",

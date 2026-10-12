@@ -181,15 +181,6 @@ export const DOCTORS: Doctor[] = [
       "Dr. Dorina Beqiraj is a specialist in Oral Surgery and Implantology, trained at the most prestigious hospital centers in Paris. She brings clinical precision and advanced French-certified treatments to every procedure. Her expertise includes specialization in Oral Surgery and Occlusodontology at elite hospitals Pitié Salpêtrière and Charles Foix in Paris, as well as specialized training in Periodontology (gum diseases) at CHU-Nantes. Dr. Dorina holds the French CES certification (Certificat d'Études Supérieures) with diplomas in surgery, implantology, and anatomy-physiology.",
   },
   {
-    id: 'dr-rien',
-    name: 'Dr. Rien Stambolliu',
-    role: 'Dental Specialist',
-    image: '/images/team/rien-stambolliu-card.webp',
-    bio: 'Graduate of the University of Stomatology, Tirana, Dr. Stambolliu specializes in dental therapy, fixed and mobile prosthetics, and implant-supported restorations.',
-    fullBio:
-      'Dr. Rien Stambolliu completed his studies at the University of Stomatology, Tirana. Throughout his professional development, he has successfully completed numerous national and international training programs, and has been an active participant in several medical conferences, continuously updating himself with the latest techniques and standards in dentistry. He professionally performs treatments in the field of dental therapy, fixed prosthetics, removable prosthetics, as well as implant-supported prosthetics, paying special attention to the function, aesthetics, and long-term sustainability of the work. Known for his correctness, careful approach, and warm demeanor towards patients, Dr. Rien works with maximum dedication to guarantee quality, safe, and personalized treatments for each patient.',
-  },
-  {
     id: 'dr-kristi',
     name: 'Dr. Kristi Sulanjaku',
     role: 'Dental Specialist',

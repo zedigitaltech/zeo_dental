@@ -244,18 +244,6 @@
     "membershipPlaceholder2": "Eyalet Diş Hekimliği Derneği",
     "membershipPlaceholder3": "Genel Diş Hekimliği Akademisi",
     "doctors": {
-      "dr-rien": {
-        "role": "Diş Hekimliği Uzmanı",
-        "bio": "<strong>Tiran Stomatoloji Üniversitesi</strong> mezunu Dr. Stambolliu, <strong>diş tedavisi</strong>, <strong>sabit ve hareketli protezler</strong> ve <strong>implant destekli restorasyonlar</strong> konusunda uzmanlaşmıştır.",
-        "fullBio": "Dr. Rien Stambolliu eğitimini <strong>Tiran Stomatoloji Üniversitesi</strong>'nde tamamlamıştır. Mesleki gelişimi boyunca <strong>çok sayıda ulusal ve uluslararası eğitim programını</strong> başarıyla tamamlamış ve <strong>tıbbi kongrelere aktif olarak katılarak</strong> bilgisini diş hekimliğindeki en son teknik ve standartlarla sürekli güncellemiştir. <strong>Diş tedavisi</strong>, <strong>sabit ve hareketli protezler</strong> ile <strong>implant destekli protezler</strong> alanlarında profesyonel tedaviler sunmakta, fonksiyon, estetik ve çalışmalarının uzun vadeli dayanıklılığına özel önem vermektedir. <strong>Hassasiyeti</strong>, <strong>özenli yaklaşımı</strong> ve hastalara karşı <strong>sıcak tavrıyla</strong> tanınan Dr. Rien, her hasta için kaliteli, güvenli ve kişiselleştirilmiş tedaviler garanti etmek adına azami özveriyle çalışmaktadır.",
-        "education1": "Tiran Stomatoloji Üniversitesi",
-        "education2": "Diş Protezleri alanında ulusal ve uluslararası eğitim",
-        "education3": "Diş hekimliği tıbbi kongrelerine aktif katılım",
-        "membership1": "Arnavutluk Diş Hekimleri Birliği",
-        "membership2": "Arnavutluk Dental Derneği",
-        "membership3": "Profesyonel diş protezleri dernekleri üyesi",
-        "quote": "Her hasta için kaliteli, güvenli ve kişiselleştirilmiş tedaviler garanti etmeye kendimi adadım."
-      },
       "dr-kristi": {
         "role": "Diş Hekimliği Uzmanı",
         "bio": "Dr. Kristi Sulanjaku, <strong>Tıp Bilimleri, Diş Hekimliği Bölümü</strong>'nde yüksek lisans eğitimini <strong>çok yüksek başarıyla</strong> tamamlamıştır. <strong>Diş protezleri konusunda derin bilgi birikimine</strong> sahiptir.",

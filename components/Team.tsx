@@ -79,7 +79,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({ member, isMobile, t }) 
               colorize.shouldColorize ? 'grayscale-0' : 'grayscale'
             } ${!isMobile ? 'group-hover:grayscale-0' : ''}`}
             style={
-              member.id === 'dr-rien' || member.id === 'dr-kristi'
+              member.id === 'dr-kristi'
                 ? { objectPosition: '7% center' }
                 : member.id === 'dr-dorina'
                   ? { objectPosition: '35% center' }
@@ -255,7 +255,7 @@ export const Team: React.FC = () => {
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:max-w-4xl lg:mx-auto">
             {team.map((member, idx) => (
               <Reveal key={member.id} delay={idx * 100}>
                 {/* Slide Dr. Dorina to the right on md screens (when 2-col grid) */}
