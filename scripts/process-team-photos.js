@@ -29,11 +29,6 @@ const PHOTOS = [
   //   doctor: 'Dr. Emanuela Velaj'
   // },
   {
-    source: 'C:\\Users\\User\\OneDrive\\Desktop\\Materiale\\P1016602.JPG',
-    name: 'rien-stambolliu',
-    doctor: 'Dr. Rien Stambolliu'
-  },
-  {
     source: 'C:\\Users\\User\\Downloads\\WhatsApp Image 2025-12-17 at 11.56.17 AM-2.jpeg',
     name: 'kristi-sulanjaku',
     doctor: 'Dr. Kristi Sulanjaku'
