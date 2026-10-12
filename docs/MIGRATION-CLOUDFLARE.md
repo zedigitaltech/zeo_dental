@@ -10,10 +10,10 @@
 - **Keys:** new Gemini + Resend keys under Z.E accounts. The old ones live in a Fly account that is not ours.
 - The old Fly account (lorenc-ndoj, overdue) is never modified; it stays as a fallback until cutover is verified.
 
-
 Everything below comes from reading the worktree code, the backup's schema section (I did not read the patient rows), `fanar/` and `meta-sync.gs`. Items marked **[verify]** are Cloudflare or Google facts I could not check from here.
 
 ### Problems in the current code that change the design
+
 1. **Email-only bookings fail.** In production `bookings.phone` is still NOT NULL; migration 005 only relaxed `email`. The code allows a booking with just an email, so that insert would hit the constraint and return 500.
 2. **The schema has drifted.** Production has no `check_booking_status`, `idx_bookings_created` or `idx_chat_usage_date`.
 3. **Two uploads are lost.** There are 6 `booking_files` rows but only 4 files on disk; the other 2 died in `/tmp`.
@@ -28,6 +28,7 @@ Everything below comes from reading the worktree code, the backup's schema secti
 12. **The chat model may be retired.** `gemini-2.0-flash` may be retired **[verify]**; test the live chat now.
 
 ### 1) Target architecture
+
 - **Hosting:** one Worker with static assets, not Pages. This matches fanar.
 - **wrangler.toml:**
   - `not_found_handling = "none"`, so any path with no matching file reaches the Worker.
@@ -54,18 +55,19 @@ Everything below comes from reading the worktree code, the backup's schema secti
 
 ### 2) API parity (old to new)
 
-| Old | New |
-|---|---|
-| `/`, `/{lang}/*`, unprefixed path, `/sitemap.xml` | Same behaviour (see SEO pages above) |
-| `GET /health`, `/api/detect-language` | Same; language from `cf.country` |
-| `POST /api/chat` | Same; usage insert via `waitUntil` |
-| `POST /api/booking` | Same; email via `waitUntil` (Resend over `fetch`); email-only bookings now work |
-| `POST /api/booking/:id/files` | `request.formData()` to R2. Also check the file's actual type (magic bytes), not just the MIME type the browser sends |
-| `GET /api/bookings`, `/api/receptionist/*` (login, stats, chat-stats, bookings list/get, confirm, cancel, status) | Same, Bearer token. Every query filters `deleted_at IS NULL` |
-| **New** `GET /api/receptionist/bookings/:id/files[/:fileId]` | Admin only. Streams from R2 with `no-store` and `attachment`; returns 410 for the 2 lost files |
-| **New** `GET /api/export/leads?since=`, `/api/export/appointments` | Separate `SHEETS_EXPORT_TOKEN`, read-only (see sheet sync below) |
+| Old                                                                                                               | New                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `/`, `/{lang}/*`, unprefixed path, `/sitemap.xml`                                                                 | Same behaviour (see SEO pages above)                                                                                  |
+| `GET /health`, `/api/detect-language`                                                                             | Same; language from `cf.country`                                                                                      |
+| `POST /api/chat`                                                                                                  | Same; usage insert via `waitUntil`                                                                                    |
+| `POST /api/booking`                                                                                               | Same; email via `waitUntil` (Resend over `fetch`); email-only bookings now work                                       |
+| `POST /api/booking/:id/files`                                                                                     | `request.formData()` to R2. Also check the file's actual type (magic bytes), not just the MIME type the browser sends |
+| `GET /api/bookings`, `/api/receptionist/*` (login, stats, chat-stats, bookings list/get, confirm, cancel, status) | Same, Bearer token. Every query filters `deleted_at IS NULL`                                                          |
+| **New** `GET /api/receptionist/bookings/:id/files[/:fileId]`                                                      | Admin only. Streams from R2 with `no-store` and `attachment`; returns 410 for the 2 lost files                        |
+| **New** `GET /api/export/leads?since=`, `/api/export/appointments`                                                | Separate `SHEETS_EXPORT_TOKEN`, read-only (see sheet sync below)                                                      |
 
 ### 3) Data migration
+
 1. Write `scripts/import-backup.mjs`. It reads the JSON outside the repo and writes SQL to the scratchpad, never into git.
 2. Normalise values: timestamps to ISO `Z`. Dates: assert every value ends in `T00:00:00.000Z`, then keep the first 10 characters. Booleans to 0/1.
 3. Assert every row passes the new CHECKs before inserting.
@@ -75,6 +77,7 @@ Everything below comes from reading the worktree code, the backup's schema secti
 7. After cutover, run the delta: dump Fly again and import again. Because ids are kept and inserts ignore duplicates, re-running is safe.
 
 ### 4) Implementation tasks (tests first, run in CI)
+
 1. Golden SEO test: save Fastify `renderHtml` output for 15 routes × 8 languages, and require the Worker output to be byte-identical.
 2. Schema `0000_init.sql` plus importer, tested on a synthetic fixture (no real patient data).
 3. Port the routes and `server/tests` to `@cloudflare/vitest-pool-workers` (local D1 and R2).
@@ -85,6 +88,7 @@ Everything below comes from reading the worktree code, the backup's schema secti
 8. `DEPLOY.md` in the fanar style. Run `security-reviewer` before the first deploy.
 
 ### 5) Cutover and rollback
+
 1. **Record DNS first**, before touching nameservers.
    - Export Namecheap Advanced DNS.
    - `dig` apex and `www` (A/AAAA/CNAME), MX, TXT (SPF, `_dmarc`, site verifications), the `resend._domainkey` and `send.` records, other DKIM selectors, and CAA.
@@ -98,6 +102,7 @@ Everything below comes from reading the worktree code, the backup's schema secti
 7. **Rollback:** use `wrangler rollback` for a bad deploy. For a full revert, delete the route and set the records back to grey; traffic returns to Fly. Bookings made in D1 during the window are exported and sent to the clinic by hand, since we don't write into Fly.
 
 ### Owner requirement: Google Sheet sync
+
 **Use pull, not push** (the coordinator's lean is right). Push would put a Google service-account key in the Worker and need RS256 signing plus a second secret. Pull keeps all Google access in Apps Script owned by elvizekaj@zedigital.tech.
 
 - **Export endpoints.** They return only `ref` (first 8 characters of the id), `created_at`, `updated_at`, name, phone, email, `preferred_date`, `preferred_time`, `confirmed_date`, `confirmed_time` and `status`.
@@ -117,6 +122,7 @@ Everything below comes from reading the worktree code, the backup's schema secti
   - Share view-only. Edits stay in `/receptionist`.
 
 ### 6) Risks and open questions
+
 - **a. Keys:** the Gemini and Resend keys are in a Fly account that isn't ours, so we cannot read them. New keys are needed.
   - Gemini: if we use the free tier, its terms may bar serving EEA/UK users and allow Google to use the data **[verify]**.
   - Resend: a new account in the EU region. Its DKIM collides with the existing `resend._domainkey`, so either verify `mail.zeodentalclinic.com` or swap the DKIM record only after the flip. Free tier is 100 emails/day.
