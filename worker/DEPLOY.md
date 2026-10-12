@@ -70,6 +70,10 @@ openssl rand -hex 32 | npx wrangler secret put RATE_LIMIT_SALT
 #   npx wrangler secret put WHATSAPP_ACCESS_TOKEN
 ```
 
+`ADMIN_TOKEN` and `SHEETS_EXPORT_TOKEN` must be at least 32 characters: with a
+shorter value the Worker refuses every admin/export request (500, logged).
+`openssl rand -hex 24` gives 48.
+
 Build-time variable (public, not a secret): `VITE_ELFSIGHT_WIDGET_ID` must be in
 the shell (or `../.env.production`) when the site is built; the Fly Dockerfile
 used `f2d6942e-44a2-4e68-b564-3809a1f1cabb`.
@@ -215,3 +219,25 @@ Open checks before go-live:
 - **[verify]** `wrangler d1 create --jurisdiction eu` on the free plan; `jurisdiction = "eu"` on the R2 binding; `[[ratelimits]]` on the free plan; `wrangler r2 object put/get --jurisdiction eu`.
 - **[verify]** Gemini free tier: whether its terms allow serving EEA/UK users and how Google may use the prompts; whether `gemini-2.0-flash` is still served (prodcheck's chat check answers the second).
 - Workers compute is not pinned to the EU on the free plan: name Cloudflare and Resend as processors in the privacy policy.
+
+## 9. Security controls (review of 2026-10-12) and known follow-ups
+
+In place:
+
+- Bearer routes and `/api/receptionist/login`: per-address lockout after 10 failed
+  attempts in 15 minutes (429, even with the right secret). Unlock = wait, or a new address.
+- Chat: history must be `user`/`model` turns with text parts only (≤20 turns, user turns
+  ≤1000 chars, model turns ≤4000); total history + message is kept ≤8000 chars by dropping
+  the oldest turns. The clinic prompt is sent as Gemini `systemInstruction`; the key goes in
+  the `x-goog-api-key` header. Upstream errors are 502 with a generic message.
+  Caps: 15/min and `CHAT_DAILY_PER_IP` (40)/day per address, `CHAT_DAILY_CAP` (500)/day global.
+- Uploads: `Content-Length` required (411), parsed bytes re-checked, at most 3 files per
+  booking in total, D1 rows written before R2 objects (an R2 failure logs the keys).
+- Booking fields: name 200, service 100, description 2000, notes 2000, e-mail 254, phone 40
+  characters; stricter e-mail format.
+- D1 rate-limit fallback is a fixed ring (`<bucket>:<0..4095>`), bounded without any DELETE.
+- Apps Script: every website-sourced cell is quote-prefixed when it could start a formula.
+
+Known follow-ups (accepted for now): security review items **10** and **12** — see the
+review of `feat/cloudflare-migration`. Also still open from the design: login returns the
+admin token itself (parity with Fly, design item 11).
