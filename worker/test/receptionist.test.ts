@@ -9,12 +9,14 @@ const today = () => new Date().toISOString().slice(0, 10);
 
 describe('POST /api/receptionist/login', () => {
   it('returns the token on the right password (parity, flagged in the design)', async () => {
-    const res = await postJson('/api/receptionist/login', { password: 'test-admin-token' });
+    const res = await postJson('/api/receptionist/login', {
+      password: 'test-admin-token-0123456789abcdef0123',
+    });
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({
       success: true,
       message: 'Login successful',
-      token: 'test-admin-token',
+      token: 'test-admin-token-0123456789abcdef0123',
     });
   });
   it('401 on a wrong password, 503 when unconfigured', async () => {

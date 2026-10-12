@@ -5,8 +5,8 @@ import type { Env } from '../src/env';
 import template from './fixtures/index.html?raw';
 
 export { template };
-export const ADMIN = { authorization: 'Bearer test-admin-token' };
-export const EXPORT = { authorization: 'Bearer test-export-token' };
+export const ADMIN = { authorization: 'Bearer test-admin-token-0123456789abcdef0123' };
+export const EXPORT = { authorization: 'Bearer test-export-token-0123456789abcdef012' };
 
 /** Static-assets stub: serves the fixture template for "/" and "/index.html", 404 otherwise. */
 export const assetsStub = {
@@ -115,4 +115,19 @@ export async function seedBooking(o: Record<string, unknown> = {}): Promise<stri
     .bind(...cols.map(c => row[c] ?? null))
     .run();
   return id;
+}
+
+/** Serialised like a browser does it: multipart body with a Content-Length. */
+export async function multipart(
+  fd: FormData
+): Promise<{ body: ArrayBuffer; headers: Record<string, string> }> {
+  const r = new Response(fd);
+  const body = await r.arrayBuffer();
+  return {
+    body,
+    headers: {
+      'content-type': r.headers.get('content-type')!,
+      'content-length': String(body.byteLength),
+    },
+  };
 }

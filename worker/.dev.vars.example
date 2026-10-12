@@ -1,8 +1,8 @@
 # Local-only values for `npm run dev` (wrangler dev --local). Copied to .dev.vars (gitignored).
 # Never put real keys here; production secrets are set with `wrangler secret put` (DEPLOY.md §2).
 ZEO_ENV=dev
-ADMIN_TOKEN=local-admin-token
-SHEETS_EXPORT_TOKEN=local-export-token
+ADMIN_TOKEN=local-admin-token-0123456789abcdef0123
+SHEETS_EXPORT_TOKEN=local-export-token-0123456789abcdef01
 RATE_LIMIT_SALT=local-salt
 # GEMINI_API_KEY=
 # RESEND_API_KEY=

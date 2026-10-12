@@ -7,7 +7,8 @@ import { Hono } from 'hono';
 import type { MiddlewareHandler } from 'hono';
 import type { AppEnv } from '../env';
 import { STATUSES } from '../lib/db';
-import { bearer, safeEqual } from '../lib/http';
+import { checkSecret } from '../lib/auth';
+import { bearer } from '../lib/http';
 
 export const EXPORT_FIELDS = [
   'ref',
@@ -56,10 +57,13 @@ export const tiranaToday = (d = new Date()) =>
 export const exportApi = new Hono<AppEnv>();
 
 const requireExportToken: MiddlewareHandler<AppEnv> = async (c, next) => {
-  const token = c.env.SHEETS_EXPORT_TOKEN;
-  if (!token) return c.json({ error: 'Export not configured' }, 503);
-  const given = bearer(c.req.raw);
-  if (!given || !safeEqual(given, token)) return c.json({ error: 'Unauthorized' }, 401);
+  const auth = await checkSecret(c.env, c.req.raw, 'SHEETS_EXPORT_TOKEN', bearer(c.req.raw));
+  if (!auth.ok) {
+    return c.json(
+      { error: auth.status === 503 ? 'Export not configured' : auth.message },
+      auth.status
+    );
+  }
   await next();
   c.res.headers.set('cache-control', 'no-store');
 };

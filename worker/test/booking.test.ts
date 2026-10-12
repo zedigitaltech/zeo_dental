@@ -128,8 +128,10 @@ describe('POST /api/booking', () => {
       statuses.push((await postJson('/api/booking', valid(), { ip: '203.0.113.77' })).status);
     expect(statuses.slice(0, 10).every(s => s === 201)).toBe(true);
     expect(statuses[10]).toBe(429);
-    const keys = await env.DB.prepare('SELECT key FROM rate_limits').all<{ key: string }>();
-    expect(keys.results.every(r => /^[0-9a-f]{64}$/.test(r.key))).toBe(true); // no address stored
+    const slots = await env.DB.prepare('SELECT slot FROM rate_limits').all<{ slot: string }>();
+    // A bucket and a slot number in a fixed ring: no address stored.
+    expect(slots.results.every(r => /^booking:\d{1,4}$/.test(r.slot))).toBe(true);
+    expect(JSON.stringify(slots.results)).not.toContain('203.0.113');
   });
 
   it('uses the Rate Limiting binding when it is bound', async () => {

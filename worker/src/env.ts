@@ -12,6 +12,7 @@ export interface Env {
   BASE_URL?: string;
   CORS_ORIGINS?: string;
   CHAT_DAILY_CAP?: string;
+  CHAT_DAILY_PER_IP?: string;
   GEMINI_MODEL?: string;
 
   GEMINI_API_KEY?: string;

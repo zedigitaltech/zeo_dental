@@ -80,12 +80,12 @@ CREATE TABLE IF NOT EXISTS chat_usage (
 
 CREATE INDEX IF NOT EXISTS idx_chat_usage_created_at ON chat_usage(created_at);
 
--- Fallback rate limiter when the Workers Rate Limiting binding is unavailable.
--- key = sha256(salt · UTC day · bucket · ip) so rows cannot be joined across days and hold no address.
--- Rows are counters, not records; old windows are simply never read again.
+-- Fallback rate limiter (and the admin lockout / per-address daily chat cap, which always use D1).
+-- A fixed ring: slot = '<bucket>:<n>' with n = sha256(salt · ip) mod 4096, so the table can never hold
+-- more than 4096 rows per bucket and stores no address. A stale window is reset in place by the
+-- upsert; nothing is ever deleted.
 CREATE TABLE IF NOT EXISTS rate_limits (
-  key          TEXT NOT NULL,
+  slot         TEXT PRIMARY KEY NOT NULL,
   window_start INTEGER NOT NULL,
-  count        INTEGER NOT NULL DEFAULT 0,
-  PRIMARY KEY (key, window_start)
+  count        INTEGER NOT NULL DEFAULT 0
 );

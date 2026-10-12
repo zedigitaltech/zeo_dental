@@ -4,30 +4,28 @@ import type { AppEnv } from '../env';
 import { BOOKING_SELECT, STATUSES, findBooking, nowIso, toBooking } from '../lib/db';
 import type { BookingRow } from '../lib/db';
 import { sendCancellationEmail, sendConfirmationEmail } from '../lib/email';
-import { bearer, errMsg, readJson, safeEqual, str } from '../lib/http';
+import { checkSecret } from '../lib/auth';
+import { bearer, errMsg, readJson, str } from '../lib/http';
 import { isIsoDate } from '../lib/validate';
 import { sendWhatsAppCancellation, sendWhatsAppConfirmation } from '../lib/whatsapp';
 
 export const receptionist = new Hono<AppEnv>();
 
 const requireAdmin: MiddlewareHandler<AppEnv> = async (c, next) => {
-  const token = c.env.ADMIN_TOKEN;
-  if (!token) return c.json({ success: false, error: 'Admin access not configured' }, 503);
-  const given = bearer(c.req.raw);
-  if (!given || !safeEqual(given, token))
-    return c.json({ success: false, error: 'Unauthorized' }, 401);
+  const auth = await checkSecret(c.env, c.req.raw, 'ADMIN_TOKEN', bearer(c.req.raw));
+  if (!auth.ok) return c.json({ success: false, error: auth.message }, auth.status);
   await next();
 };
 
 receptionist.post('/api/receptionist/login', async c => {
-  const token = c.env.ADMIN_TOKEN;
-  if (!token) return c.json({ success: false, message: 'Admin access not configured' }, 503);
-  const password = str((await readJson(c.req.raw)).password);
-  // Parity with Fly: the password IS the bearer token and is returned (flagged in the design, #11).
-  if (password && safeEqual(password, token)) {
-    return c.json({ success: true, message: 'Login successful', token });
+  const password = str((await readJson(c.req.raw)).password) ?? null;
+  const auth = await checkSecret(c.env, c.req.raw, 'ADMIN_TOKEN', password);
+  if (!auth.ok) {
+    const message = auth.status === 401 ? 'Invalid password' : auth.message;
+    return c.json({ success: false, message }, auth.status);
   }
-  return c.json({ success: false, message: 'Invalid password' }, 401);
+  // Parity with Fly: the password IS the bearer token and is returned (flagged in the design, #11).
+  return c.json({ success: true, message: 'Login successful', token: c.env.ADMIN_TOKEN });
 });
 
 receptionist.use('/api/receptionist/stats', requireAdmin);

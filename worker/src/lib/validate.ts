@@ -1,6 +1,8 @@
 /** Same rules as server/src/routes/booking.ts. */
 export function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // Tighter than Fly's /^[^\s@]+@[^\s@]+\.[^\s@]+$/: no quotes, pipes, '=' etc. that a spreadsheet
+  // or mail client could interpret; a dotted domain with a 2+ letter TLD.
+  return /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/.test(email.trim());
 }
 
 export function isValidPhone(phone: string): boolean {

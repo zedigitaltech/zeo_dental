@@ -2,7 +2,8 @@ import { Hono } from 'hono';
 import type { AppEnv } from '../env';
 import { BOOKING_SELECT, findBooking, nowIso, toBooking } from '../lib/db';
 import { sendClinicNotification } from '../lib/email';
-import { bearer, clientIp, errMsg, readJson, safeEqual, str } from '../lib/http';
+import { checkSecret } from '../lib/auth';
+import { bearer, clientIp, errMsg, readJson, str } from '../lib/http';
 import { ALLOWED_TYPES, sniff } from '../lib/magic';
 import { allow } from '../lib/ratelimit';
 import { TIME_SLOTS, futureDate, isValidEmail, isValidPhone } from '../lib/validate';
@@ -10,6 +11,16 @@ import { TIME_SLOTS, futureDate, isValidEmail, isValidPhone } from '../lib/valid
 const FILE_RETENTION_DAYS = 90; // informational only (owner decision 2026-10-12)
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 const MAX_FILES = 3;
+
+/** Field length caps (characters, after trimming). */
+export const MAX_LENGTH = {
+  name: 200,
+  service: 100,
+  description: 2000,
+  notes: 2000,
+  email: 254,
+  phone: 40,
+};
 
 const bad = (message: string, error = message) => ({ success: false, message, error });
 
@@ -39,6 +50,11 @@ booking.post('/api/booking', async c => {
   if (!name || !service)
     return c.json(bad('Name and service are required', 'Missing required fields'), 400);
   if (!phone && !email) return c.json(bad('Either phone or email is required'), 400);
+  const fields = { name, service, description, notes, email, phone };
+  for (const [field, max] of Object.entries(MAX_LENGTH)) {
+    const v = fields[field as keyof typeof fields];
+    if (v && v.trim().length > max) return c.json(bad(`Field too long: ${field}`), 400);
+  }
   if (email && !isValidEmail(email)) return c.json(bad('Invalid email format'), 400);
   if (phone && !isValidPhone(phone)) return c.json(bad('Invalid phone number format'), 400);
 
@@ -115,10 +131,8 @@ booking.post('/api/booking', async c => {
 });
 
 booking.get('/api/bookings', async c => {
-  const token = c.env.ADMIN_TOKEN;
-  if (!token) return c.json({ error: 'Admin access not configured' }, 503);
-  const given = bearer(c.req.raw);
-  if (!given || !safeEqual(given, token)) return c.json({ error: 'Unauthorized' }, 401);
+  const auth = await checkSecret(c.env, c.req.raw, 'ADMIN_TOKEN', bearer(c.req.raw));
+  if (!auth.ok) return c.json({ error: auth.message }, auth.status);
   try {
     console.log(
       `Admin bookings accessed (country ${(c.req.raw as { cf?: { country?: string } }).cf?.country ?? '?'})`
@@ -146,7 +160,12 @@ booking.post('/api/booking/:bookingId/files', async c => {
     return c.json({ success: false, error: 'Booking not found' }, 404);
   }
 
-  const length = Number(c.req.header('content-length') ?? '0');
+  // Browsers always send a length for FormData; refusing chunked bodies bounds what we parse.
+  const declared = c.req.header('content-length');
+  if (!declared || !/^\d+$/.test(declared)) {
+    return c.json({ success: false, error: 'Content-Length required' }, 411);
+  }
+  const length = Number(declared);
   if (length > MAX_FILES * MAX_FILE_SIZE + 1024 * 1024) {
     return c.json({ success: false, error: 'Upload too large' }, 413);
   }
@@ -195,6 +214,17 @@ booking.post('/api/booking/:bookingId/files', async c => {
   }
 
   if (accepted.length === 0) return c.json({ success: false, error: 'No files uploaded' }, 400);
+  // Re-check what was actually parsed against what was declared.
+  const parsedBytes = accepted.reduce((n, a) => n + a.bytes.length, 0);
+  if (parsedBytes > length) return c.json({ success: false, error: 'Upload too large' }, 413);
+  const existing = await c.env.DB.prepare(
+    'SELECT COUNT(*) AS n FROM booking_files WHERE booking_id = ? AND deleted_at IS NULL'
+  )
+    .bind(bookingId)
+    .first<{ n: number }>();
+  if ((existing?.n ?? 0) + accepted.length > MAX_FILES) {
+    return c.json({ success: false, error: `Maximum ${MAX_FILES} files per booking` }, 413);
+  }
   if (!healthDataConsent) {
     return c.json(
       {
@@ -206,22 +236,47 @@ booking.post('/api/booking/:bookingId/files', async c => {
   }
 
   const expiresAt = new Date(Date.now() + FILE_RETENTION_DAYS * 86_400_000).toISOString();
-  const saved: Array<{ name: string; size: number }> = [];
-  const inserts: D1PreparedStatement[] = [];
-  for (const { file, bytes, mime } of accepted) {
+  const planned = accepted.map(({ file, bytes, mime }) => {
     const filename = `${crypto.randomUUID()}${ALLOWED_TYPES[mime]}`;
-    const key = `bookings/${bookingId}/${filename}`;
-    // No personal data in object metadata: only the content type.
-    await c.env.UPLOADS.put(key, bytes, { httpMetadata: { contentType: mime } });
-    inserts.push(
+    return { file, bytes, mime, filename, key: `bookings/${bookingId}/${filename}` };
+  });
+
+  // Rows first: a health file must never sit in R2 without a row that points at it. If an R2 write
+  // then fails, the row answers 410 on download and the keys are logged for follow-up.
+  await c.env.DB.batch(
+    planned.map(p =>
       c.env.DB.prepare(
         `INSERT INTO booking_files (booking_id, filename, original_name, mime_type, size_bytes, storage_path, health_data_consent, expires_at)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-      ).bind(bookingId, filename, file.name || 'unknown', mime, bytes.length, key, 1, expiresAt)
-    );
-    saved.push({ name: file.name || 'unknown', size: bytes.length });
+      ).bind(
+        bookingId,
+        p.filename,
+        p.file.name || 'unknown',
+        p.mime,
+        p.bytes.length,
+        p.key,
+        1,
+        expiresAt
+      )
+    )
+  );
+  const missing: string[] = [];
+  for (const p of planned) {
+    try {
+      // No personal data in object metadata: only the content type.
+      await c.env.UPLOADS.put(p.key, p.bytes, { httpMetadata: { contentType: p.mime } });
+    } catch (err) {
+      missing.push(p.key);
+      console.error(`R2 put failed for ${p.key}: ${errMsg(err)}`);
+    }
   }
-  await c.env.DB.batch(inserts);
+  if (missing.length > 0) {
+    console.error(
+      `Upload incomplete for booking ${bookingId}; rows without objects: ${missing.join(', ')}`
+    );
+    return c.json({ success: false, error: 'Upload failed. Please try again.' }, 500);
+  }
+  const saved = planned.map(p => ({ name: p.file.name || 'unknown', size: p.bytes.length }));
 
   console.log(`Uploaded ${saved.length} files for booking ${bookingId}`);
   return c.json(

@@ -29,7 +29,11 @@ describe('export auth', () => {
       );
       expect((await call(p)).status).toBe(401);
       expect(
-        (await call(p, { headers: { authorization: 'Bearer test-admin-token' } })).status
+        (
+          await call(p, {
+            headers: { authorization: 'Bearer test-admin-token-0123456789abcdef0123' },
+          })
+        ).status
       ).toBe(401);
     });
   }

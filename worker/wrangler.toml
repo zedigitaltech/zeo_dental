@@ -63,6 +63,8 @@ BASE_URL = "https://zeodentalclinic.com"
 CORS_ORIGINS = "https://zeodentalclinic.com,https://www.zeodentalclinic.com"
 # Hard daily cap on Gemini calls (counted from chat_usage). Protects the free tier.
 CHAT_DAILY_CAP = "500"
+# Per visitor address per UTC day (D1 ring), on top of the global cap.
+CHAT_DAILY_PER_IP = "40"
 
 # Secrets — never in this file. Set each with `wrangler secret put <NAME>` (DEPLOY.md §2):
 #   GEMINI_API_KEY          new key under a Z.E Google account

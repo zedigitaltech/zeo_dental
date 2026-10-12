@@ -17,8 +17,8 @@ export default defineWorkersConfig(async () => {
             bindings: {
               TEST_MIGRATIONS: migrations,
               ZEO_ENV: 'test',
-              ADMIN_TOKEN: 'test-admin-token',
-              SHEETS_EXPORT_TOKEN: 'test-export-token',
+              ADMIN_TOKEN: 'test-admin-token-0123456789abcdef0123',
+              SHEETS_EXPORT_TOKEN: 'test-export-token-0123456789abcdef012',
               RATE_LIMIT_SALT: 'test-salt',
               GEMINI_API_KEY: 'test-gemini-key',
               RESEND_API_KEY: 'test-resend-key',

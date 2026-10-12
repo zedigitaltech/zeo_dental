@@ -55,47 +55,47 @@ export function renderHtml(
 
   let html = template;
 
-  html = html.replace(/lang="en"/, `lang="${lang}"`);
-  html = html.replace(/<title>[^<]*<\/title>/, `<title>${seo.title}</title>`);
+  html = html.replace(/lang="en"/, () => `lang="${lang}"`);
+  html = html.replace(/<title>[^<]*<\/title>/, () => `<title>${seo.title}</title>`);
   html = html.replace(
     /<meta name="description" content="[^"]*"/,
-    `<meta name="description" content="${seo.description}"`
+    () => `<meta name="description" content="${seo.description}"`
   );
   html = html.replace(
     /<link rel="canonical" href="[^"]*"/,
-    `<link rel="canonical" href="${canonicalUrl}"`
+    () => `<link rel="canonical" href="${canonicalUrl}"`
   );
   html = html.replace(
     /<!-- hreflang tags injected dynamically by server per language -->/,
-    `${hreflangTags}\n    ${xDefault}`
+    () => `${hreflangTags}\n    ${xDefault}`
   );
   html = html.replace(
     /<meta property="og:url" content="[^"]*"/,
-    `<meta property="og:url" content="${canonicalUrl}"`
+    () => `<meta property="og:url" content="${canonicalUrl}"`
   );
   html = html.replace(
     /<meta property="og:title" content="[^"]*"/,
-    `<meta property="og:title" content="${seo.title}"`
+    () => `<meta property="og:title" content="${seo.title}"`
   );
   html = html.replace(
     /<meta property="og:description" content="[^"]*"/,
-    `<meta property="og:description" content="${seo.description}"`
+    () => `<meta property="og:description" content="${seo.description}"`
   );
   html = html.replace(
     /<meta property="og:locale" content="[^"]*"/,
-    `<meta property="og:locale" content="${locale}"`
+    () => `<meta property="og:locale" content="${locale}"`
   );
   html = html.replace(
     /<meta name="twitter:title" content="[^"]*"/,
-    `<meta name="twitter:title" content="${seo.title}"`
+    () => `<meta name="twitter:title" content="${seo.title}"`
   );
   html = html.replace(
     /<meta name="twitter:description" content="[^"]*"/,
-    `<meta name="twitter:description" content="${seo.description}"`
+    () => `<meta name="twitter:description" content="${seo.description}"`
   );
   html = html.replace(
     /<meta name="twitter:url" content="[^"]*"/,
-    `<meta name="twitter:url" content="${canonicalUrl}"`
+    () => `<meta name="twitter:url" content="${canonicalUrl}"`
   );
 
   return html;

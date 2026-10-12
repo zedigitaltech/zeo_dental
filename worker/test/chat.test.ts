@@ -23,10 +23,10 @@ const gemini = (text = 'Hello from Gemini') =>
 describe('POST /api/chat', () => {
   it('400 when message is missing or too long', async () => {
     expect((await postJson('/api/chat', {})).status).toBe(400);
-    const long = await postJson('/api/chat', { message: 'x'.repeat(5001) });
+    const long = await postJson('/api/chat', { message: 'x'.repeat(1001) });
     expect(long.status).toBe(400);
     expect(((await long.json()) as { error: string }).error).toBe(
-      'Message is too long. Please keep it under 5000 characters.'
+      'Message is too long. Please keep it under 1000 characters.'
     );
   });
 
@@ -45,13 +45,18 @@ describe('POST /api/chat', () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ response: 'Hello from Gemini' });
     const [url, init] = f.mock.calls[0];
-    expect(String(url)).toMatch(
-      /^https:\/\/generativelanguage\.googleapis\.com\/v1beta\/models\/gemini-2\.0-flash:generateContent\?key=/
+    // Key in a header, never in the URL (URLs end up in logs).
+    expect(String(url)).toBe(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'
+    );
+    expect(new Headers((init as RequestInit).headers).get('x-goog-api-key')).toBe(
+      'test-gemini-key'
     );
     const sent = JSON.parse(String((init as RequestInit).body));
-    expect(sent.contents[0].parts[0].text).toContain('You are Sofia');
-    expect(sent.contents[0].parts[0].text).toContain('Italian (Italiano)');
-    expect(sent.contents.at(-1)).toEqual({ role: 'user', parts: [{ text: 'Hi' }] });
+    // The clinic prompt is a real system instruction, not a fake user turn.
+    expect(sent.systemInstruction.parts[0].text).toContain('You are Sofia');
+    expect(sent.systemInstruction.parts[0].text).toContain('Italian (Italiano)');
+    expect(sent.contents).toEqual([{ role: 'user', parts: [{ text: 'Hi' }] }]);
     const row = await env.DB.prepare('SELECT * FROM chat_usage ORDER BY id DESC LIMIT 1').first<
       Record<string, unknown>
     >();
@@ -68,14 +73,14 @@ describe('POST /api/chat', () => {
     const f = gemini();
     await postJson('/api/chat', { message: 'Hi', language: 'xx' });
     expect(
-      JSON.parse(String((f.mock.calls[0][1] as RequestInit).body)).contents[0].parts[0].text
+      JSON.parse(String((f.mock.calls[0][1] as RequestInit).body)).systemInstruction.parts[0].text
     ).toContain('DEFAULT language is English');
   });
 
-  it('passes a Gemini 4xx status through with the generic error', async () => {
+  it('maps an upstream Gemini error to 502 with the generic error', async () => {
     mockFetch(() => new Response('bad', { status: 429 }));
     const res = await postJson('/api/chat', { message: 'Hi' });
-    expect(res.status).toBe(429);
+    expect(res.status).toBe(502);
     expect(await res.json()).toEqual({
       response: '',
       error: 'Failed to get response from AI. Please try again.',

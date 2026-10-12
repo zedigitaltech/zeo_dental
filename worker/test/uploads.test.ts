@@ -1,6 +1,6 @@
 import { env } from 'cloudflare:test';
 import { describe, expect, it } from 'vitest';
-import { ADMIN, call, seedBooking } from './helpers';
+import { ADMIN, call, multipart, seedBooking } from './helpers';
 
 const JPEG = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0, 0x10, 0x4a, 0x46, 0x49, 0x46, 0, 1, 2, 3]);
 const PDF = new TextEncoder().encode('%PDF-1.4\n%fake\n');
@@ -16,8 +16,10 @@ function form(
   return fd;
 }
 
-const upload = (id: string, fd: FormData, ip?: string) =>
-  call(`/api/booking/${id}/files`, { method: 'POST', body: fd, ip });
+const upload = async (id: string, fd: FormData, ip?: string) => {
+  const { body, headers } = await multipart(fd);
+  return call(`/api/booking/${id}/files`, { method: 'POST', body, headers, ip });
+};
 
 async function objects(prefix: string) {
   return (await env.UPLOADS.list({ prefix })).objects;
