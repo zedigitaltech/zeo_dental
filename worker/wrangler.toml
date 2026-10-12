@@ -33,7 +33,7 @@ database_name = "zeo-dental"
 # PLACEHOLDER — replace with the id printed by (see DEPLOY.md §1):
 #   wrangler d1 create zeo-dental --jurisdiction eu      [verify the flag on the free plan]
 #   (fallback: wrangler d1 create zeo-dental --location weur)
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "64b4d4ac-d1dc-42f4-b5df-51dcfaeb8fae"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
