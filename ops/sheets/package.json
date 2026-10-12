@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "type": "commonjs",
+  "description": "Apps Script sources; this file only makes node --test load them as CommonJS"
+}
