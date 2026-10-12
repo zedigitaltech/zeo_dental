@@ -2,7 +2,7 @@
 // Only fake people here: no real names, phones or e-mails.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { zwPlanCallList, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone } = require('./zeo-web-sync.gs');
+const { zwPlanCallList, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone, zwSafe } = require('./zeo-web-sync.gs');
 
 // Same formatting the script gets from Utilities.formatDate(…, 'Europe/Tirane', …).
 const fmt = (iso, pattern) => {
@@ -40,7 +40,8 @@ test('a new website booking is appended with F = "NUOVO Sito dd/MM HH:mm · ref"
   const { append, updates } = zwPlanCallList([item()], [metaRow()], P, { fmt });
   assert.equal(updates.length, 0);
   assert.equal(append.length, 1);
-  assert.deepEqual(append[0].cells, [2, 'Dario Prova', '+39 347 000 1111', 'dario@example.it', '', 'NUOVO Sito 12/10 10:05 · ref a1b2c3d4']);
+  // The leading ' makes Sheets store the phone as text (it is not shown).
+  assert.deepEqual(append[0].cells, [2, 'Dario Prova', "'+39 347 000 1111", 'dario@example.it', '', 'NUOVO Sito 12/10 10:05 · ref a1b2c3d4']);
   assert.equal(append[0].prenotato, 'Richiesto: 20/11 mattina · ref a1b2c3d4');
 });
 
@@ -120,8 +121,8 @@ test('Takimet: Albanian columns, by date, undated in a "Pa datë" section, Tiran
     item({ ref: 'c0000003', preferred_date: null, preferred_time: null, email: null }),
   ], fmt);
   assert.deepEqual(rows[0], ['Data', 'Ora', 'Emri', 'Telefon', 'Email', 'Statusi', 'Konfirmuar më']);
-  assert.deepEqual(rows[1], ['05/11/2026', '10:30', 'Dario Prova', '+39 347 000 1111', 'dario@example.it', 'Konfirmuar', '13/10/2026 00:30']);
-  assert.deepEqual(rows[2], ['20/11/2026', 'pasdite', 'Era Finta', '+39 347 000 1111', 'dario@example.it', 'Në pritje', '']);
+  assert.deepEqual(rows[1], ['05/11/2026', '10:30', 'Dario Prova', "'+39 347 000 1111", 'dario@example.it', 'Konfirmuar', '13/10/2026 00:30']);
+  assert.deepEqual(rows[2], ['20/11/2026', 'pasdite', 'Era Finta', "'+39 347 000 1111", 'dario@example.it', 'Në pritje', '']);
   assert.equal(rows[3][0], 'Pa datë');
   assert.deepEqual(rows[4].slice(0, 2), ['', '']);
   assert.equal(rows[4][4], '');
@@ -134,4 +135,44 @@ test('Takimet never carries treatment, notes or description', () => {
 
 test('an empty Takimet still shows the header and a message', () => {
   assert.equal(zwPlanTakimet([], fmt).length, 2);
+});
+
+// ---- security review #1: spreadsheet formula injection ----
+
+const FORMULAS = ['=HYPERLINK("http://evil.example","x")', '+cmd', '-2+3', '@SUM(A1)', '\t=1', '\r=1'];
+
+test('zwSafe prefixes a quote to anything a sheet could read as a formula', () => {
+  for (const f of FORMULAS) assert.equal(zwSafe(f), "'" + f);
+  assert.equal(zwSafe('Anna Prova'), 'Anna Prova');
+  assert.equal(zwSafe(''), '');
+  assert.equal(zwSafe(42), 42);
+});
+
+test('call list: no user-sourced cell can start a formula', () => {
+  const items = FORMULAS.map((f, i) => item({ ref: '0000000' + i, name: f, phone: '', email: `u${i}@example.it` }));
+  items.push(item({ ref: 'eeeeeee1', name: 'Ok', phone: '', email: '=evil@example.it' }));
+  items.push(item({ ref: 'eeeeeee2', name: 'Ok2', phone: '=1+1', email: 'z@example.it' }));
+  items.push(item({ ref: 'eeeeeee3', name: 'Ok3', phone: '', email: 'y@example.it', preferred_time: null, preferred_date: null, status: 'confirmed', confirmed_date: '2026-11-02', confirmed_time: '=IMPORTXML(1)' }));
+  const { append } = zwPlanCallList(items, [], P, { fmt });
+  assert.equal(append.length, items.length);
+  for (const r of append) {
+    for (const cell of [...r.cells, r.prenotato]) {
+      if (typeof cell === 'string') assert.ok(!/^[=+\-@\t\r]/.test(cell), JSON.stringify(cell));
+    }
+  }
+});
+
+test('call list: an e-mail failing the strict check is flagged "Email da verificare"', () => {
+  const { append } = zwPlanCallList([item({ email: 'not an email@x' })], [], P, { fmt });
+  assert.match(append[0].cells[5], /Email da verificare/);
+  const ok = zwPlanCallList([item({ email: 'ok.name+tag@example.co.uk' })], [], P, { fmt });
+  assert.doesNotMatch(ok.append[0].cells[5], /Email da verificare/);
+});
+
+test('Takimet: no user-sourced cell can start a formula', () => {
+  const rows = zwPlanTakimet(
+    FORMULAS.map(f => item({ name: f, phone: f, email: f, status: 'confirmed', confirmed_date: '2026-11-02', confirmed_time: f })),
+    fmt
+  );
+  for (const r of rows.slice(1)) for (const cell of r) if (typeof cell === 'string') assert.ok(!/^[=+\-@\t\r]/.test(cell), JSON.stringify(cell));
 });

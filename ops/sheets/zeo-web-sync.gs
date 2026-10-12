@@ -188,6 +188,17 @@ function zwGasFmt(iso, pattern) {
 // ---------------------------------------------------------------- pure (tested in zeo-web-sync.test.js)
 
 /**
+ * Formula-injection guard for every cell that carries text from the website: a leading ' makes
+ * Sheets store the value as plain text (the quote is not displayed), so "=HYPERLINK(...)",
+ * "+cmd", "-1+1", "@SUM", tab or CR can never become a formula.
+ */
+function zwSafe(v) {
+  return typeof v === 'string' && /^[=+\-@\t\r]/.test(v) ? "'" + v : v;
+}
+
+var ZW_EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+
+/**
  * Column index (0-based) of "Prenotato per": by header text, else the first column after H (index 7)
  * whose header AND data cells are all empty. -1 if none. Never suggests inserting a column.
  */
@@ -259,7 +270,7 @@ function zwPlanCallList(items, data, pCol, opts) {
 
   items.forEach(function (it) {
     if (skip[it.ref]) return;
-    var text = zwPrenotatoText(it);
+    var text = zwSafe(zwPrenotatoText(it));
     if (byRef[it.ref] !== undefined) {
       var i = byRef[it.ref];
       if (typeof i === 'number') setCell(i, updates[i] !== undefined ? updates[i] : data[i][pCol], text, it.ref);
@@ -280,8 +291,10 @@ function zwPlanCallList(items, data, pCol, opts) {
     if (it.status !== 'pending' && (opts.backfill || it.status !== 'confirmed')) return;
     var flags = ['NUOVO Sito ' + fmt(it.created_at, 'dd/MM HH:mm') + ' · ref ' + it.ref];
     if (ph.note) flags.push(ph.note);
+    var email = String(it.email || '').trim().toLowerCase();
+    if (email && !ZW_EMAIL_RE.test(email)) flags.push('Email da verificare');
     var row = {
-      cells: [nextNo++, zwCleanName(it.name || ''), ph.phone, (it.email || '').toLowerCase(), '', flags.join('; ')],
+      cells: [nextNo++, zwSafe(zwCleanName(it.name || '')), zwSafe(ph.phone), zwSafe(email), '', flags.join('; ')],
       prenotato: text,
     };
     append.push(row);
@@ -318,10 +331,10 @@ function zwPlanTakimet(items, fmt) {
     var time = it.confirmed_date ? it.confirmed_time || '' : ZW_SLOTS_SQ[it.preferred_time] || '';
     return [
       day ? day.slice(8, 10) + '/' + day.slice(5, 7) + '/' + day.slice(0, 4) : '',
-      time,
-      zwCleanName(it.name || ''),
-      it.phone || '',
-      it.email || '',
+      zwSafe(time),
+      zwSafe(zwCleanName(it.name || '')),
+      zwSafe(it.phone || ''),
+      zwSafe(it.email || ''),
       status[it.status] || it.status,
       it.status === 'confirmed' ? fmt(it.updated_at, 'dd/MM/yyyy HH:mm') : '',
     ];
@@ -381,5 +394,6 @@ if (typeof module !== 'undefined') {
     zwPrenotatoColumn: zwPrenotatoColumn,
     zwPrenotatoText: zwPrenotatoText,
     zwPhone: zwPhone,
+    zwSafe: zwSafe,
   };
 }
