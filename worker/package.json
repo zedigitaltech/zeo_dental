@@ -6,9 +6,9 @@
   "description": "Zeo Dental Clinic on Cloudflare: one Worker (static assets + API), D1, R2",
   "scripts": {
     "build:site": "cd .. && npm run build",
-    "dev": "test -f .dev.vars || cp .dev.vars.example .dev.vars; test -d ../dist || npm run build:site; wrangler dev --port 8788 --local",
+    "dev": "test -f .dev.vars || cp .dev.vars.example .dev.vars; test -d ../dist || npm run build:site; wrangler dev --port 8797 --local",
     "test": "vitest run",
-    "test:scripts": "node --test scripts/*.test.mjs",
+    "test:scripts": "node --test scripts/",
     "typecheck": "tsc --noEmit",
     "verify": "npm run typecheck && npm run test && npm run test:scripts",
     "db:migrate:local": "wrangler d1 migrations apply zeo-dental --local",

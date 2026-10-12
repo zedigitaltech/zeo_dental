@@ -1,0 +1,107 @@
+{
+  "exported_at": "2026-10-12T15:42:00.000Z",
+  "schema": { "note": "synthetic fixture, fake people only" },
+  "tables": {
+    "bookings": {
+      "rows": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "name": "Anna Prova",
+          "email": "anna.prova@example.invalid",
+          "phone": "+39 333 000 0001",
+          "service": "Package: Smile",
+          "preferred_date": "2026-11-20T00:00:00.000Z",
+          "preferred_time": "morning",
+          "status": "pending",
+          "notes": null,
+          "created_at": "2026-09-01T10:00:00.123Z",
+          "updated_at": "2026-09-01T10:00:00.123Z",
+          "confirmed_date": null,
+          "confirmed_time": null,
+          "cancellation_reason": null,
+          "confirmed_by": null,
+          "confirmed_at": null,
+          "whatsapp_sent": false,
+          "confirmation_email_sent": false,
+          "description": "Fake description, it's quoted"
+        },
+        {
+          "id": "22222222-2222-4222-8222-222222222222",
+          "name": "Bruno Esempio",
+          "email": null,
+          "phone": "+355 68 000 0002",
+          "service": "General Consultation",
+          "preferred_date": null,
+          "preferred_time": null,
+          "status": "confirmed",
+          "notes": "fake note",
+          "created_at": "2026-09-02T08:00:00.000Z",
+          "updated_at": "2026-09-03T08:00:00.000Z",
+          "confirmed_date": "2026-11-05T00:00:00.000Z",
+          "confirmed_time": "10:30",
+          "cancellation_reason": null,
+          "confirmed_by": null,
+          "confirmed_at": "2026-09-03T08:00:00.000Z",
+          "whatsapp_sent": true,
+          "confirmation_email_sent": "t",
+          "description": null
+        },
+        {
+          "id": "33333333-3333-4333-8333-333333333333",
+          "name": "Test Interno",
+          "email": "test@example.invalid",
+          "phone": null,
+          "service": "General Consultation",
+          "preferred_date": null,
+          "preferred_time": null,
+          "status": "pending",
+          "notes": null,
+          "created_at": "2026-09-04T09:00:00.000Z",
+          "updated_at": "2026-09-04T09:00:00.000Z",
+          "confirmed_date": null,
+          "confirmed_time": null,
+          "cancellation_reason": null,
+          "confirmed_by": null,
+          "confirmed_at": null,
+          "whatsapp_sent": false,
+          "confirmation_email_sent": false,
+          "description": null
+        }
+      ]
+    },
+    "booking_files": {
+      "rows": [
+        {
+          "id": 1,
+          "booking_id": "11111111-1111-4111-8111-111111111111",
+          "filename": "aaaaaaaa-0000-4000-8000-000000000001.jpg",
+          "original_name": "xray.jpg",
+          "mime_type": "image/jpeg",
+          "size_bytes": 4,
+          "storage_path": "11111111-1111-4111-8111-111111111111/aaaaaaaa-0000-4000-8000-000000000001.jpg",
+          "health_data_consent": true,
+          "expires_at": "2026-12-01T10:00:00.000Z",
+          "created_at": "2026-09-01T10:01:00.000Z"
+        },
+        {
+          "id": 2,
+          "booking_id": "11111111-1111-4111-8111-111111111111",
+          "filename": "aaaaaaaa-0000-4000-8000-000000000002.pdf",
+          "original_name": "lost.pdf",
+          "mime_type": "application/pdf",
+          "size_bytes": 9,
+          "storage_path": "11111111-1111-4111-8111-111111111111/aaaaaaaa-0000-4000-8000-000000000002.pdf",
+          "health_data_consent": true,
+          "expires_at": "2026-12-01T10:00:00.000Z",
+          "created_at": "2026-09-01T10:01:00.000Z"
+        }
+      ]
+    },
+    "chat_usage": {
+      "rows": [
+        { "id": 7, "input_tokens": 100, "output_tokens": 20, "total_tokens": 120, "estimated_cost": "0.000013", "language": "it", "created_at": "2026-09-01T10:00:00.000Z" },
+        { "id": 8, "input_tokens": 50, "output_tokens": 10, "total_tokens": 60, "estimated_cost": 0.000007, "language": "sq", "created_at": "2026-09-02T10:00:00.000Z" }
+      ]
+    }
+  }
+}

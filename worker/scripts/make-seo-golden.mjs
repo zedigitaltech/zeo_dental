@@ -23,9 +23,21 @@ const PORT = 3917;
 
 const LANGS = ['sq', 'en', 'it', 'de', 'fr', 'tr', 'el', 'es'];
 const ROUTES = [
-  '/', '/treatments', '/treatments/implantology', '/treatments/prosthetics', '/treatments/aligners',
-  '/treatments/orthodontics', '/treatments/crowns', '/treatments/endodontics', '/philosophy', '/team',
-  '/cases', '/book', '/packages', '/privacy-policy', '/terms-of-service',
+  '/',
+  '/treatments',
+  '/treatments/implantology',
+  '/treatments/prosthetics',
+  '/treatments/aligners',
+  '/treatments/orthodontics',
+  '/treatments/crowns',
+  '/treatments/endodontics',
+  '/philosophy',
+  '/team',
+  '/cases',
+  '/book',
+  '/packages',
+  '/privacy-policy',
+  '/terms-of-service',
 ];
 
 if (existsSync(publicDir)) {
@@ -37,23 +49,37 @@ copyFileSync(join(worker, 'test', 'fixtures', 'index.html'), join(publicDir, 'in
 
 const child = spawn(join(server, 'node_modules', '.bin', 'tsx'), ['src/index.ts'], {
   cwd: server,
-  env: { PATH: process.env.PATH, PORT: String(PORT), HOST: '127.0.0.1', NODE_ENV: 'production', LOG_LEVEL: 'error' },
+  env: {
+    PATH: process.env.PATH,
+    PORT: String(PORT),
+    HOST: '127.0.0.1',
+    NODE_ENV: 'production',
+    LOG_LEVEL: 'error',
+  },
   stdio: ['ignore', 'inherit', 'inherit'],
 });
 const cleanup = () => {
-  try { child.kill('SIGTERM'); } catch { /* gone */ }
+  try {
+    child.kill('SIGTERM');
+  } catch {
+    /* gone */
+  }
   rmSync(publicDir, { recursive: true, force: true });
 };
 process.on('exit', cleanup);
 
 const base = `http://127.0.0.1:${PORT}`;
 for (let i = 0; ; i++) {
-  try { if ((await fetch(`${base}/health`)).ok) break; } catch { /* not yet */ }
+  try {
+    if ((await fetch(`${base}/health`)).ok) break;
+  } catch {
+    /* not yet */
+  }
   if (i > 100) throw new Error('server did not start');
-  await new Promise((r) => setTimeout(r, 200));
+  await new Promise(r => setTimeout(r, 200));
 }
 
-const sha = (s) => createHash('sha256').update(s, 'utf8').digest('hex');
+const sha = s => createHash('sha256').update(s, 'utf8').digest('hex');
 const pages = {};
 for (const lang of LANGS) {
   for (const route of ROUTES) {
@@ -66,7 +92,11 @@ for (const lang of LANGS) {
 const sitemap = await (await fetch(`${base}/sitemap.xml`)).text();
 writeFileSync(
   join(worker, 'test', 'fixtures', 'seo-golden.json'),
-  JSON.stringify({ source: 'server/src/index.ts renderHtml + generateSitemap', pages, sitemap: sha(sitemap) }, null, 2) + '\n',
+  JSON.stringify(
+    { source: 'server/src/index.ts renderHtml + generateSitemap', pages, sitemap: sha(sitemap) },
+    null,
+    2
+  ) + '\n'
 );
 console.log(`recorded ${Object.keys(pages).length} pages + sitemap`);
 process.exit(0);
