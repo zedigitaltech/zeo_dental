@@ -440,6 +440,28 @@
       "essential": "Paket: Temel\n\nDiş ihtiyaçlarım:\n- \n\nPanoramik röntgenim var: Evet / Hayır\n\nEk notlar:\n",
       "premium": "Paket: Premium\n\nDiş ihtiyaçlarım:\n- \n\nPanoramik röntgenim var: Evet / Hayır\n\nEk notlar:\n",
       "vip": "Paket: VIP\n\nDiş ihtiyaçlarım:\n- \n\nPanoramik röntgenim var: Evet / Hayır\n\nEk notlar:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Hangi diş tedavisiyle ilgileniyorsunuz?",
+        "implants": "Diş implantı",
+        "veneers": "Diş kaplaması (lamina)",
+        "unsure": "Bilmiyorum"
+      },
+      "has_xray": {
+        "label": "Mevcut diş durumunuza ait fotoğraf veya röntgeniniz var mı?",
+        "yes": "Evet",
+        "no": "Hayır"
+      },
+      "travel_timeframe": {
+        "label": "Diş tedaviniz için Arnavutluk'a ne zaman gelmek istersiniz?",
+        "within_30_days": "30 gün içinde",
+        "1_to_3_months": "1 ila 3 ay içinde",
+        "over_3_months": "3 aydan daha sonra"
+      },
+      "required": "Lütfen bu soruyu yanıtlayın.",
+      "xrayHint": "Aşağıdan ekleyebilirsiniz.",
+      "xrayHintLink": "Şimdi yükle"
     }
   },
   "footer": {
@@ -603,6 +625,11 @@
       "reason": "İptal Nedeni (isteğe bağlı)",
       "notify": "Hastayı bilgilendir",
       "submit": "Randevuyu İptal Et"
+    },
+    "questions": {
+      "treatmentInterest": "İlgilenilen tedavi",
+      "hasXray": "Fotoğraf / röntgen var mı",
+      "travelTimeframe": "Ne zaman gelmek istiyor"
     }
   },
   "whatsapp": {

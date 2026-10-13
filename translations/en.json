@@ -456,6 +456,28 @@
       "essential": "Package: Essential\n\nMy dental needs:\n- \n\nI have a panoramic X-ray: Yes / No\n\nAdditional notes:\n",
       "premium": "Package: Premium\n\nMy dental needs:\n- \n\nI have a panoramic X-ray: Yes / No\n\nAdditional notes:\n",
       "vip": "Package: VIP\n\nMy dental needs:\n- \n\nI have a panoramic X-ray: Yes / No\n\nAdditional notes:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Which dental treatment are you interested in?",
+        "implants": "Dental implants",
+        "veneers": "Dental veneers",
+        "unsure": "I don't know"
+      },
+      "has_xray": {
+        "label": "Do you have photos or an X-ray of your current dental condition?",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "travel_timeframe": {
+        "label": "When would you like to come to Albania for your dental treatment?",
+        "within_30_days": "Within 30 days",
+        "1_to_3_months": "In 1 to 3 months",
+        "over_3_months": "In more than 3 months"
+      },
+      "required": "Please answer this question.",
+      "xrayHint": "You can attach them below.",
+      "xrayHintLink": "Upload now"
     }
   },
   "footer": {
@@ -619,6 +641,11 @@
       "reason": "Cancellation Reason (optional)",
       "notify": "Notify patient",
       "submit": "Cancel Booking"
+    },
+    "questions": {
+      "treatmentInterest": "Treatment interest",
+      "hasXray": "Has photos / X-ray",
+      "travelTimeframe": "When they want to come"
     }
   },
   "whatsapp": {

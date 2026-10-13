@@ -25,6 +25,9 @@ export const BOOKING_COLUMNS = [
   'confirmation_email_sent',
   'description',
   'language',
+  'treatment_interest',
+  'has_xray',
+  'travel_timeframe',
 ] as const;
 
 export const BOOKING_SELECT = BOOKING_COLUMNS.join(', ');
@@ -51,6 +54,10 @@ export interface BookingRow {
   description: string | null;
   /** Site language at booking time (one of SUPPORTED_EMAIL_LANGUAGES) or null. */
   language: string | null;
+  /** Meta-form questions (lib/bookingQuestions). The first two are health-adjacent: never exported. */
+  treatment_interest: string | null;
+  has_xray: boolean | null;
+  travel_timeframe: string | null;
 }
 
 /** SQLite stores booleans as 0/1; the API keeps returning true/false. */
@@ -60,6 +67,12 @@ export function toBooking(row: Record<string, unknown>): BookingRow {
   out.whatsapp_sent = row.whatsapp_sent === 1 || row.whatsapp_sent === true;
   out.confirmation_email_sent =
     row.confirmation_email_sent === 1 || row.confirmation_email_sent === true;
+  out.has_xray =
+    row.has_xray === 1 || row.has_xray === true
+      ? true
+      : row.has_xray === 0 || row.has_xray === false
+        ? false
+        : null;
   return out as unknown as BookingRow;
 }
 

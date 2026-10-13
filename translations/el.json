@@ -458,6 +458,28 @@
       "essential": "Paketo: Vasiko\n\nOi odontiatrikes mou anagkes:\n- \n\nEcho mia panoramiki aksonomiki: Nai / Ochi\n\nProsthetes simeiosis:\n",
       "premium": "Paketo: Premium\n\nOi odontiatrikes mou anagkes:\n- \n\nEcho mia panoramiki aksonomiki: Nai / Ochi\n\nProsthetes simeiosis:\n",
       "vip": "Paketo: VIP\n\nOi odontiatrikes mou anagkes:\n- \n\nEcho mia panoramiki aksonomiki: Nai / Ochi\n\nProsthetes simeiosis:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Για ποια οδοντιατρική θεραπεία ενδιαφέρεστε;",
+        "implants": "Οδοντικά εμφυτεύματα",
+        "veneers": "Οδοντικές όψεις",
+        "unsure": "Δεν ξέρω"
+      },
+      "has_xray": {
+        "label": "Έχετε φωτογραφίες ή ακτινογραφία της τωρινής κατάστασης των δοντιών σας;",
+        "yes": "Ναι",
+        "no": "Όχι"
+      },
+      "travel_timeframe": {
+        "label": "Πότε θα θέλατε να έρθετε στην Αλβανία για την οδοντιατρική σας θεραπεία;",
+        "within_30_days": "Μέσα σε 30 ημέρες",
+        "1_to_3_months": "Σε 1 έως 3 μήνες",
+        "over_3_months": "Σε περισσότερους από 3 μήνες"
+      },
+      "required": "Παρακαλούμε απαντήστε σε αυτή την ερώτηση.",
+      "xrayHint": "Μπορείτε να τις επισυνάψετε παρακάτω.",
+      "xrayHintLink": "Μεταφόρτωση τώρα"
     }
   },
   "footer": {
@@ -621,6 +643,11 @@
       "reason": "Λόγος Ακύρωσης (προαιρετικό)",
       "notify": "Ειδοποίηση ασθενούς",
       "submit": "Ακύρωση Κράτησης"
+    },
+    "questions": {
+      "treatmentInterest": "Ενδιαφέρον για θεραπεία",
+      "hasXray": "Φωτογραφίες / ακτινογραφία",
+      "travelTimeframe": "Πότε θέλει να έρθει"
     }
   },
   "whatsapp": {

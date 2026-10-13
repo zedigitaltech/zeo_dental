@@ -1,7 +1,8 @@
 /**
  * Read-only feeds for the Google Sheets sync (ops/sheets/zeo-web-sync.gs pulls them every 10 min).
  * Guarded by SHEETS_EXPORT_TOKEN, separate from the admin token. Only the whitelisted fields leave:
- * never description, notes, service (the treatment interest) or files.
+ * never description, notes, service, treatment_interest, has_xray (health-adjacent) or files.
+ * travel_timeframe (when the patient wants to come) is not health data and is exported.
  */
 import { Hono } from 'hono';
 import type { MiddlewareHandler } from 'hono';
@@ -22,10 +23,11 @@ export const EXPORT_FIELDS = [
   'confirmed_date',
   'confirmed_time',
   'status',
+  'travel_timeframe',
 ] as const;
 
 const SELECT = `substr(id, 1, 8) AS ref, id, created_at, updated_at, name, phone, email, preferred_date,
-  preferred_time, confirmed_date, confirmed_time, status`;
+  preferred_time, confirmed_date, confirmed_time, status, travel_timeframe`;
 
 /**
  * A time without a date is dropped: before 2026-10-13 the form sent its 'morning' default even

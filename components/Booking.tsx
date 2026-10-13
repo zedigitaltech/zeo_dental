@@ -4,6 +4,14 @@ import { Reveal } from './ui/Reveal';
 import { CheckCircle, MapPin, Phone, Mail, Upload, X, FileText, Image } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import {
+  BookingQuestions,
+  EMPTY_ANSWERS,
+  answersPayload,
+  firstUnanswered,
+  questionId,
+  type BookingAnswers,
+} from './BookingQuestions';
 
 const LANG_PHONE_PREFIX: Record<string, string> = {
   sq: '+355 ',
@@ -44,6 +52,10 @@ export const Booking: React.FC = () => {
     honeypot: '',
   });
 
+  const [answers, setAnswers] = useState<BookingAnswers>(EMPTY_ANSWERS);
+  const [showQuestionErrors, setShowQuestionErrors] = useState(false);
+  const uploadRef = useRef<HTMLDivElement>(null);
+  const xrayYes = answers.has_xray === 'yes';
   const [files, setFiles] = useState<File[]>([]);
   const [healthConsent, setHealthConsent] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -98,6 +110,16 @@ export const Booking: React.FC = () => {
     // Honeypot check
     if (formData.honeypot) return;
 
+    // The three qualifying questions are required (the call centre prioritises by them).
+    const missing = firstUnanswered(answers);
+    if (missing) {
+      setShowQuestionErrors(true);
+      const el = document.getElementById(questionId('booking', missing));
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el?.focus({ preventScroll: true });
+      return;
+    }
+
     // Require at least phone OR email
     if (!formData.phone && !formData.email) {
       setStatus('ERROR');
@@ -127,6 +149,7 @@ export const Booking: React.FC = () => {
             ? `Package: ${selectedPackage.charAt(0).toUpperCase() + selectedPackage.slice(1)}`
             : 'General Consultation',
           language,
+          ...answersPayload(answers),
         }),
       });
 
@@ -191,6 +214,8 @@ export const Booking: React.FC = () => {
                 });
                 setFiles([]);
                 setHealthConsent(false);
+                setAnswers(EMPTY_ANSWERS);
+                setShowQuestionErrors(false);
               }}
               className="text-[10px] uppercase tracking-ultra text-studio-gold hover:text-white transition-colors"
             >
@@ -320,6 +345,33 @@ export const Booking: React.FC = () => {
                   {t('booking.optional')}
                 </span>
               </div>
+              <div className="md:col-span-2 lg:col-span-3 pt-4">
+                <BookingQuestions
+                  value={answers}
+                  onChange={setAnswers}
+                  variant="dark"
+                  idPrefix="booking"
+                  showErrors={showQuestionErrors}
+                  xrayYesHint={
+                    <p className="mt-3 text-sm text-white/60">
+                      {t('booking.questions.xrayHint')}{' '}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          uploadRef.current?.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                          });
+                          uploadRef.current?.focus({ preventScroll: true });
+                        }}
+                        className="text-studio-gold underline underline-offset-4 hover:text-white transition-colors"
+                      >
+                        {t('booking.questions.xrayHintLink')}
+                      </button>
+                    </p>
+                  }
+                />
+              </div>
               <div className="group relative md:col-span-2 lg:col-span-3">
                 <textarea
                   name="description"
@@ -332,19 +384,33 @@ export const Booking: React.FC = () => {
               </div>
               {/* X-Ray / Photo Upload */}
               <div className="group relative md:col-span-2 lg:col-span-3">
-                <label className="text-[10px] uppercase tracking-ultra text-white/40 mb-3 block">
+                <label
+                  className={`text-[10px] uppercase tracking-ultra mb-3 block ${
+                    xrayYes ? 'text-studio-gold' : 'text-white/40'
+                  }`}
+                >
                   {t('booking.uploadXray')}
                   <span className="ml-2 normal-case tracking-normal text-white/25">
                     {t('booking.optional')}
                   </span>
                 </label>
                 <div
+                  ref={uploadRef}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={t('booking.uploadXray')}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}
                   onClick={() => fileInputRef.current?.click()}
-                  className={`border border-dashed rounded-none py-8 px-6 text-center cursor-pointer transition-colors ${
-                    isDragOver
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      fileInputRef.current?.click();
+                    }
+                  }}
+                  className={`border border-dashed rounded-none py-8 px-6 text-center cursor-pointer transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-studio-gold ${
+                    isDragOver || xrayYes
                       ? 'border-studio-gold bg-studio-gold/5'
                       : 'border-white/20 hover:border-white/40'
                   }`}

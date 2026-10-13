@@ -2,7 +2,7 @@
 // Only fake people here: no real names, phones or e-mails.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { zwPlanCallList, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone, zwSafe } = require('./zeo-web-sync.gs');
+const { zwPlanCallList, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone, zwSafe, zwWhenText } = require('./zeo-web-sync.gs');
 
 // Same formatting the script gets from Utilities.formatDate(…, 'Europe/Tirane', …).
 const fmt = (iso, pattern) => {
@@ -45,11 +45,38 @@ test('a new website booking is appended with F = "NUOVO Sito dd/MM HH:mm · ref"
   assert.equal(append[0].prenotato, 'Richiesto: 20/11 mattina · ref a1b2c3d4');
 });
 
-test('column E stays blank and only A-F + Prenotato are ever produced', () => {
+test('column E stays blank without an answer and only A-F + Prenotato are ever produced', () => {
   const { append } = zwPlanCallList([item()], [], P, { fmt });
   assert.equal(append[0].cells.length, 6);
   assert.equal(append[0].cells[4], '');
   assert.deepEqual(Object.keys(append[0]).sort(), ['cells', 'prenotato']);
+});
+
+test('column E of a new row gets the exact meta-sync wording of travel_timeframe', () => {
+  const cases = [
+    ['within_30_days', 'Entro 30 giorni'],
+    ['1_to_3_months', 'Tra 1 a 3 mesi'],
+    ['over_3_months', 'Tra più di 3 mesi'],
+    ['next_year', ''],
+    [null, ''],
+  ];
+  for (const [tf, want] of cases) {
+    assert.equal(zwWhenText({ travel_timeframe: tf }), want);
+    const { append } = zwPlanCallList([item({ travel_timeframe: tf })], [], P, { fmt });
+    assert.equal(append[0].cells[4], want);
+  }
+});
+
+test('column E of an existing row is never written, even when the booking carries an answer', () => {
+  const data = [metaRow({ phone: '+39 347 000 1111' })];
+  const r = zwPlanCallList([item({ travel_timeframe: 'within_30_days' })], data, P, { fmt });
+  assert.equal(r.append.length, 0);
+  // Only the "Prenotato per" cell (index P) is ever updated on an existing row.
+  assert.deepEqual(r.updates, [{ index: 0, value: 'Richiesto: 20/11 mattina · ref a1b2c3d4' }]);
+  const ours = [metaRow({ no: 5, phone: '+39 347 000 1111', p: 'Richiesto: 20/11 mattina · ref a1b2c3d4' })];
+  ours[0][5] = 'NUOVO Sito 12/10 10:05 · ref a1b2c3d4';
+  const again = zwPlanCallList([item({ travel_timeframe: 'over_3_months' })], ours, P, { fmt });
+  assert.deepEqual(again, { append: [], updates: [] });
 });
 
 test('a duplicate (same last 9 phone digits or same e-mail) is not appended; its empty Prenotato cell is filled', () => {

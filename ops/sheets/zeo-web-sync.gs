@@ -22,8 +22,11 @@
  * Then run zwSetup once and allow access. It runs every 10 minutes on Google's servers.
  *
  * What the call list gets (append-only, same rules as meta-sync.gs):
- *   - A new website booking becomes a new row under the last one: #, name, phone, e-mail, E blank
- *     (E keeps its Meta meaning), F = "NUOVO Sito dd/MM HH:mm · ref xxxxxxxx" (green until G is filled).
+ *   - A new website booking becomes a new row under the last one: #, name, phone, e-mail,
+ *     E = "Quando vuole venire" in the exact words meta-sync.gs writes for the same Meta answer
+ *     ("Entro 30 giorni" / "Tra 1 a 3 mesi" / "Tra più di 3 mesi"; blank when the patient did not
+ *     answer), F = "NUOVO Sito dd/MM HH:mm · ref xxxxxxxx" (green until G is filled).
+ *     E is written only on the new row, never on an existing one.
  *   - A booking whose phone (last 9 digits) or e-mail is already in the list is NOT added again.
  *   - "Prenotato per" lives in its own column, found by its header text; if missing, the header is
  *     written into the first fully empty column after H. A column is never inserted (that would break
@@ -34,7 +37,8 @@
  *   - It never writes G, H or any other cell an agent edits.
  *   - First run (no ZW_CURSOR): only status=pending bookings are added (the backfill rule); the
  *     archived test bookings are soft-deleted in the database and never exported.
- * Only name, phone, e-mail, dates and status ever reach Google. Never the treatment, notes or files.
+ * Only name, phone, e-mail, dates, status and when the patient wants to come ever reach Google.
+ * Never the treatment interest, the X-ray answer, notes or files (the export does not carry them).
  */
 
 var ZW_LIST_SHEET_NAME = 'Lead da chiamare';
@@ -217,6 +221,20 @@ function zwPrenotatoColumn(header, data) {
 var ZW_SLOTS_IT = { morning: 'mattina', afternoon: 'pomeriggio', evening: 'sera' };
 var ZW_SLOTS_SQ = { morning: 'mëngjes', afternoon: 'pasdite', evening: 'mbrëmje' };
 
+/**
+ * travel_timeframe -> column E, matching meta-sync.gs readableWhen() of the Meta option keys
+ * (entro_30_giorni, tra_1_a_3_mesi, tra_più_di_3_mesi) so the list stays uniform.
+ */
+var ZW_WHEN_IT = {
+  within_30_days: 'Entro 30 giorni',
+  '1_to_3_months': 'Tra 1 a 3 mesi',
+  over_3_months: 'Tra più di 3 mesi',
+};
+
+function zwWhenText(item) {
+  return ZW_WHEN_IT[item && item.travel_timeframe] || '';
+}
+
 function zwDayMonth(ymd) {
   return ymd ? ymd.slice(8, 10) + '/' + ymd.slice(5, 7) : '';
 }
@@ -236,7 +254,7 @@ function zwPrenotatoText(item) {
 
 /**
  * Pure: export items + call-list rows (A.. from row 4, display values) -> what to write.
- * Returns { append: [{ cells: [#, name, phone, email, '', F], prenotato }], updates: [{ index, value }] }
+ * Returns { append: [{ cells: [#, name, phone, email, E, F], prenotato }], updates: [{ index, value }] }
  * where index is the 0-based data row. Never returns a write for any column but A-F of new rows
  * and the "Prenotato per" column.
  */
@@ -294,7 +312,7 @@ function zwPlanCallList(items, data, pCol, opts) {
     var email = String(it.email || '').trim().toLowerCase();
     if (email && !ZW_EMAIL_RE.test(email)) flags.push('Email da verificare');
     var row = {
-      cells: [nextNo++, zwSafe(zwCleanName(it.name || '')), zwSafe(ph.phone), zwSafe(email), '', flags.join('; ')],
+      cells: [nextNo++, zwSafe(zwCleanName(it.name || '')), zwSafe(ph.phone), zwSafe(email), zwWhenText(it), flags.join('; ')],
       prenotato: text,
     };
     append.push(row);
@@ -395,5 +413,6 @@ if (typeof module !== 'undefined') {
     zwPrenotatoText: zwPrenotatoText,
     zwPhone: zwPhone,
     zwSafe: zwSafe,
+    zwWhenText: zwWhenText,
   };
 }

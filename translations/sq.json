@@ -456,6 +456,28 @@
       "essential": "Paketa: Esencial\n\nNevojat e mia dentare:\n- \n\nKam një reze-x panoramike: Po / Jo\n\nShënime shtesë:\n",
       "premium": "Paketa: Premium\n\nNevojat e mia dentare:\n- \n\nKam një reze-x panoramike: Po / Jo\n\nShënime shtesë:\n",
       "vip": "Paketa: VIP\n\nNevojat e mia dentare:\n- \n\nKam një reze-x panoramike: Po / Jo\n\nShënime shtesë:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Për cilin shërbim dentar jeni të interesuar?",
+        "implants": "Implante dentare",
+        "veneers": "Faseta dentare",
+        "unsure": "Nuk e di"
+      },
+      "has_xray": {
+        "label": "A keni foto ose radiografi të gjendjes aktuale të dhëmbëve tuaj?",
+        "yes": "Po",
+        "no": "Jo"
+      },
+      "travel_timeframe": {
+        "label": "Kur dëshironi të vini në Shqipëri për trajtimin tuaj dentar?",
+        "within_30_days": "Brenda 30 ditëve",
+        "1_to_3_months": "Për 1 deri në 3 muaj",
+        "over_3_months": "Pas më shumë se 3 muajsh"
+      },
+      "required": "Ju lutemi përgjigjuni kësaj pyetjeje.",
+      "xrayHint": "Mund t'i bashkëngjitni më poshtë.",
+      "xrayHintLink": "Ngarkoji tani"
     }
   },
   "footer": {
@@ -619,6 +641,11 @@
       "reason": "Arsyeja e anulimit (opsionale)",
       "notify": "Njofto pacientin",
       "submit": "Anulo Rezervimin"
+    },
+    "questions": {
+      "treatmentInterest": "Interesi për trajtim",
+      "hasXray": "Ka foto / radiografi",
+      "travelTimeframe": "Kur dëshiron të vijë"
     }
   },
   "whatsapp": {

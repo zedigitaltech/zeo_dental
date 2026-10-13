@@ -123,6 +123,9 @@ const created = await get('/api/booking', {
     service: 'PRODCHECK — ignore',
     description: 'automated check',
     language: 'sq', // the confirmation below is checked for the Albanian subject
+    treatment_interest: 'unsure',
+    has_xray: false,
+    travel_timeframe: 'over_3_months',
   }),
 });
 const cb = await created.json();
@@ -199,7 +202,8 @@ if (id) {
     'export/leads has the booking with whitelisted fields only',
     !!mine &&
       Object.keys(mine).join(',') ===
-        'ref,created_at,updated_at,name,phone,email,preferred_date,preferred_time,confirmed_date,confirmed_time,status'
+        'ref,created_at,updated_at,name,phone,email,preferred_date,preferred_time,confirmed_date,confirmed_time,status,travel_timeframe' &&
+      mine.travel_timeframe === 'over_3_months'
   );
   const appts = await (await get('/api/export/appointments', { headers: ex })).json();
   ok(

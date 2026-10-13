@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 import { StatusBadge } from './StatusBadge';
+import { bookingAnswerRows } from './bookingAnswers';
 import { X, Phone, Mail, MessageCircle, CheckCircle } from 'lucide-react';
 
 interface Booking {
@@ -15,6 +16,9 @@ interface Booking {
   notes: string | null;
   confirmed_date: string | null;
   confirmed_time: string | null;
+  treatment_interest?: string | null;
+  has_xray?: boolean | null;
+  travel_timeframe?: string | null;
   created_at: string;
 }
 
@@ -175,6 +179,12 @@ export const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
                 {formatDate(booking.preferred_date)} • {booking.preferred_time}
               </span>
             </div>
+            {bookingAnswerRows(booking, t).map(r => (
+              <div key={r.key} className="flex items-center justify-between gap-4">
+                <span className="text-xs uppercase tracking-ultra text-studio-gray">{r.label}</span>
+                <span className="text-studio-black text-right">{r.value}</span>
+              </div>
+            ))}
             <div className="flex items-center justify-between">
               <span className="text-xs uppercase tracking-ultra text-studio-gray">
                 {t('receptionist.booking.status')}

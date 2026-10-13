@@ -458,6 +458,28 @@
       "essential": "Paquete: Esencial\n\nMis necesidades dentales:\n- \n\nTengo una radiografía panorámica: Sí / No\n\nNotas adicionales:\n",
       "premium": "Paquete: Premium\n\nMis necesidades dentales:\n- \n\nTengo una radiografía panorámica: Sí / No\n\nNotas adicionales:\n",
       "vip": "Paquete: VIP\n\nMis necesidades dentales:\n- \n\nTengo una radiografía panorámica: Sí / No\n\nNotas adicionales:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "¿Qué tratamiento dental te interesa?",
+        "implants": "Implantes dentales",
+        "veneers": "Carillas dentales",
+        "unsure": "No lo sé"
+      },
+      "has_xray": {
+        "label": "¿Tienes fotos o una radiografía del estado actual de tu boca?",
+        "yes": "Sí",
+        "no": "No"
+      },
+      "travel_timeframe": {
+        "label": "¿Cuándo te gustaría venir a Albania para tu tratamiento dental?",
+        "within_30_days": "En los próximos 30 días",
+        "1_to_3_months": "En 1 a 3 meses",
+        "over_3_months": "En más de 3 meses"
+      },
+      "required": "Responde a esta pregunta, por favor.",
+      "xrayHint": "Puedes adjuntarlas a continuación.",
+      "xrayHintLink": "Subir ahora"
     }
   },
   "footer": {
@@ -621,6 +643,11 @@
       "reason": "Motivo de cancelacion (opcional)",
       "notify": "Notificar al paciente",
       "submit": "Cancelar Reserva"
+    },
+    "questions": {
+      "treatmentInterest": "Tratamiento de interés",
+      "hasXray": "Tiene fotos / radiografía",
+      "travelTimeframe": "Cuándo quiere venir"
     }
   },
   "whatsapp": {

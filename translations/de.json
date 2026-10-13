@@ -464,6 +464,28 @@
       "essential": "Paket: Essential\n\nMeine Zahnbehandlungsbedürfnisse:\n- \n\nIch habe ein Panorama-Röntgenbild: Ja / Nein\n\nZusätzliche Hinweise:\n",
       "premium": "Paket: Premium\n\nMeine Zahnbehandlungsbedürfnisse:\n- \n\nIch habe ein Panorama-Röntgenbild: Ja / Nein\n\nZusätzliche Hinweise:\n",
       "vip": "Paket: VIP\n\nMeine Zahnbehandlungsbedürfnisse:\n- \n\nIch habe ein Panorama-Röntgenbild: Ja / Nein\n\nZusätzliche Hinweise:\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Für welche Zahnbehandlung interessieren Sie sich?",
+        "implants": "Zahnimplantate",
+        "veneers": "Veneers",
+        "unsure": "Weiß ich nicht"
+      },
+      "has_xray": {
+        "label": "Haben Sie Fotos oder ein Röntgenbild Ihres aktuellen Zahnzustands?",
+        "yes": "Ja",
+        "no": "Nein"
+      },
+      "travel_timeframe": {
+        "label": "Wann möchten Sie für Ihre Zahnbehandlung nach Albanien kommen?",
+        "within_30_days": "Innerhalb von 30 Tagen",
+        "1_to_3_months": "In 1 bis 3 Monaten",
+        "over_3_months": "In mehr als 3 Monaten"
+      },
+      "required": "Bitte beantworten Sie diese Frage.",
+      "xrayHint": "Sie können sie unten hochladen.",
+      "xrayHintLink": "Jetzt hochladen"
     }
   },
   "footer": {
@@ -627,6 +649,11 @@
       "reason": "Stornierungsgrund (optional)",
       "notify": "Patient benachrichtigen",
       "submit": "Buchung stornieren"
+    },
+    "questions": {
+      "treatmentInterest": "Behandlungswunsch",
+      "hasXray": "Fotos / Röntgenbild vorhanden",
+      "travelTimeframe": "Gewünschter Zeitraum"
     }
   },
   "whatsapp": {

@@ -14,6 +14,7 @@ const FIELDS = [
   'confirmed_date',
   'confirmed_time',
   'status',
+  'travel_timeframe',
 ];
 
 const get = async (path: string, headers: Record<string, string> = EXPORT) => {

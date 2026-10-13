@@ -10,6 +10,7 @@
 import { escapeHtml } from '../../../server/src/utils/emailHtml';
 import { EMAIL_COPY, type EmailCopy } from './emailCopy';
 import { resolveEmailLanguage, type EmailLanguage } from './emailLanguage';
+import { hasXraySq, travelTimeframeSq, treatmentInterestSq } from './bookingQuestions';
 
 export const DEFAULT_BASE_URL = 'https://zeodentalclinic.com';
 
@@ -53,6 +54,9 @@ export interface EmailBooking {
   description?: string | null;
   notes?: string | null;
   language?: string | null;
+  treatment_interest?: string | null;
+  has_xray?: boolean | number | null;
+  travel_timeframe?: string | null;
 }
 
 export interface RenderOptions {
@@ -435,6 +439,18 @@ export function patientLanguageLabel(booking: EmailBooking): string {
   return `${name} (parazgjedhje)`;
 }
 
+/** The Meta-form answers, Albanian, only those the patient gave (older bookings have none). */
+export function clinicQuestionRows(booking: EmailBooking): Array<[string, string]> {
+  const out: Array<[string, string]> = [];
+  const interest = treatmentInterestSq(booking.treatment_interest);
+  const xray = hasXraySq(booking.has_xray);
+  const when = travelTimeframeSq(booking.travel_timeframe);
+  if (interest) out.push(['Interesi për trajtim', interest]);
+  if (xray) out.push(['Ka foto / radiografi', xray]);
+  if (when) out.push(['Kur dëshiron të vijë', when]);
+  return out;
+}
+
 export function renderClinicNotification(
   booking: EmailBooking,
   opts?: RenderOptions
@@ -466,6 +482,8 @@ export function renderClinicNotification(
     ['Data e preferuar', e(date ?? 'Pa datë – kontaktoni pacientin për ta caktuar')],
   ];
   if (time) rows.push(['Ora e preferuar', e(time)]);
+  const questions = clinicQuestionRows(booking);
+  for (const [label, value] of questions) rows.push([label, e(value)]);
 
   const free: string[] = [];
   if (booking.description)
@@ -510,6 +528,7 @@ export function renderClinicNotification(
     `Gjuha e pacientit: ${lang}`,
     `Data e preferuar: ${date ?? 'Pa datë – kontaktoni pacientin për ta caktuar'}`,
     ...(time ? [`Ora e preferuar: ${time}`] : []),
+    ...questions.map(([label, value]) => `${label}: ${value}`),
     ...(booking.description ? ['', 'Përshkrimi i nevojave:', booking.description] : []),
     ...(booking.notes ? ['', 'Shënime:', booking.notes] : []),
     '',

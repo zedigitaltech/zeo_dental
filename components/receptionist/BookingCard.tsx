@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBadge } from './StatusBadge';
 import { useTranslation } from '../../hooks/useTranslation';
+import { bookingAnswerRows } from './bookingAnswers';
 import { Phone, Mail, Calendar, Clock, CheckCircle, XCircle } from 'lucide-react';
 
 interface Booking {
@@ -15,6 +16,9 @@ interface Booking {
   notes: string | null;
   confirmed_date: string | null;
   confirmed_time: string | null;
+  treatment_interest?: string | null;
+  has_xray?: boolean | null;
+  travel_timeframe?: string | null;
   whatsapp_sent: boolean;
   confirmation_email_sent: boolean;
   created_at: string;
@@ -101,6 +105,18 @@ export const BookingCard: React.FC<BookingCardProps> = ({
           </span>
         </div>
       </div>
+
+      {/* Meta-form answers */}
+      {bookingAnswerRows(booking, t).length > 0 && (
+        <dl className="grid grid-cols-1 gap-1 mb-4 text-xs">
+          {bookingAnswerRows(booking, t).map(r => (
+            <div key={r.key} className="flex gap-2">
+              <dt className="text-studio-gray">{r.label}:</dt>
+              <dd className="text-studio-black font-medium">{r.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
 
       {/* Notification Status */}
       {isConfirmed && (

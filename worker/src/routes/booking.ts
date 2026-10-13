@@ -3,6 +3,11 @@ import type { AppEnv } from '../env';
 import { BOOKING_SELECT, findBooking, nowIso, toBooking } from '../lib/db';
 import { sendClinicNotification } from '../lib/email';
 import { isEmailLanguage } from '../lib/emailLanguage';
+import {
+  parseHasXray,
+  parseTravelTimeframe,
+  parseTreatmentInterest,
+} from '../lib/bookingQuestions';
 import { checkSecret } from '../lib/auth';
 import { bearer, clientIp, errMsg, readJson, str } from '../lib/http';
 import { ALLOWED_TYPES, sniff } from '../lib/magic';
@@ -85,13 +90,17 @@ booking.post('/api/booking', async c => {
     status: 'pending',
     // Unknown or missing codes are stored as NULL, never rejected: the email falls back to the phone.
     language: isEmailLanguage(language) ? language : null,
+    // The Meta lead-form questions: same rule, an invalid answer is stored as NULL.
+    treatment_interest: parseTreatmentInterest(b.treatment_interest),
+    has_xray: parseHasXray(b.has_xray),
+    travel_timeframe: parseTravelTimeframe(b.travel_timeframe),
   };
   const now = nowIso();
 
   try {
     await c.env.DB.prepare(
-      `INSERT INTO bookings (id, name, email, phone, service, preferred_date, preferred_time, description, notes, status, language, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO bookings (id, name, email, phone, service, preferred_date, preferred_time, description, notes, status, language, treatment_interest, has_xray, travel_timeframe, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         row.id,
@@ -105,6 +114,9 @@ booking.post('/api/booking', async c => {
         row.notes,
         row.status,
         row.language,
+        row.treatment_interest,
+        row.has_xray,
+        row.travel_timeframe,
         now,
         now
       )
@@ -115,7 +127,8 @@ booking.post('/api/booking', async c => {
   }
 
   console.log(`New booking created: ${row.id}`);
-  c.executionCtx.waitUntil(sendClinicNotification(c.env, row).catch(() => false));
+  const notified = { ...row, has_xray: row.has_xray === null ? null : row.has_xray === 1 };
+  c.executionCtx.waitUntil(sendClinicNotification(c.env, notified).catch(() => false));
 
   return c.json(
     {

@@ -31,6 +31,9 @@ interface Booking {
   notes: string | null;
   confirmed_date: string | null;
   confirmed_time: string | null;
+  treatment_interest?: string | null;
+  has_xray?: boolean | null;
+  travel_timeframe?: string | null;
   whatsapp_sent: boolean;
   confirmation_email_sent: boolean;
   created_at: string;

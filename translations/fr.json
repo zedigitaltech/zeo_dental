@@ -465,6 +465,28 @@
       "essential": "Forfait : Essentiel\n\nMes besoins dentaires :\n- \n\nJ'ai une radiographie panoramique : Oui / Non\n\nNotes supplémentaires :\n",
       "premium": "Forfait : Premium\n\nMes besoins dentaires :\n- \n\nJ'ai une radiographie panoramique : Oui / Non\n\nNotes supplémentaires :\n",
       "vip": "Forfait : VIP\n\nMes besoins dentaires :\n- \n\nJ'ai une radiographie panoramique : Oui / Non\n\nNotes supplémentaires :\n"
+    },
+    "questions": {
+      "treatment_interest": {
+        "label": "Quel soin dentaire vous intéresse ?",
+        "implants": "Implants dentaires",
+        "veneers": "Facettes dentaires",
+        "unsure": "Je ne sais pas"
+      },
+      "has_xray": {
+        "label": "Avez-vous des photos ou une radiographie de l'état actuel de vos dents ?",
+        "yes": "Oui",
+        "no": "Non"
+      },
+      "travel_timeframe": {
+        "label": "Quand souhaitez-vous venir en Albanie pour vos soins dentaires ?",
+        "within_30_days": "D'ici 30 jours",
+        "1_to_3_months": "Dans 1 à 3 mois",
+        "over_3_months": "Dans plus de 3 mois"
+      },
+      "required": "Veuillez répondre à cette question.",
+      "xrayHint": "Vous pouvez les joindre ci-dessous.",
+      "xrayHintLink": "Les ajouter maintenant"
     }
   },
   "footer": {
@@ -630,6 +652,11 @@
       "reason": "Motif d'Annulation (facultatif)",
       "notify": "Notifier le patient",
       "submit": "Annuler la Réservation"
+    },
+    "questions": {
+      "treatmentInterest": "Soin souhaité",
+      "hasXray": "Photos / radiographie",
+      "travelTimeframe": "Quand souhaite venir"
     }
   },
   "whatsapp": {

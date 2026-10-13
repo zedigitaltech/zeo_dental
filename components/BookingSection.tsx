@@ -14,6 +14,14 @@ import {
 } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { useLanguage } from '../contexts/LanguageContext';
+import {
+  BookingQuestions,
+  EMPTY_ANSWERS,
+  answersPayload,
+  firstUnanswered,
+  questionId,
+  type BookingAnswers,
+} from './BookingQuestions';
 
 interface BookingSectionProps {
   onNavigate?: (view: 'home' | 'booking', sectionId?: string) => void;
@@ -35,6 +43,8 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
     honeypot: '',
   });
 
+  const [answers, setAnswers] = useState<BookingAnswers>(EMPTY_ANSWERS);
+  const [showQuestionErrors, setShowQuestionErrors] = useState(false);
   const [status, setStatus] = useState<'IDLE' | 'SUBMITTING' | 'SUCCESS' | 'ERROR'>('IDLE');
 
   // Auto-fill service if passed from navigation
@@ -55,6 +65,16 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // The three qualifying questions are required (the call centre prioritises by them).
+    const missing = firstUnanswered(answers);
+    if (missing) {
+      setShowQuestionErrors(true);
+      const el = document.getElementById(questionId('booking-section', missing));
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el?.focus({ preventScroll: true });
+      return;
+    }
     setStatus('SUBMITTING');
 
     const API_BASE = import.meta.env.DEV ? 'http://localhost:3000' : '';
@@ -65,7 +85,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, language }),
+        body: JSON.stringify({ ...formData, language, ...answersPayload(answers) }),
       });
 
       const data = await response.json();
@@ -148,6 +168,8 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
                     description: '',
                     honeypot: '',
                   });
+                  setAnswers(EMPTY_ANSWERS);
+                  setShowQuestionErrors(false);
                 }}
                 className="w-full py-4 rounded-xl bg-primary-100 text-primary-900 font-semibold hover:bg-primary-200 transition-colors"
               >
@@ -319,6 +341,15 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
                 </div>
               </div>
             </div>
+
+            {/* Qualifying questions (same as the clinic's Meta lead form) */}
+            <BookingQuestions
+              value={answers}
+              onChange={setAnswers}
+              variant="light"
+              idPrefix="booking-section"
+              showErrors={showQuestionErrors}
+            />
 
             {/* Appointment Info Section */}
             <div className="space-y-6">
