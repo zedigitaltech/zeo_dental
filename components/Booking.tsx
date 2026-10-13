@@ -118,8 +118,10 @@ export const Booking: React.FC = () => {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          date: formData.date || undefined,
-          time: formData.time || undefined,
+          // Only Albanian visitors see the date/time fields; elsewhere the 'morning' default
+          // would be stored as if the patient had chosen it.
+          date: (showDateTime && formData.date) || undefined,
+          time: (showDateTime && formData.time) || undefined,
           description: formData.description,
           service: selectedPackage
             ? `Package: ${selectedPackage.charAt(0).toUpperCase() + selectedPackage.slice(1)}`

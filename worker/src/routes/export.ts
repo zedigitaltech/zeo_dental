@@ -27,11 +27,14 @@ export const EXPORT_FIELDS = [
 const SELECT = `substr(id, 1, 8) AS ref, id, created_at, updated_at, name, phone, email, preferred_date,
   preferred_time, confirmed_date, confirmed_time, status`;
 
+/**
+ * A time without a date is dropped: before 2026-10-13 the form sent its 'morning' default even
+ * to visitors who never saw the field, so all such rows say 'morning' without the patient choosing.
+ */
 const pick = (r: Record<string, unknown>) =>
-  Object.fromEntries(EXPORT_FIELDS.map(k => [k, r[k] ?? null])) as Record<
-    (typeof EXPORT_FIELDS)[number],
-    unknown
-  >;
+  Object.fromEntries(
+    EXPORT_FIELDS.map(k => [k, k === 'preferred_time' && !r.preferred_date ? null : (r[k] ?? null)])
+  ) as Record<(typeof EXPORT_FIELDS)[number], unknown>;
 
 const ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
 

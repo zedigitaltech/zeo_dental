@@ -54,6 +54,15 @@ describe('GET /api/export/leads', () => {
     expect(body.items[0].ref).toHaveLength(8);
   });
 
+  it("drops a time without a date (the old form's 'morning' default), keeps a dated one", async () => {
+    const undated = await seedBooking({ preferred_time: 'morning' });
+    const dated = await seedBooking({ preferred_date: '2026-11-20', preferred_time: 'afternoon' });
+    const { body } = await get('/api/export/leads');
+    const byRef = (id: string) => body.items.find((i: Json) => i.ref === id.slice(0, 8));
+    expect(byRef(undated).preferred_time).toBeNull();
+    expect(byRef(dated).preferred_time).toBe('afternoon');
+  });
+
   it('pages with an (updated_at, id) cursor and picks up later updates', async () => {
     const t = (s: number) => new Date(Date.UTC(2026, 9, 1, 10, 0, s)).toISOString();
     const a = await seedBooking({ updated_at: t(1) });
