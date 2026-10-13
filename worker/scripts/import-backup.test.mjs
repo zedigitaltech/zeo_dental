@@ -51,13 +51,10 @@ test('imports all three tables with values normalised to the D1 schema', () => {
       'bookings/11111111-1111-4111-8111-111111111111/aaaaaaaa-0000-4000-8000-000000000002.pdf',
     ]
   );
-  const usage = d.prepare('SELECT id, estimated_cost FROM chat_usage ORDER BY id').all();
+  const usage = d.prepare('SELECT estimated_cost FROM chat_usage ORDER BY id').all();
   assert.deepEqual(
-    usage.map(u => [u.id, u.estimated_cost]),
-    [
-      [7, 0.000013],
-      [8, 0.000007],
-    ]
+    usage.map(u => u.estimated_cost),
+    [0.000013, 0.000007]
   );
   assert.equal(manifest.backfill_pending, 2);
 });
@@ -90,6 +87,27 @@ test('re-running is safe and an older backup row never overwrites a newer D1 row
     d.prepare('SELECT status FROM bookings WHERE id LIKE ?').get('1111%').status,
     'confirmed'
   );
+});
+
+test('rows already created on the Worker never make Fly files or chats disappear', () => {
+  const { sql } = buildImport(fixture(), { now: NOW });
+  const d = db('');
+  // A test booking with file ids 1..2 and chat ids 1..10 exists before the import (2026-10-13 bug).
+  d.exec(
+    `INSERT INTO bookings (id, name, email, service) VALUES ('99999999-9999-4999-8999-999999999999', 'T', 't@x.invalid', 'x')`
+  );
+  for (const id of [1, 2])
+    d.exec(
+      `INSERT INTO booking_files (id, booking_id, filename, original_name, mime_type, size_bytes, storage_path, expires_at) VALUES (${id}, '99999999-9999-4999-8999-999999999999', 'f', 'f', 'image/jpeg', 1, 'bookings/9/${id}.jpg', '2027-01-01T00:00:00.000Z')`
+    );
+  for (let id = 1; id <= 10; id++)
+    d.exec(
+      `INSERT INTO chat_usage (id, input_tokens, output_tokens, total_tokens) VALUES (${id}, 1, 1, 2)`
+    );
+  d.exec(sql);
+  d.exec(sql); // and the delta import adds nothing twice
+  assert.equal(d.prepare('SELECT COUNT(*) AS n FROM booking_files').get().n, 4);
+  assert.equal(d.prepare('SELECT COUNT(*) AS n FROM chat_usage').get().n, 12);
 });
 
 test('a newer backup row (changed on Fly during the cutover window) updates D1', () => {
