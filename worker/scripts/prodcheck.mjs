@@ -5,14 +5,14 @@
  *   ADMIN_TOKEN=… SHEETS_EXPORT_TOKEN=… PRODCHECK_EMAIL=<a test inbox you can read> \
  *     node scripts/prodcheck.mjs --base https://zeo-dental.<account>.workers.dev
  *
- * Flags: --no-chat (skip the one real Gemini call), --no-cleanup (keep the test row visible),
+ * Flags: --no-chat (skip the one real chatbot call), --no-cleanup (keep the test row visible),
  *        --local (cleanup against the local D1, for a run against `npm run dev`).
  *
  * What it proves, in order: static assets + _headers, the Worker's headers/CSP, language redirect,
  * SEO HTML, sitemap, 404s, a tagged test booking (clinic notification goes to MAIL_TO — set MAIL_TO
  * to a test inbox for the first run, or warn the clinic), a synthetic JPEG upload to R2 and its
  * admin download byte-for-byte, a confirmation e-mail to PRODCHECK_EMAIL (check that inbox), the
- * export feeds, and one chat answer from Gemini. Finally the test booking and its file row are
+ * export feeds, and one chat answer from the chatbot. Finally the test booking and its file row are
  * soft-deleted with `wrangler d1 execute` (deleted_at; the R2 object stays — nothing is deleted).
  * Exit code 1 if any check fails. Prints no secrets.
  */
@@ -239,7 +239,7 @@ if (id) {
   }
 }
 
-// --- chat (one real Gemini call)
+// --- chat (one real Workers AI call)
 if (!flag('--no-chat')) {
   const chat = await get('/api/chat', {
     method: 'POST',
@@ -251,7 +251,7 @@ if (!flag('--no-chat')) {
   });
   const cj = await chat.json().catch(() => ({}));
   ok(
-    'POST /api/chat answers (Gemini key + model live)',
+    'POST /api/chat answers (Workers AI model live)',
     chat.status === 200 && typeof cj.response === 'string' && cj.response.length > 0,
     `${chat.status} ${cj.error ?? ''}`
   );

@@ -7,15 +7,16 @@ export interface Env {
   /** Workers Rate Limiting bindings. Absent → D1 fallback (lib/ratelimit.ts). */
   CHAT_LIMITER?: RateLimit;
   BOOKING_LIMITER?: RateLimit;
+  /** Workers AI (the chatbot). No key: billed in neurons, 10k/day free. */
+  AI?: Ai;
 
   ZEO_ENV?: string;
   BASE_URL?: string;
   CORS_ORIGINS?: string;
   CHAT_DAILY_CAP?: string;
   CHAT_DAILY_PER_IP?: string;
-  GEMINI_MODEL?: string;
+  AI_MODEL?: string;
 
-  GEMINI_API_KEY?: string;
   RESEND_API_KEY?: string;
   MAIL_FROM?: string;
   MAIL_TO?: string;

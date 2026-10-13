@@ -96,14 +96,11 @@ describe('#2 bearer routes: per-IP lockout and minimum token length', () => {
   });
 });
 
-describe('#3 chat: history validated, system instruction, key in header', () => {
-  const gemini = () =>
-    mockFetch(
-      () =>
-        new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'ok' }] } }] }), {
-          status: 200,
-        })
-    );
+describe('#3 chat: history validated, prompt as a system message', () => {
+  const ai = () => {
+    const run = vi.fn(async () => ({ choices: [{ message: { content: 'ok' } }] }));
+    return { run, AI: { run } as unknown as Ai };
+  };
   const turn = (role: string, text: unknown) => ({ role, parts: [{ text }] });
 
   const bad: Array<[string, unknown]> = [
@@ -119,34 +116,31 @@ describe('#3 chat: history validated, system instruction, key in header', () => 
   ];
   for (const [label, history] of bad) {
     it(`400 on ${label}`, async () => {
-      const f = gemini();
-      expect((await postJson('/api/chat', { message: 'Hi', history })).status).toBe(400);
-      expect(f).not.toHaveBeenCalled();
+      const { run, AI } = ai();
+      expect((await postJson('/api/chat', { message: 'Hi', history }, {}, { AI })).status).toBe(
+        400
+      );
+      expect(run).not.toHaveBeenCalled();
     });
   }
 
   it('keeps total history under 8000 chars by dropping the oldest turns', async () => {
-    const f = gemini();
+    const { run, AI } = ai();
     const history = Array.from({ length: 20 }, (_, i) =>
       turn(i % 2 ? 'model' : 'user', `${i}:` + 'y'.repeat(900))
     );
-    expect((await postJson('/api/chat', { message: 'Hi', history })).status).toBe(200);
-    const sent = JSON.parse(String((f.mock.calls[0][1] as RequestInit).body));
-    const total = sent.contents.reduce((n: number, c: Json) => n + c.parts[0].text.length, 0);
+    expect((await postJson('/api/chat', { message: 'Hi', history }, {}, { AI })).status).toBe(200);
+    const sent = (run.mock.calls[0] as unknown as [string, { messages: Json[] }])[1].messages;
+    const turns = sent.slice(1); // [0] is the system prompt
+    const total = turns.reduce((n: number, c: Json) => n + String(c.content).length, 0);
     expect(total).toBeLessThanOrEqual(8000);
-    expect(sent.contents.at(-2).parts[0].text.startsWith('19:')).toBe(true); // newest kept
-    expect(sent.contents[0].role).toBe('user');
+    expect(String(turns.at(-2)!.content).startsWith('19:')).toBe(true); // newest kept
+    expect(turns[0].role).toBe('user');
   });
 });
 
 describe('#4 chat: per-address daily cap on top of the global cap', () => {
   it('refuses with 429 after CHAT_DAILY_PER_IP messages from one address', async () => {
-    mockFetch(
-      () =>
-        new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text: 'ok' }] } }] }), {
-          status: 200,
-        })
-    );
     const s: number[] = [];
     for (let i = 0; i < 4; i++)
       s.push(
@@ -319,13 +313,13 @@ describe('#11 SEO replacements are literal', () => {
 });
 
 describe('#13 upstream errors', () => {
-  it('a Gemini 500 after retries is a 502 with a generic message', async () => {
-    vi.spyOn(globalThis, 'setTimeout').mockImplementation(((fn: () => void) => {
-      fn();
-      return 0;
-    }) as unknown as typeof setTimeout);
-    mockFetch(() => new Response('upstream secret detail', { status: 503 }));
-    const res = await postJson('/api/chat', { message: 'Hi' });
+  it('a Workers AI failure is a 502 with a generic message', async () => {
+    const AI = {
+      run: async () => {
+        throw new Error('upstream secret detail');
+      },
+    } as unknown as Ai;
+    const res = await postJson('/api/chat', { message: 'Hi' }, {}, { AI });
     expect(res.status).toBe(502);
     expect(JSON.stringify(await res.json())).not.toContain('secret');
   });

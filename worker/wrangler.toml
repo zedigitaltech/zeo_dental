@@ -17,6 +17,10 @@ workers_dev = true
 [observability]
 enabled = true
 
+# The chatbot (Workers AI). No API key; model in src/routes/chat.ts, override with AI_MODEL.
+[ai]
+binding = "AI"
+
 [assets]
 directory = "../dist"
 binding = "ASSETS"
@@ -61,13 +65,13 @@ ZEO_ENV = "production"
 BASE_URL = "https://zeodentalclinic.com"
 # Cross-origin callers of the API. The site itself is same-origin and needs none.
 CORS_ORIGINS = "https://zeodentalclinic.com,https://www.zeodentalclinic.com"
-# Hard daily cap on Gemini calls (counted from chat_usage). Protects the free tier.
-CHAT_DAILY_CAP = "500"
+# Hard daily cap on chat answers (counted from chat_usage). A worst-case answer costs about
+# 70 neurons, so 120 stays inside the 10,000 free neurons a day with room for other Workers.
+CHAT_DAILY_CAP = "120"
 # Per visitor address per UTC day (D1 ring), on top of the global cap.
 CHAT_DAILY_PER_IP = "40"
 
 # Secrets — never in this file. Set each with `wrangler secret put <NAME>` (DEPLOY.md §2):
-#   GEMINI_API_KEY          new key under a Z.E Google account
 #   RESEND_API_KEY          new key under a Z.E Resend account (EU region)
 #   MAIL_FROM               e.g. "Zeo Dental Clinic <noreply@…>" on a verified Resend domain
 #   MAIL_TO                 clinic inbox for new-booking notifications

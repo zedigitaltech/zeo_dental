@@ -1,37 +1,28 @@
 import { Hono } from 'hono';
-import {
-  GEMINI_API_URL,
-  SYSTEM_INSTRUCTION,
-  calculateCost,
-  getLanguageInstruction,
-} from '../../../server/src/utils/chatPrompt';
-import type { GeminiResponse } from '../../../server/src/utils/chatPrompt';
-import type { AppEnv, Env } from '../env';
+import { SYSTEM_INSTRUCTION, getLanguageInstruction } from '../../../server/src/utils/chatPrompt';
+import type { AppEnv } from '../env';
 import { clientIp, errMsg, readJson } from '../lib/http';
 import { allow } from '../lib/ratelimit';
 
 const VALID_LANGUAGES = ['sq', 'en', 'it', 'de', 'fr', 'tr', 'el', 'es'];
 
-/** Same model as Fly unless GEMINI_MODEL is set (gemini-2.0-flash may be retired [verify]). */
-const modelUrl = (env: Env) =>
-  env.GEMINI_MODEL
-    ? `https://generativelanguage.googleapis.com/v1beta/models/${env.GEMINI_MODEL}:generateContent`
-    : GEMINI_API_URL;
+/**
+ * Workers AI, no API key: the free plan includes 10,000 neurons a day for the whole account.
+ * Gemma 4 is on the free plan and costs 9,091 neurons per M input and 27,273 per M output tokens.
+ * AI_MODEL overrides it.
+ */
+export const DEFAULT_MODEL = '@cf/google/gemma-4-26b-a4b-it';
+const PRICE_IN = 0.1; // USD per M input tokens (Gemma 4 on Workers AI)
+const PRICE_OUT = 0.3; // USD per M output tokens
+export const MAX_OUTPUT_TOKENS = 700;
 
-/** Retry with exponential backoff on 5xx / network errors (1 s, 2 s), like the Fastify route. */
-async function fetchWithRetry(url: string, init: RequestInit, maxRetries = 3): Promise<Response> {
-  let lastError: Error | null = null;
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      const res = await fetch(url, init);
-      if (res.ok || res.status < 500) return res;
-      lastError = new Error(`HTTP ${res.status}`);
-    } catch (err) {
-      lastError = err instanceof Error ? err : new Error(String(err));
-    }
-    if (attempt < maxRetries - 1) await new Promise(r => setTimeout(r, 2 ** attempt * 1000));
-  }
-  throw lastError ?? new Error('Max retries exceeded');
+interface AiChatResult {
+  choices?: Array<{
+    message?: { content?: string | null; reasoning_content?: string | null };
+    finish_reason?: string;
+  }>;
+  response?: string;
+  usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
 }
 
 async function usedToday(db: D1Database): Promise<number> {
@@ -100,9 +91,8 @@ chat.post('/api/chat', async c => {
   const ip = clientIp(c.req.raw);
   if (!(await allow(env, 'chat', ip))) return c.json(busy, 429);
 
-  const apiKey = env.GEMINI_API_KEY;
-  if (!apiKey) {
-    console.error('GEMINI_API_KEY not configured');
+  if (!env.AI) {
+    console.error('AI binding not configured');
     return c.json(
       { response: '', error: 'Chat service is not configured. Please contact support.' },
       500
@@ -152,64 +142,58 @@ chat.post('/api/chat', async c => {
   }
 
   try {
-    const response = await fetchWithRetry(modelUrl(env), {
-      method: 'POST',
-      // The key goes in a header: URLs end up in logs.
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-      body: JSON.stringify({
-        systemInstruction: {
-          parts: [{ text: `${SYSTEM_INSTRUCTION}\n\n${getLanguageInstruction(safeLang)}` }],
-        },
-        contents: [...history, { role: 'user', parts: [{ text: message }] }],
-        generationConfig: { temperature: 0.5, topK: 40, topP: 0.95, maxOutputTokens: 2048 },
-        safetySettings: [
-          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
-        ],
-      }),
-    });
+    const messages = [
+      {
+        role: 'system',
+        content: `${SYSTEM_INSTRUCTION}\n\n${getLanguageInstruction(safeLang)}`,
+      },
+      ...history.map(t => ({
+        role: t.role === 'model' ? 'assistant' : 'user',
+        content: t.parts.map(p => p.text).join('\n'),
+      })),
+      { role: 'user', content: message },
+    ];
+    const data = (await env.AI.run(
+      (env.AI_MODEL || DEFAULT_MODEL) as Parameters<Ai['run']>[0],
+      {
+        messages,
+        max_tokens: MAX_OUTPUT_TOKENS,
+        temperature: 0.5,
+        top_p: 0.95,
+        // Gemma 4 thinks by default and spent all 700 tokens on it, answering nothing.
+        chat_template_kwargs: { enable_thinking: false },
+      } as never
+    )) as AiChatResult;
 
-    if (!response.ok) {
-      console.error(`Gemini API error: ${response.status}`);
-      return c.json(
-        { response: '', error: 'Failed to get response from AI. Please try again.' },
-        502
-      );
-    }
-
-    const data = (await response.json()) as GeminiResponse;
-    const aiResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const aiResponse = (data?.choices?.[0]?.message?.content ?? data?.response ?? '').trim();
     if (!aiResponse) {
-      console.error('Empty response from Gemini API');
+      const ch = data?.choices?.[0];
+      // Shape only, never the text: why the answer came back empty.
+      console.error(
+        `Empty response from Workers AI: finish=${ch?.finish_reason} reasoning=${ch?.message?.reasoning_content?.length ?? 0} usage=${JSON.stringify(data?.usage ?? {})}`
+      );
       return c.json(
         { response: '', error: 'Received empty response from AI. Please try again.' },
         500
       );
     }
 
-    if (data.usageMetadata) {
-      const {
-        promptTokenCount = 0,
-        candidatesTokenCount = 0,
-        totalTokenCount = 0,
-      } = data.usageMetadata;
-      c.executionCtx.waitUntil(
-        env.DB.prepare(
-          `INSERT INTO chat_usage (input_tokens, output_tokens, total_tokens, estimated_cost, language) VALUES (?, ?, ?, ?, ?)`
+    const input = data.usage?.prompt_tokens ?? 0;
+    const output = data.usage?.completion_tokens ?? 0;
+    c.executionCtx.waitUntil(
+      env.DB.prepare(
+        `INSERT INTO chat_usage (input_tokens, output_tokens, total_tokens, estimated_cost, language) VALUES (?, ?, ?, ?, ?)`
+      )
+        .bind(
+          input,
+          output,
+          data.usage?.total_tokens ?? input + output,
+          (input * PRICE_IN + output * PRICE_OUT) / 1_000_000,
+          language.slice(0, 5)
         )
-          .bind(
-            promptTokenCount,
-            candidatesTokenCount,
-            totalTokenCount,
-            calculateCost(promptTokenCount, candidatesTokenCount),
-            language.slice(0, 5)
-          )
-          .run()
-          .catch(err => console.error(`Failed to log chat usage: ${errMsg(err)}`))
-      );
-    }
+        .run()
+        .catch(err => console.error(`Failed to log chat usage: ${errMsg(err)}`))
+    );
 
     return c.json({ response: aiResponse });
   } catch (err) {

@@ -57,7 +57,6 @@ keyed by a salted daily hash, no addresses stored).
 Each command prompts for the value; nothing is written to disk.
 
 ```bash
-npx wrangler secret put GEMINI_API_KEY            # NEW key, Z.E Google account (see §8 on free-tier terms)
 npx wrangler secret put RESEND_API_KEY            # NEW key, Z.E Resend account, EU region
 npx wrangler secret put MAIL_FROM                 # e.g.  Zeo Dental Clinic <noreply@mail.zeodentalclinic.com>
 npx wrangler secret put MAIL_TO                   # clinic inbox for new-booking mails (a test inbox for the first prodcheck)
@@ -78,8 +77,8 @@ Build-time variable (public, not a secret): `VITE_ELFSIGHT_WIDGET_ID` must be in
 the shell (or `../.env.production`) when the site is built; the Fly Dockerfile
 used `f2d6942e-44a2-4e68-b564-3809a1f1cabb`.
 
-Optional var: `GEMINI_MODEL` (in `[vars]`) if `gemini-2.0-flash` has been
-retired **[verify]**; the default stays the Fly model.
+The chatbot needs no key: it runs on Workers AI (`[ai]` binding), model
+`@cf/google/gemma-4-26b-a4b-it` with thinking off. Optional var `AI_MODEL` swaps the model.
 
 Resend + DNS: a new Resend domain's DKIM record collides with the existing
 `resend._domainkey`. Either verify a subdomain (`mail.zeodentalclinic.com`,
@@ -97,7 +96,7 @@ ADMIN_TOKEN=… SHEETS_EXPORT_TOKEN=… PRODCHECK_EMAIL=<test inbox> \
 
 `prodcheck` makes one tagged test booking (clinic mail goes to `MAIL_TO`), uploads
 a synthetic JPEG, downloads it as admin, sends a confirmation to `PRODCHECK_EMAIL`,
-reads both export feeds, asks Gemini one question, then soft-deletes the test row
+reads both export feeds, asks the chatbot one question, then soft-deletes the test row
 (`deleted_at`). Check the test inbox by hand. All checks must pass before §4.
 
 Measure the upload CPU (**[verify]**: 3 × 10 MB through `formData()` may exceed
@@ -208,16 +207,16 @@ revisited with the clinic.
 | --------------- | -------------------------------------------- | -------------------------------------------------------------- |
 | Worker requests | 100k/day                                     | each HTML page view and API call counts; static files are free |
 | Worker CPU      | 10 ms/request                                | SEO HTML and JSON are small; uploads **[verify]** (§3)         |
-| Subrequests     | 50 external / invocation                     | chat: ≤3 Gemini attempts; confirm: Resend + WhatsApp           |
+| Subrequests     | 50 external / invocation                     | chat: one Workers AI call; confirm: Resend + WhatsApp          |
 | Cron triggers   | 5/account                                    | none used (no retention cron)                                  |
 | D1 Time Travel  | 7 days                                       | plus the weekly encrypted export                               |
 | R2              | 10 GB-month, 1M class A, 10M class B / month | a few MB of X-rays                                             |
 | Resend          | 100 e-mails/day                              | one per booking + confirmations                                |
+| Workers AI      | 10,000 neurons/day (whole account)           | ~34–48 neurons per chat answer; `CHAT_DAILY_CAP` 120 keeps it free |
 
 Open checks before go-live:
 
 - **[verify]** `wrangler d1 create --jurisdiction eu` on the free plan; `jurisdiction = "eu"` on the R2 binding; `[[ratelimits]]` on the free plan; `wrangler r2 object put/get --jurisdiction eu`.
-- **[verify]** Gemini free tier: whether its terms allow serving EEA/UK users and how Google may use the prompts; whether `gemini-2.0-flash` is still served (prodcheck's chat check answers the second).
 - Workers compute is not pinned to the EU on the free plan: name Cloudflare and Resend as processors in the privacy policy.
 
 ## 9. Security controls (review of 2026-10-12) and known follow-ups
@@ -228,9 +227,9 @@ In place:
   attempts in 15 minutes (429, even with the right secret). Unlock = wait, or a new address.
 - Chat: history must be `user`/`model` turns with text parts only (≤20 turns, user turns
   ≤1000 chars, model turns ≤4000); total history + message is kept ≤8000 chars by dropping
-  the oldest turns. The clinic prompt is sent as Gemini `systemInstruction`; the key goes in
-  the `x-goog-api-key` header. Upstream errors are 502 with a generic message.
-  Caps: 15/min and `CHAT_DAILY_PER_IP` (40)/day per address, `CHAT_DAILY_CAP` (500)/day global.
+  the oldest turns. The clinic prompt is sent as the `system` message to Workers AI (no key).
+  Upstream errors (including the free neurons running out) are 502 with a generic message.
+  Caps: 15/min and `CHAT_DAILY_PER_IP` (40)/day per address, `CHAT_DAILY_CAP` (120)/day global.
 - Uploads: `Content-Length` required (411), parsed bytes re-checked, at most 3 files per
   booking in total, D1 rows written before R2 objects (an R2 failure logs the keys).
 - Booking fields: name 200, service 100, description 2000, notes 2000, e-mail 254, phone 40

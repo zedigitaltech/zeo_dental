@@ -19,8 +19,16 @@ export const assetsStub = {
   },
 } as unknown as Fetcher;
 
+/** Workers AI stub: every chat gets "ok". Tests that inspect the call pass their own `AI`. */
+export const aiOk = {
+  run: async () => ({
+    choices: [{ message: { content: 'ok' } }],
+    usage: { prompt_tokens: 10, completion_tokens: 2, total_tokens: 12 },
+  }),
+} as unknown as Ai;
+
 export function testEnv(over: Partial<Env> = {}): Env {
-  return { ...(env as unknown as Env), ASSETS: assetsStub, ...over };
+  return { ...(env as unknown as Env), ASSETS: assetsStub, AI: aiOk, ...over };
 }
 
 let ipCounter = 0;

@@ -5,9 +5,9 @@
 - **Host:** Cloudflare (Worker + D1 + R2), Z.E's free account. Not DGX (latency).
 - **Uploads retention:** DO NOT delete patient files. No purge and no auto-retire cron; the 90-day `expires_at` stays informational. (GDPR retention to be revisited with the clinic.)
 - **Backfill:** only the 11 real pending leads go into the sheets. The 9 archived tests and the 3 unclear entries stay out.
-- **Gemini:** free tier, by owner decision. Check the free-tier terms (EEA/UK serving, data use) before go-live and report.
+- **Chatbot:** free. Changed 2026-10-13 from the Gemini free tier to Cloudflare Workers AI (Gemma 4, no key, 10,000 neurons/day free). Data-use terms for prompts **[verify]** before go-live.
 - **Reception views:** both. Call list gets a "Prenotato per" column. A separate view-only Albanian sheet "Zeo Dental — Takimet" goes to the clinic desk.
-- **Keys:** new Gemini + Resend keys under Z.E accounts. The old ones live in a Fly account that is not ours.
+- **Keys:** the Resend key is copied from Fly; no Gemini key is needed any more. The old ones live in a Fly account that is not ours.
 - The old Fly account (lorenc-ndoj, overdue) is never modified; it stays as a fallback until cutover is verified.
 
 Everything below comes from reading the worktree code, the backup's schema section (I did not read the patient rows), `fanar/` and `meta-sync.gs`. Items marked **[verify]** are Cloudflare or Google facts I could not check from here.
