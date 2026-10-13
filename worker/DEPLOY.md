@@ -240,3 +240,67 @@ In place:
 Known follow-ups (accepted for now): security review items **10** and **12** — see the
 review of `feat/cloudflare-migration`. Also still open from the design: login returns the
 admin token itself (parity with Fly, design item 11).
+
+## 10. Deposit links (POK) — off until configured
+
+The call centre's `/agent` page (and reception's booking modal) create a POK payment link
+for one fixed deposit of **€500** (`DEPOSIT_AMOUNT = "500.00"`, `DEPOSIT_CURRENCY = "EUR"`, owner decision). The money goes to **Zeo Dental Clinic's own POK merchant account**;
+neither the call centre nor Z.E ever receives it. Flow and the agents' wording:
+`../docs/DEPOSITS.md`.
+
+The amount is already in wrangler.toml `[vars]`, but until **all** of `POK_KEY_ID`,
+`POK_KEY_SECRET`, `POK_MERCHANT_ID` and `AGENT_TOKEN` are set, every `/api/agent/*` and `/api/pay/*` endpoint
+answers 503 and `/agent` shows "non configurato". Production is unaffected until then.
+
+**What the clinic must obtain from POK** (the clinic's account, in the clinic's name):
+
+1. A verified **POK merchant account** for Zeo Dental Clinic (NUIS of the clinic).
+2. SDK credentials **for staging and for production**: `keyId`, `keySecret`, `merchantId`.
+3. Written answers from POK, before going live:
+   - EUR orders are accepted for this merchant, and **foreign cards** (Italian patients) can pay
+     on the hosted page **[verify]**;
+   - the **webhook**: when it is called, from which addresses, and its payload/signature.
+     The Worker ignores the body and re-reads the order with `GET /sdk-orders/{id}` **[verify]**;
+   - the `Authorization` header format (the SDK sends the raw access token, no `Bearer`) **[verify]**;
+   - how a paid order shows: the SDK has no status field, so "paid" = `capturedAmount` ≥ `amount`
+     with the same currency **[verify]**;
+   - whether an unpaid order can be cancelled (we do not call any cancel endpoint; it expires).
+
+**Secrets** (never in files):
+
+```bash
+npx wrangler secret put POK_KEY_ID
+npx wrangler secret put POK_KEY_SECRET
+npx wrangler secret put POK_MERCHANT_ID
+npx wrangler secret put AGENT_TOKEN        # ≥32 chars, different from ADMIN_TOKEN
+```
+
+Then check `DEPOSIT_AMOUNT` (`"500.00"`), `DEPOSIT_CURRENCY` (`"EUR"`) and
+`DEPOSIT_EXPIRES_MINUTES`, apply the migration and deploy:
+
+```bash
+npx wrangler d1 migrations apply zeo-dental --remote   # 0003_deposits.sql, additive only
+npm run deploy
+```
+
+**Staging test** (`POK_ENV = "staging"`, staging credentials):
+
+1. Log in at `/agent` with `AGENT_TOKEN`, create a link for a test patient with your own e-mail.
+2. Pay it on POK's staging page with a staging test card.
+3. Within seconds the deposit shows **Pagato**, the clinic inbox gets "Parapagim i paguar" and
+   the test e-mail gets the receipt — exactly once. If the webhook never arrives, opening the
+   `/agent` list re-checks pending deposits with POK (up to 5 per refresh).
+4. Only then switch `POK_ENV = "production"` with the production credentials and repeat once
+   with a real small payment the clinic refunds itself.
+
+Controls: the webhook URL carries a random 64-hex token per deposit (constant-time check, 401
+without POK being asked), is rate-limited (60/min per address), and only POK's own
+`GET /sdk-orders/{id}` can mark a deposit paid, and only when amount and currency match.
+At most one pending link per contact (last 9 phone digits, else e-mail; partial unique index):
+a double click creates one POK order; a pending link under another name answers 409 and the
+agent must confirm to replace it (the old one is cancelled). Cancel/expire/fail only ever move a
+*pending* deposit, so "paid" can never be overwritten. "Paid" also requires POK's order id and
+reference to be ours and an explicit currency. Unknown ids and wrong tokens on the webhook
+both answer 401. Wrong agent tokens count toward the same 10-per-15-minutes lockout as reception.
+Sheets: `zwSyncWebsite` also writes "Acconto pagato €X dd/MM" into "Prenotato per" for the
+matching call-list row (same ownership rule as bookings); before the migration it skips quietly.

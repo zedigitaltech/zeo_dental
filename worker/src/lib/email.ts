@@ -15,6 +15,12 @@ import {
   type RenderedEmail,
 } from './emailTemplates';
 import { errMsg } from './http';
+import {
+  renderClinicDepositNotification,
+  renderDepositReceiptEmail,
+  renderDepositRequestEmail,
+  type EmailDeposit,
+} from './depositEmails';
 
 export const RESEND_URL = 'https://api.resend.com/emails';
 
@@ -92,5 +98,43 @@ export function sendCancellationEmail(env: Env, booking: BookingRow): Promise<bo
     booking.email ?? '',
     renderCancellationEmail(booking, emailLanguage(booking), opts(env)),
     'cancellation'
+  );
+}
+
+// --- Deposit links (POK). Logs carry deposit ids only. ---
+
+const depositOpts = (env: Env) => ({
+  baseUrl: env.BASE_URL,
+  termsUrl: env.DEPOSIT_TERMS_URL || undefined,
+});
+
+export function sendDepositRequestEmail(
+  env: Env,
+  deposit: EmailDeposit,
+  confirmUrl: string
+): Promise<boolean> {
+  return send(
+    env,
+    deposit.email ?? '',
+    renderDepositRequestEmail(deposit, confirmUrl, depositOpts(env)),
+    `deposit request ${deposit.id}`
+  );
+}
+
+export function sendDepositReceiptEmail(env: Env, deposit: EmailDeposit): Promise<boolean> {
+  return send(
+    env,
+    deposit.email ?? '',
+    renderDepositReceiptEmail(deposit, depositOpts(env)),
+    `deposit receipt ${deposit.id}`
+  );
+}
+
+export function sendClinicDepositNotification(env: Env, deposit: EmailDeposit): Promise<boolean> {
+  return send(
+    env,
+    clinicRecipients(env),
+    renderClinicDepositNotification(deposit, opts(env)),
+    `deposit clinic notification ${deposit.id}`
   );
 }

@@ -34,6 +34,7 @@ interface Booking {
   treatment_interest?: string | null;
   has_xray?: boolean | null;
   travel_timeframe?: string | null;
+  language?: string | null;
   whatsapp_sent: boolean;
   confirmation_email_sent: boolean;
   created_at: string;
@@ -530,6 +531,7 @@ export const ReceptionistApp: React.FC = () => {
           onClose={() => setSelectedBooking(null)}
           onConfirm={handleConfirmBooking}
           onCancel={handleCancelBooking}
+          token={token}
         />
       )}
     </div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 import { StatusBadge } from './StatusBadge';
 import { bookingAnswerRows } from './bookingAnswers';
+import { DepositPanel } from './DepositPanel';
 import { X, Phone, Mail, MessageCircle, CheckCircle } from 'lucide-react';
 
 interface Booking {
@@ -19,6 +20,7 @@ interface Booking {
   treatment_interest?: string | null;
   has_xray?: boolean | null;
   travel_timeframe?: string | null;
+  language?: string | null;
   created_at: string;
 }
 
@@ -33,6 +35,8 @@ interface BookingDetailModalProps {
     send_email: boolean;
   }) => Promise<void>;
   onCancel: (data: { reason: string; notify_patient: boolean }) => Promise<void>;
+  /** Admin bearer token, for the deposit panel. */
+  token?: string | null;
 }
 
 export const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
@@ -41,8 +45,9 @@ export const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
   onClose,
   onConfirm,
   onCancel,
+  token,
 }) => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
   // Confirm form state
@@ -192,6 +197,10 @@ export const BookingDetailModal: React.FC<BookingDetailModalProps> = ({
               <StatusBadge status={booking.status} />
             </div>
           </div>
+
+          {mode === 'view' && token && (
+            <DepositPanel token={token} language={language} booking={booking} />
+          )}
 
           {booking.notes && (
             <div className="mb-6 p-4 bg-gray-50 rounded">

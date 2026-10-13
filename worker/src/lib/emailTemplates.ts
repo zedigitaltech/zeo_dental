@@ -26,7 +26,7 @@ export const CLINIC = {
     encodeURIComponent('Rruga Hamdi Sina, Tiranë, Albania'),
 } as const;
 
-const C = {
+export const C = {
   black: '#050505',
   gold: '#C5A47E',
   gray: '#999999',
@@ -36,8 +36,8 @@ const C = {
   rule: '#E8E2D9',
 } as const;
 
-const SERIF = "'Playfair Display', Georgia, 'Times New Roman', Times, serif";
-const SANS = "'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif";
+export const SERIF = "'Playfair Display', Georgia, 'Times New Roman', Times, serif";
+export const SANS = "'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
 /** The booking fields the templates read. Everything optional so old rows render too. */
 export interface EmailBooking {
@@ -70,8 +70,8 @@ export interface RenderedEmail {
   text: string;
 }
 
-const e = (v: unknown): string => escapeHtml(String(v ?? ''));
-const origin = (o?: RenderOptions) => (o?.baseUrl || DEFAULT_BASE_URL).replace(/\/+$/, '');
+export const e = (v: unknown): string => escapeHtml(String(v ?? ''));
+export const origin = (o?: RenderOptions) => (o?.baseUrl || DEFAULT_BASE_URL).replace(/\/+$/, '');
 
 /** "2026-10-20" → "martedì 20 ottobre 2026" in the language's locale, Tirana time. */
 export function formatEmailDate(date: string | null | undefined, locale: string): string | null {
@@ -108,9 +108,10 @@ function appointmentTime(booking: EmailBooking, copy: EmailCopy): string | null 
 }
 
 // ---------------------------------------------------------------------------------------------
-// Building blocks (all return HTML; callers pass already-escaped strings unless noted)
+// Building blocks (all return HTML; callers pass already-escaped strings unless noted).
+// Exported for the deposit emails (depositEmails.ts), which share the layout.
 
-function button(href: string, label: string, primary: boolean): string {
+export function button(href: string, label: string, primary: boolean): string {
   const bg = primary ? C.black : C.white;
   const fg = primary ? C.white : C.black;
   const border = primary ? C.black : C.gold;
@@ -131,7 +132,7 @@ function detailRow(label: string, value: string, last = false): string {
 </tr>`;
 }
 
-function detailsBox(title: string, rows: Array<[string, string]>): string {
+export function detailsBox(title: string, rows: Array<[string, string]>): string {
   return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="${C.light}" style="background-color:${C.light};border-left:3px solid ${C.gold};">
   <tr>
     <td style="padding:22px 24px 10px 24px;font-family:${SERIF};font-size:18px;line-height:24px;color:${C.black};">${title}</td>
@@ -146,11 +147,11 @@ function detailsBox(title: string, rows: Array<[string, string]>): string {
 </table>`;
 }
 
-function paragraph(html: string, extra = ''): string {
+export function paragraph(html: string, extra = ''): string {
   return `<p style="margin:0 0 16px 0;font-family:${SANS};font-size:15px;line-height:24px;color:${C.text};${extra}">${html}</p>`;
 }
 
-function noteBox(html: string): string {
+export function noteBox(html: string): string {
   return `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="${C.white}" style="background-color:${C.white};border:1px solid ${C.gold};">
   <tr>
     <td style="padding:14px 18px;font-family:${SANS};font-size:14px;line-height:22px;color:${C.text};">${html}</td>
@@ -158,10 +159,10 @@ function noteBox(html: string): string {
 </table>`;
 }
 
-const spacer = (h: number) =>
+export const spacer = (h: number) =>
   `<tr><td style="height:${h}px;line-height:${h}px;font-size:0;">&nbsp;</td></tr>`;
 
-interface LayoutParts {
+export interface LayoutParts {
   lang: string;
   title: string; // escaped
   preheader: string; // escaped
@@ -173,7 +174,7 @@ interface LayoutParts {
   baseUrl: string;
 }
 
-function layout(p: LayoutParts): string {
+export function layout(p: LayoutParts): string {
   const logo = `${p.baseUrl}/images/zeo-logo-email.png`;
   // Pads the preheader so clients don't pull body text into the inbox preview.
   const filler = '&#847;&zwnj;&nbsp;'.repeat(40);
@@ -248,7 +249,7 @@ function patientActions(copy: EmailCopy): string {
 </table>`;
 }
 
-function contactBlock(copy: EmailCopy): string {
+export function contactBlock(copy: EmailCopy): string {
   return (
     paragraph(e(copy.help)) +
     paragraph(
@@ -258,14 +259,14 @@ function contactBlock(copy: EmailCopy): string {
   );
 }
 
-function signoff(copy: EmailCopy): string {
+export function signoff(copy: EmailCopy): string {
   return paragraph(
     `${e(copy.signoff)}<br><span style="font-family:${SERIF};font-size:17px;color:${C.black};">${e(copy.team)}</span>`,
     'margin-top:8px;margin-bottom:26px;'
   );
 }
 
-function textFooter(copy: EmailCopy): string[] {
+export function textFooter(copy: EmailCopy): string[] {
   return [
     `${copy.signoff}`,
     copy.team,

@@ -11,6 +11,8 @@ import {
 } from '../lib/seo';
 
 const STATIC_EXT = /\.(js|css|png|jpg|jpeg|webp|svg|ico|woff2?|ttf|eot|mp4|webm|json|map|txt)$/;
+/** Internal or transactional pages: never indexed (not in the sitemap either). */
+export const NOINDEX_PATHS = ['/agent', '/receptionist', '/pay/thanks', '/pay/failed'];
 const baseUrl = (env: Env) => env.BASE_URL || 'https://zeodentalclinic.com';
 
 /** index.html from static assets, fetched once per isolate (a deploy starts new isolates). */
@@ -85,5 +87,8 @@ site.all('*', async c => {
     stripLangPrefix(path),
     baseUrl(c.env)
   );
-  return c.body(html, 200, { 'content-type': 'text/html; charset=utf-8' });
+  const bare = stripLangPrefix(path).replace(/\/+$/, '') || '/';
+  const headers: Record<string, string> = { 'content-type': 'text/html; charset=utf-8' };
+  if (NOINDEX_PATHS.includes(bare)) headers['x-robots-tag'] = 'noindex, nofollow';
+  return c.body(html, 200, headers);
 });

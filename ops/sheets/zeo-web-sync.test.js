@@ -2,7 +2,7 @@
 // Only fake people here: no real names, phones or e-mails.
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { zwPlanCallList, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone, zwSafe, zwWhenText } = require('./zeo-web-sync.gs');
+const { zwPlanCallList, zwPlanDeposits, zwDepositText, zwPlanTakimet, zwPrenotatoColumn, zwPrenotatoText, zwPhone, zwSafe, zwWhenText } = require('./zeo-web-sync.gs');
 
 // Same formatting the script gets from Utilities.formatDate(…, 'Europe/Tirane', …).
 const fmt = (iso, pattern) => {
@@ -202,4 +202,50 @@ test('Takimet: no user-sourced cell can start a formula', () => {
     fmt
   );
   for (const r of rows.slice(1)) for (const cell of r) if (typeof cell === 'string') assert.ok(!/^[=+\-@\t\r]/.test(cell), JSON.stringify(cell));
+});
+
+// ---------------------------------------------------------------- paid deposits -> "Prenotato per"
+const dep = (o = {}) => ({
+  ref: 'd0e1f2a3', phone: '+39 333 111 2222', email: null, status: 'paid', amount: '100.00', currency: 'EUR',
+  paid_at: '2026-10-14T07:30:00.000Z', call_list_ref: null, updated_at: '2026-10-14T07:30:00.000Z', ...o,
+});
+
+test('deposit text: "Acconto pagato €100 14/10 · ref", cents kept, ALL written after the amount', () => {
+  assert.equal(zwDepositText(dep(), fmt), 'Acconto pagato €100 14/10 · ref d0e1f2a3');
+  assert.equal(zwDepositText(dep({ amount: '99.50' }), fmt), 'Acconto pagato €99.50 14/10 · ref d0e1f2a3');
+  assert.equal(zwDepositText(dep({ amount: '5000.00', currency: 'ALL' }), fmt), 'Acconto pagato 5000 ALL 14/10 · ref d0e1f2a3');
+});
+
+test('a paid deposit fills an empty "Prenotato per" of the row with the same phone, and only that cell', () => {
+  const data = [metaRow({ no: 1, phone: '+39 347 000 9999', email: 'x@example.it' }), metaRow({ no: 2 })];
+  assert.deepEqual(zwPlanDeposits([dep()], data, P, fmt), [{ index: 1, value: 'Acconto pagato €100 14/10 · ref d0e1f2a3' }]);
+});
+
+test('matches by e-mail, else by the call-list row number the agent typed', () => {
+  const data = [metaRow({ no: 7, phone: '+39 347 000 9999', email: 'carla@example.it' }), metaRow({ no: 8, phone: '+39 347 000 8888', email: 'z@example.it' })];
+  assert.equal(zwPlanDeposits([dep({ phone: null, email: 'CARLA@example.it' })], data, P, fmt)[0].index, 0);
+  assert.equal(zwPlanDeposits([dep({ phone: '+39 320 555 0000', call_list_ref: 'riga 8' })], data, P, fmt)[0].index, 1);
+  assert.deepEqual(zwPlanDeposits([dep({ phone: '+39 320 555 0000', call_list_ref: 'boh' })], data, P, fmt), []);
+});
+
+test("never overwrites an agent's text; appends to this script's booking text; idempotent", () => {
+  const agent = [metaRow({ p: 'chiamare lunedì' })];
+  assert.deepEqual(zwPlanDeposits([dep()], agent, P, fmt), []);
+  const booked = [metaRow({ p: 'Confermato: 20/11 10:00 · ref a1b2c3d4' })];
+  const [u] = zwPlanDeposits([dep()], booked, P, fmt);
+  assert.equal(u.value, 'Confermato: 20/11 10:00 · ref a1b2c3d4 | Acconto pagato €100 14/10 · ref d0e1f2a3');
+  assert.deepEqual(zwPlanDeposits([dep()], [metaRow({ p: u.value })], P, fmt), []);
+  // Unpaid deposits are never written.
+  assert.deepEqual(zwPlanDeposits([dep({ status: 'pending' })], [metaRow()], P, fmt), []);
+});
+
+test('only "Prenotato per" is written, never G/H or agent columns', () => {
+  const updates = zwPlanDeposits([dep()], [metaRow()], P, fmt);
+  for (const u of updates) assert.deepEqual(Object.keys(u).sort(), ['index', 'value']);
+});
+
+test('a booking update keeps the paid-deposit part this script appended', () => {
+  const cell = 'Richiesto: 20/11 mattina · ref a1b2c3d4 | Acconto pagato €100 14/10 · ref d0e1f2a3';
+  const { updates } = zwPlanCallList([item({ status: 'confirmed', confirmed_date: '2026-11-21', confirmed_time: '09:30' })], [metaRow({ p: cell })], P, { fmt });
+  assert.deepEqual(updates, [{ index: 0, value: 'Confermato: 21/11 09:30 · ref a1b2c3d4 | Acconto pagato €100 14/10 · ref d0e1f2a3' }]);
 });

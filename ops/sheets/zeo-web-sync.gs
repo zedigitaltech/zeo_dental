@@ -37,6 +37,11 @@
  *   - It never writes G, H or any other cell an agent edits.
  *   - First run (no ZW_CURSOR): only status=pending bookings are added (the backfill rule); the
  *     archived test bookings are soft-deleted in the database and never exported.
+ *   - Paid deposits (POK, /api/export/deposits) write "Acconto pagato €X dd/MM · ref xxxxxxxx" into
+ *     "Prenotato per" of the row with the same phone (last 9 digits) or e-mail (else the row whose #
+ *     equals the deposit's call-list note). Same ownership rule: only an empty cell, or one this
+ *     script wrote (then the deposit is appended after " | "). Before the deposits feed exists it
+ *     skips quietly; it never breaks the booking sync.
  * Only name, phone, e-mail, dates, status and when the patient wants to come ever reach Google.
  * Never the treatment interest, the X-ray answer, notes or files (the export does not carry them).
  */
@@ -78,6 +83,7 @@ function zwSyncWebsite() {
   try {
     var props = zwProps();
     zwSyncCallList(props);
+    zwSyncDeposits(props);
     zwSyncTakimet(props);
   } finally {
     lock.releaseLock();
@@ -185,6 +191,38 @@ function zwSyncTakimet(props) {
   sh.getRange(1, 9).setValue('Përditësuar: ' + Utilities.formatDate(new Date(), ZW_TZ, 'dd/MM/yyyy HH:mm'));
 }
 
+/** Paid deposits -> "Prenotato per". Never throws: the booking sync must keep running. */
+function zwSyncDeposits(props) {
+  var items = [];
+  try {
+    var next = '';
+    for (var page = 0; page < 20; page++) {
+      var body = zwGet(props, '/api/export/deposits?status=paid&limit=500' + (next ? '&since=' + encodeURIComponent(next) : ''));
+      items = items.concat(body.items);
+      next = body.next_cursor || next;
+      if (!body.has_more) break;
+    }
+  } catch (err) {
+    console.warn('Deposits feed unavailable: ' + err.message);
+    return;
+  }
+  if (items.length === 0) return;
+  var list = SpreadsheetApp.openById(props.ZW_LIST_SHEET_ID).getSheetByName(ZW_LIST_SHEET_NAME);
+  var lastCol = Math.max(list.getLastColumn(), 8);
+  var header = list.getRange(ZW_HEADER_ROW, 1, 1, lastCol + 1).getDisplayValues()[0];
+  var n = Math.max(list.getLastRow() - ZW_FIRST_DATA_ROW + 1, 0);
+  if (n === 0) return;
+  var data = list.getRange(ZW_FIRST_DATA_ROW, 1, n, lastCol + 1).getDisplayValues();
+  var pCol = zwPrenotatoColumn(header, data);
+  if (pCol < 0) return;
+  var updates = zwPlanDeposits(items, data, pCol, zwGasFmt);
+  if (updates.length === 0) return;
+  if (header[pCol] !== ZW_PRENOTATO_HEADER) list.getRange(ZW_HEADER_ROW, pCol + 1).setValue(ZW_PRENOTATO_HEADER);
+  updates.forEach(function (u) {
+    list.getRange(ZW_FIRST_DATA_ROW + u.index, pCol + 1).setValue(u.value);
+  });
+}
+
 function zwGasFmt(iso, pattern) {
   return Utilities.formatDate(new Date(iso), ZW_TZ, pattern);
 }
@@ -282,7 +320,8 @@ function zwPlanCallList(items, data, pCol, opts) {
     var cur = String(current == null ? '' : current).trim();
     // Only an empty cell, or one this script wrote for the same booking.
     if (cur === '' || cur.indexOf('ref ' + ref) >= 0) {
-      if (cur !== value) updates[index] = value;
+      var target = value + zwDepositSuffix(cur); // keep a paid deposit written after it
+      if (cur !== target) updates[index] = target;
     }
   };
 
@@ -368,6 +407,58 @@ function zwPlanTakimet(items, fmt) {
   return rows;
 }
 
+var ZW_DEPOSIT_SEP = ' | ';
+var ZW_BOOKING_TEXT_RE = /^(Richiesto|Confermato|Annullato)\b.* · ref [0-9a-f]{8}$/;
+
+/** The " | Acconto pagato …" part of a cell this script wrote, or ''. */
+function zwDepositSuffix(cur) {
+  var i = String(cur || '').indexOf(ZW_DEPOSIT_SEP + 'Acconto pagato');
+  return i >= 0 ? String(cur).slice(i) : '';
+}
+
+/** "Acconto pagato €100 14/10 · ref xxxxxxxx" (Tirana date). */
+function zwDepositText(item, fmt) {
+  var amt = String(item.amount || '').replace(/\.00$/, '');
+  var money = item.currency === 'EUR' ? '€' + amt : amt + ' ' + item.currency;
+  return 'Acconto pagato ' + money + (item.paid_at ? ' ' + fmt(item.paid_at, 'dd/MM') : '') + ' · ref ' + item.ref;
+}
+
+/**
+ * Pure: paid deposits + call-list rows -> [{ index, value }] for the "Prenotato per" column only.
+ * Row: same phone (last 9 digits) or e-mail; else the row whose # (column A) equals call_list_ref.
+ * Cell rule: empty -> the deposit text; already has this deposit's ref -> untouched; text this
+ * script wrote for a booking -> booking text + " | " + deposit text; anything else (an agent's) -> untouched.
+ */
+function zwPlanDeposits(items, data, pCol, fmt) {
+  var byKey = {};
+  var byNo = {};
+  (data || []).forEach(function (r, i) {
+    zwKeys(r[2], r[3]).forEach(function (k) { if (byKey[k] === undefined) byKey[k] = i; });
+    var no = String(r[0] == null ? '' : r[0]).trim();
+    if (no && byNo[no] === undefined) byNo[no] = i;
+  });
+  var current = {};
+  var out = {};
+  (items || []).forEach(function (it) {
+    if (it.status !== 'paid') return;
+    var index;
+    zwKeys(it.phone, it.email).forEach(function (k) { if (index === undefined && byKey[k] !== undefined) index = byKey[k]; });
+    var note = String(it.call_list_ref || '').trim().replace(/^(riga|row|#)\s*/i, '');
+    if (index === undefined && /^\d+$/.test(note) && byNo[note] !== undefined) index = byNo[note];
+    if (index === undefined) return;
+    var cur = current[index] !== undefined ? current[index] : String(data[index][pCol] == null ? '' : data[index][pCol]).trim();
+    var text = zwDepositText(it, fmt);
+    var value;
+    if (cur === '') value = text;
+    else if (cur.indexOf('ref ' + it.ref) >= 0) return;
+    else if (ZW_BOOKING_TEXT_RE.test(cur)) value = cur + ZW_DEPOSIT_SEP + text;
+    else return;
+    current[index] = value;
+    out[index] = value;
+  });
+  return Object.keys(out).map(function (k) { return { index: Number(k), value: out[k] }; });
+}
+
 // ---- copied from meta-sync.gs (renamed: one project per script, no shared names) ----
 
 function zwDigits(s) { return String(s || '').replace(/\D/g, ''); }
@@ -409,6 +500,8 @@ if (typeof module !== 'undefined') {
   module.exports = {
     zwPlanCallList: zwPlanCallList,
     zwPlanTakimet: zwPlanTakimet,
+    zwPlanDeposits: zwPlanDeposits,
+    zwDepositText: zwDepositText,
     zwPrenotatoColumn: zwPrenotatoColumn,
     zwPrenotatoText: zwPrenotatoText,
     zwPhone: zwPhone,

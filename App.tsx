@@ -12,6 +12,8 @@ import { BookingPage } from './components/BookingPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ReceptionistApp } from './components/receptionist/ReceptionistApp';
+import { AgentApp } from './components/agent/AgentApp';
+import { PayResultPage } from './components/pay/PayResultPage';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsOfService } from './components/TermsOfService';
 import { TreatmentPage } from './components/TreatmentPage';
@@ -110,6 +112,12 @@ const App: React.FC = () => {
     switch (route) {
       case '/receptionist':
         return <ReceptionistApp />;
+      case '/agent':
+        return <AgentApp />;
+      case '/pay/thanks':
+        return <PayResultPage outcome="thanks" />;
+      case '/pay/failed':
+        return <PayResultPage outcome="failed" />;
       case '/book':
         return <BookingPage />;
       case '/privacy-policy':

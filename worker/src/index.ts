@@ -8,6 +8,7 @@ import type { AppEnv } from './env';
 import { PREFLIGHT_HEADERS, corsHeaders, errMsg, harden } from './lib/http';
 import { booking } from './routes/booking';
 import { chat } from './routes/chat';
+import { deposits } from './routes/deposits';
 import { exportApi } from './routes/export';
 import { receptionist } from './routes/receptionist';
 import { site } from './routes/site';
@@ -35,6 +36,7 @@ app.route('/', chat);
 app.route('/', booking);
 app.route('/', receptionist);
 app.route('/', exportApi);
+app.route('/', deposits);
 app.route('/', site); // last: owns the catch-all
 
 export default { fetch: app.fetch } satisfies ExportedHandler<AppEnv['Bindings']>;

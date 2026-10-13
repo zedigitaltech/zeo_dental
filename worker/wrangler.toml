@@ -70,6 +70,13 @@ CORS_ORIGINS = "https://zeodentalclinic.com,https://www.zeodentalclinic.com"
 CHAT_DAILY_CAP = "120"
 # Per visitor address per UTC day (D1 ring), on top of the global cap.
 CHAT_DAILY_PER_IP = "40"
+# Deposit links (POK, DEPLOY.md §10). Inert: every deposit endpoint answers 503 until the
+# POK_KEY_ID / POK_KEY_SECRET / POK_MERCHANT_ID secrets and AGENT_TOKEN all exist.
+DEPOSIT_AMOUNT = "500.00"          # one fixed amount for everyone (owner decision: €500)
+DEPOSIT_CURRENCY = "EUR"           # EUR or ALL (POK's SDK: "we support only ALL and EUR")   [verify]
+DEPOSIT_EXPIRES_MINUTES = "4320"   # 72 h
+POK_ENV = "staging"                # "production" only after a full staging test
+# DEPOSIT_TERMS_URL = ""           # optional: the clinic's own deposit-terms page
 
 # Secrets — never in this file. Set each with `wrangler secret put <NAME>` (DEPLOY.md §2):
 #   RESEND_API_KEY          new key under a Z.E Resend account (EU region)
@@ -80,6 +87,8 @@ CHAT_DAILY_PER_IP = "40"
 #   SHEETS_EXPORT_TOKEN     bearer token for /api/export/* (Apps Script keeps it in Script Properties)
 #   RATE_LIMIT_SALT         salt for the D1 rate-limit fallback hash
 #   WHATSAPP_PHONE_NUMBER_ID, WHATSAPP_ACCESS_TOKEN   optional; WhatsApp stays off without them
+#   POK_KEY_ID, POK_KEY_SECRET, POK_MERCHANT_ID       Zeo Dental's own POK merchant (deposits off without them)
+#   AGENT_TOKEN             call-centre /agent password / bearer (≥32 chars, NOT the ADMIN_TOKEN)
 # Build-time (frontend, not a Worker secret): VITE_ELFSIGHT_WIDGET_ID in the shell running `npm run build:site`.
 
 # Live since the 2026-10-13 cutover. Rollback: comment these out and redeploy (DEPLOY.md §6).

@@ -1,6 +1,6 @@
 import type { Env } from '../env';
 
-export type Bucket = 'chat' | 'booking' | 'chatday' | 'adminfail';
+export type Bucket = 'chat' | 'booking' | 'chatday' | 'adminfail' | 'deposit' | 'paywebhook';
 
 interface Rule {
   limit: number;
@@ -10,7 +10,8 @@ interface Rule {
 /**
  * chat 15/min and booking + upload 10/min per address (as on Fly); chatday = messages per address
  * per UTC day (CHAT_DAILY_PER_IP, default 40); adminfail = failed bearer/login attempts per address
- * per 15 minutes before the address is locked out.
+ * per 15 minutes before the address is locked out; deposit = deposit links created per address per
+ * minute (a call centre shares one address); paywebhook = calls to the POK webhook per address per minute.
  */
 export function ruleFor(env: Env, bucket: Bucket): Rule {
   switch (bucket) {
@@ -22,6 +23,10 @@ export function ruleFor(env: Env, bucket: Bucket): Rule {
       return { limit: Number(env.CHAT_DAILY_PER_IP ?? '40') || 40, windowMs: 86_400_000 };
     case 'adminfail':
       return { limit: 10, windowMs: 15 * 60_000 };
+    case 'deposit':
+      return { limit: 20, windowMs: 60_000 };
+    case 'paywebhook':
+      return { limit: 60, windowMs: 60_000 };
   }
 }
 

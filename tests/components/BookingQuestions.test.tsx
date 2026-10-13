@@ -62,7 +62,9 @@ describe('Booking form: Meta-form questions', () => {
     vi.stubGlobal('fetch', fetchMock);
     Element.prototype.scrollIntoView = vi.fn();
   });
-  afterEach(() => vi.unstubAllGlobals());
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
 
   it('shows the three questions with the Meta wording as radio groups', () => {
     render(<Booking />);

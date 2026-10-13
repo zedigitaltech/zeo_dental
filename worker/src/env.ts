@@ -26,6 +26,17 @@ export interface Env {
   RATE_LIMIT_SALT?: string;
   WHATSAPP_PHONE_NUMBER_ID?: string;
   WHATSAPP_ACCESS_TOKEN?: string;
+
+  /** Deposit links (POK). Every deposit endpoint answers 503 until all POK_* and AGENT_TOKEN are set. */
+  DEPOSIT_AMOUNT?: string;
+  DEPOSIT_CURRENCY?: string;
+  DEPOSIT_EXPIRES_MINUTES?: string;
+  DEPOSIT_TERMS_URL?: string;
+  POK_ENV?: string;
+  POK_KEY_ID?: string;
+  POK_KEY_SECRET?: string;
+  POK_MERCHANT_ID?: string;
+  AGENT_TOKEN?: string;
 }
 
 export type AppEnv = { Bindings: Env };

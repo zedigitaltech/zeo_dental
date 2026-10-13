@@ -134,3 +134,60 @@ exportApi.get('/api/export/appointments', async c => {
     .all<Record<string, unknown>>();
   return c.json({ items: results.map(pick), today, timezone: 'Europe/Tirane' });
 });
+
+/** Whitelisted deposit fields for the call list ("Acconto pagato"): no name, link or token. */
+export const DEPOSIT_EXPORT_FIELDS = [
+  'ref',
+  'phone',
+  'email',
+  'status',
+  'amount',
+  'currency',
+  'paid_at',
+  'call_list_ref',
+  'updated_at',
+] as const;
+
+const DEPOSIT_STATUS_FILTER = ['pending', 'paid', 'expired', 'cancelled', 'failed'];
+
+/**
+ * GET /api/export/deposits?since=<cursor>&limit=<1..500>&status=<status>
+ * Deposits changed after the cursor, oldest change first (same cursor format as /leads).
+ * The sheet sync asks for status=paid without a cursor on every run and writes idempotently.
+ */
+exportApi.get('/api/export/deposits', async c => {
+  const cursor = parseCursor(c.req.query('since'));
+  if (cursor === 'invalid') return c.json({ error: 'Invalid since cursor' }, 400);
+  const status = c.req.query('status');
+  if (status && !DEPOSIT_STATUS_FILTER.includes(status))
+    return c.json({ error: 'Invalid status' }, 400);
+  const limit = Math.min(Math.max(parseInt(c.req.query('limit') ?? '200', 10) || 200, 1), 500);
+
+  const where = ['deleted_at IS NULL'];
+  const args: unknown[] = [];
+  if (status) {
+    where.push('status = ?');
+    args.push(status);
+  }
+  if (cursor) {
+    where.push('(updated_at > ? OR (updated_at = ? AND id > ?))');
+    args.push(cursor.ts, cursor.ts, cursor.id);
+  }
+  const { results } = await c.env.DB.prepare(
+    `SELECT id, substr(id, 1, 8) AS ref, phone, email, status, amount_cents, currency, paid_at,
+       call_list_ref, updated_at
+     FROM deposits WHERE ${where.join(' AND ')} ORDER BY updated_at, id LIMIT ?`
+  )
+    .bind(...args, limit)
+    .all<Record<string, unknown>>();
+  const items = results.map(r => {
+    const row: Record<string, unknown> = {
+      ...r,
+      amount: (Number(r.amount_cents) / 100).toFixed(2),
+    };
+    return Object.fromEntries(DEPOSIT_EXPORT_FIELDS.map(k => [k, row[k] ?? null]));
+  });
+  const last = results.at(-1);
+  const next_cursor = last ? `${last.updated_at}|${last.id}` : (c.req.query('since') ?? null);
+  return c.json({ items, next_cursor, has_more: results.length === limit });
+});
