@@ -1,30 +1,27 @@
 /**
- * Resend over fetch (the SDK is not needed on Workers). Same templates and recipients as
- * server/src/services/emailTemplates.ts — the HTML is imported from the server's shared module.
- * Logs carry booking ids only, never addresses.
+ * Resend over fetch (the SDK is not needed on Workers). Recipients match
+ * server/src/services/emailTemplates.ts; the templates live in ./emailTemplates.ts. Patient emails go
+ * out in the patient's language (emailLanguage), the clinic notification in Albanian. Every email
+ * carries a plain-text alternative. Logs carry booking ids only, never addresses.
  */
-import type { Booking } from '../../../server/src/types';
-import {
-  CANCELLATION_SUBJECT,
-  CONFIRMATION_SUBJECT,
-  clinicNotificationSubject,
-  getCancellationEmailHtml,
-  getClinicNotificationHtml,
-  getConfirmationEmailHtml,
-} from '../../../server/src/utils/emailHtml';
 import type { Env } from '../env';
 import type { BookingRow } from './db';
+import { emailLanguage } from './emailLanguage';
+import {
+  renderCancellationEmail,
+  renderClinicNotification,
+  renderConfirmationEmail,
+  type EmailBooking,
+  type RenderedEmail,
+} from './emailTemplates';
 import { errMsg } from './http';
 
 export const RESEND_URL = 'https://api.resend.com/emails';
 
-const asBooking = (b: Partial<BookingRow>) => b as unknown as Booking;
-
 async function send(
   env: Env,
   to: string | string[],
-  subject: string,
-  html: string,
+  mail: RenderedEmail,
   tag: string
 ): Promise<boolean> {
   if (!env.RESEND_API_KEY) {
@@ -41,8 +38,9 @@ async function send(
       body: JSON.stringify({
         from: env.MAIL_FROM || 'Zeo Dental Clinic <onboarding@resend.dev>',
         to,
-        subject,
-        html,
+        subject: mail.subject,
+        html: mail.html,
+        text: mail.text,
       }),
     });
     if (!res.ok) {
@@ -62,6 +60,8 @@ export function clinicRecipients(env: Env): string[] {
   return to;
 }
 
+const opts = (env: Env) => ({ baseUrl: env.BASE_URL });
+
 export async function sendClinicNotification(
   env: Env,
   booking: Partial<BookingRow>
@@ -70,8 +70,7 @@ export async function sendClinicNotification(
   const ok = await send(
     env,
     clinicRecipients(env),
-    clinicNotificationSubject({ name: booking.name ?? '', service: booking.service ?? '' }),
-    getClinicNotificationHtml(asBooking(booking)),
+    renderClinicNotification(booking as EmailBooking, opts(env)),
     'clinic notification'
   );
   if (ok) console.log(`Clinic notification sent for booking ${booking.id}`);
@@ -82,8 +81,7 @@ export function sendConfirmationEmail(env: Env, booking: BookingRow): Promise<bo
   return send(
     env,
     booking.email ?? '',
-    CONFIRMATION_SUBJECT,
-    getConfirmationEmailHtml(asBooking(booking), 'sq'),
+    renderConfirmationEmail(booking, emailLanguage(booking), opts(env)),
     'confirmation'
   );
 }
@@ -92,8 +90,7 @@ export function sendCancellationEmail(env: Env, booking: BookingRow): Promise<bo
   return send(
     env,
     booking.email ?? '',
-    CANCELLATION_SUBJECT,
-    getCancellationEmailHtml(asBooking(booking), 'sq'),
+    renderCancellationEmail(booking, emailLanguage(booking), opts(env)),
     'cancellation'
   );
 }

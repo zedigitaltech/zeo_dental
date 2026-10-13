@@ -65,7 +65,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ onNavigate, init
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, language }),
       });
 
       const data = await response.json();

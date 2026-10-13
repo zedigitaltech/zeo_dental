@@ -24,6 +24,7 @@ export const BOOKING_COLUMNS = [
   'whatsapp_sent',
   'confirmation_email_sent',
   'description',
+  'language',
 ] as const;
 
 export const BOOKING_SELECT = BOOKING_COLUMNS.join(', ');
@@ -48,6 +49,8 @@ export interface BookingRow {
   whatsapp_sent: boolean;
   confirmation_email_sent: boolean;
   description: string | null;
+  /** Site language at booking time (one of SUPPORTED_EMAIL_LANGUAGES) or null. */
+  language: string | null;
 }
 
 /** SQLite stores booleans as 0/1; the API keeps returning true/false. */

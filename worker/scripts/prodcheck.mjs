@@ -122,6 +122,7 @@ const created = await get('/api/booking', {
     email: PRODCHECK_EMAIL,
     service: 'PRODCHECK — ignore',
     description: 'automated check',
+    language: 'sq', // the confirmation below is checked for the Albanian subject
   }),
 });
 const cb = await created.json();

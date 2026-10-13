@@ -124,6 +124,7 @@ export const Booking: React.FC = () => {
           service: selectedPackage
             ? `Package: ${selectedPackage.charAt(0).toUpperCase() + selectedPackage.slice(1)}`
             : 'General Consultation',
+          language,
         }),
       });
 

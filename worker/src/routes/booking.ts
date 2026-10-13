@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import type { AppEnv } from '../env';
 import { BOOKING_SELECT, findBooking, nowIso, toBooking } from '../lib/db';
 import { sendClinicNotification } from '../lib/email';
+import { isEmailLanguage } from '../lib/emailLanguage';
 import { checkSecret } from '../lib/auth';
 import { bearer, clientIp, errMsg, readJson, str } from '../lib/http';
 import { ALLOWED_TYPES, sniff } from '../lib/magic';
@@ -44,6 +45,7 @@ booking.post('/api/booking', async c => {
   const description = str(b.description);
   const notes = str(b.notes);
   const honeypot = str(b.honeypot);
+  const language = str(b.language)?.trim().toLowerCase();
 
   if (honeypot && honeypot.trim().length > 0)
     return c.json(bad('Invalid submission', 'Spam detected'), 400);
@@ -81,13 +83,15 @@ booking.post('/api/booking', async c => {
     description: description?.trim() || null,
     notes: notes?.trim() || null,
     status: 'pending',
+    // Unknown or missing codes are stored as NULL, never rejected: the email falls back to the phone.
+    language: isEmailLanguage(language) ? language : null,
   };
   const now = nowIso();
 
   try {
     await c.env.DB.prepare(
-      `INSERT INTO bookings (id, name, email, phone, service, preferred_date, preferred_time, description, notes, status, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+      `INSERT INTO bookings (id, name, email, phone, service, preferred_date, preferred_time, description, notes, status, language, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
       .bind(
         row.id,
@@ -100,6 +104,7 @@ booking.post('/api/booking', async c => {
         row.description,
         row.notes,
         row.status,
+        row.language,
         now,
         now
       )
